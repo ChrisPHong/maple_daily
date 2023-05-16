@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   List.init(
     {
       userId: DataTypes.INTEGER,
-      taskId: DataTypes.INTEGER,
       name: DataTypes.STRING,
       character: DataTypes.STRING,
       apiContent: DataTypes.STRING,
