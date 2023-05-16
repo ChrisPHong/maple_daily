@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteList from '../DeleteList'
 import { useHistory } from "react-router-dom";
 import { getUserLists } from "../../../store/list";
+import TaskForm from "../../Tasks/TaskForm";
 
 const Lists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
@@ -25,6 +26,7 @@ const Lists = () => {
       return (
         <div key={list.id}>
           <DeleteList id={list.id}/>
+          <TaskForm props={{listId: list.id, userId}}/>
           <img src={list.apiContent}/>
           <div>
             {list.characterClass}

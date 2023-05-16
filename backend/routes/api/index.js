@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
-const listRouter = require("./lists.js")
+const listRouter = require("./lists.js");
+const taskRouter = require("./tasks.js");
 
 // // GET /api/set-token-cookie
 // const asyncHandler = require('express-async-handler');
@@ -37,14 +38,13 @@ const listRouter = require("./lists.js")
 //   }
 // );
 
-router.post("/test", function (req, res) {
-  res.json({ requestBody: req.body });
-});
 
 router.use("/session", sessionRouter);
 
 router.use("/users", usersRouter);
 
-router.use('/lists', listRouter)
+router.use('/lists', listRouter);
+
+router.use('/tasks', taskRouter);
 
 module.exports = router;
