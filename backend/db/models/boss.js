@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // Boss.belongsTo(models.User, {foreignKey:'userId', hooks:true})
     }
   };
   Boss.init({
     bossNames: DataTypes.STRING,
-    price: DataTypes.STRING,
-    date: DataTypes.DATE,
-    resetTime: DataTypes.STRING
+    resetTime: DataTypes.STRING,
+    category: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Boss',

@@ -12,17 +12,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      price: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      date: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       resetTime: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      category: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

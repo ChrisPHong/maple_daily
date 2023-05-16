@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Comments.belongsTo(models.User, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true})
-      Comments.belongsTo(models.Forums, {foreignKey: 'forumId', onDelete: 'CASCADE', hooks: true})
+      Comments.belongsTo(models.User, {foreignKey: 'userId', hooks: true})
+      Comments.belongsTo(models.Forums, {foreignKey: 'forumId', hooks: true})
       Comments.hasMany(models.CommentLike, {foreignKey: 'commentId', onDelete: 'CASCADE', hooks: true})
     }
   };

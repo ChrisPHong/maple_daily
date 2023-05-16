@@ -1,0 +1,50 @@
+.sideListNames-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  border: none;
+}
+
+.list-character-div {
+  margin: 0px;
+}
+
+.listName-button-container {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  border: 1px solid blue;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  /* align-items: center; */
+  /* background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: auto;
+  background-color: transparent; */
+}
+.listName-button-container:hover {
+  cursor: pointer;
+  background-color: aqua;
+}
+
+.characterImageList-Container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: initial;
+  /* background-size: cover; */
+  width: 100px;
+  height: 55px;
+}
+
+.list-characterclass-div {
+  margin: 0px;
+  margin-top: 10px;
+}
+.list-Button-div {
+  display: flex;
+  flex-direction: column;
+}

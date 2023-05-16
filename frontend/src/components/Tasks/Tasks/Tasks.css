@@ -1,0 +1,33 @@
+
+.tite-btn {
+    display: inline-block;
+    width: 200px;
+  color: white;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  padding: 15px 20px;
+  border-radius: 10px 10px;
+  border: none;
+  font-weight: bold;
+  font-family: sans-serif;
+  transition-duration: .6s;
+  font-size: 15px;
+  margin: 5px;
+}
+.tite-btn:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 10px black;
+}
+
+.DQ-Timer-Container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.All-Quests-Container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
