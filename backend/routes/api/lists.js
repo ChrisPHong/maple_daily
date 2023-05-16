@@ -25,11 +25,11 @@ router.get(
 
     // trying to send the tasks and lists all at once
 
-    // lists.map(async (list)=>{
-    //   const tasks = await Task.findAll({where: {listId: list.id}})
-    //   list.tasks = tasks;
-    // })
-    // console.log(lists, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    lists.map(async (list)=>{
+      const tasks = await Task.findAll({where: {listId: list.id}})
+      list.tasks = tasks;
+    })
+    console.log(lists, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
     return res.json({ lists });
   })
