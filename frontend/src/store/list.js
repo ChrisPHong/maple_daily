@@ -33,11 +33,12 @@ export const createListForm = (data) => async (dispatch) => {
   }
 };
 
-export const getUserLists = () => async (dispatch) => {
-  const res = await csrfFetch(`/api/lists/`, {
+export const getUserLists = (data) => async (dispatch) => {
+  console.log(data, "<<<<<< data")
+  const res = await csrfFetch(`/api/lists/${data.userId}`, {
     method: "GET",
   });
-  console.log(res, "<<<<<<< data >>>>>>>>>>>>>>>>>");
+  // console.log(res, "<<<<<<< data >>>>>>>>>>>>>>>>>");
   if (res.ok) {
     const lists = await res.json();
     dispatch(getLists(lists));

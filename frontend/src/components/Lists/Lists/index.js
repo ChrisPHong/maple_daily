@@ -4,13 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserLists } from "../../../store/list";
 
 const Lists = () => {
-  const userId = useSelector((state) => state?.session?.user?.username);
+  const userId = useSelector((state) => state?.session?.user?.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserLists());
+    if(userId){
+      dispatch(getUserLists({userId}));
+      console.log('were in the dispatch!');
+    }
 
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <>

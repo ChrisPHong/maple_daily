@@ -14,11 +14,11 @@ const validateSignup = [];
 
 // Get a list
 router.get(
-  "/", requireAuth,
+  "/:userId", requireAuth,
   asyncHandler(async (req, res) => {
     // const userId = User
-   console.log( User, '<<<<<<<<<<<<<<< userID >>>>>>>>>>>')
-  //  console.log( req.params.username, '<<<<<<<<<<<<<<< params >>>>>>>>>>>')
+
+   console.log( parseInt(req.params.userId), '<<<<<<<<<<<<<<< params >>>>>>>>>>>')
 
 
   })
