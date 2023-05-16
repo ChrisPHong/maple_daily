@@ -9,6 +9,7 @@ import { Modal } from './context/Modal';
 
 import ListForm from './components/Lists/ListForm';
 import Lists from './components/Lists/Lists';
+import TaskForm from './components/Tasks/TaskForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,12 +22,11 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-     
+
   <Route path='/'>
   <Lists />
   </Route>
       <Route path='/CreateList'>
-
       <ListForm />
       </Route>
 

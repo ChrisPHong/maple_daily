@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { createListForm } from "../../../store/list.js";
+import { createListForm, getUserLists} from "../../../store/list.js";
 import { useDispatch, useSelector} from "react-redux";
+
 
 const ListForm = () => {
   const dispatch = useDispatch();
@@ -8,10 +9,11 @@ const ListForm = () => {
   const [character, setCharacter] = useState("");
   const userId = useSelector((state) => state.session.user?.id);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const payload = { name, character, userId };
-    dispatch(createListForm(payload));
+    await dispatch(createListForm(payload));
+    await dispatch(getUserLists({userId}))
   };
 
   useEffect(() => {
