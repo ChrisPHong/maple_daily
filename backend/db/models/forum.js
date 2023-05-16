@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const user = require('./user');
 module.exports = (sequelize, DataTypes) => {
   class Forums extends Model {
     /**
@@ -11,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Forums.belongsTo(models.User, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true})
+      Forums.hasMany(models.Comments, {foreignKey: 'forumId', onDelete: 'CASCADE', hooks: true})
+      Forums.hasMany(models.ForumLike, {foreignKey: 'forumId', onDelete: 'CASCADE', hooks: true})
     }
   };
   Forums.init({

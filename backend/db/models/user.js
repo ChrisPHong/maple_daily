@@ -39,6 +39,12 @@ module.exports = (sequelize, DataTypes) => {
     };
     static associate(models) {
       // define association here
+    User.hasMany(models.List, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true })
+    User.hasMany(models.Task, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true })
+    User.hasMany(models.Forums, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true })
+    User.hasMany(models.Comments, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true })
+    // Figure out how to create a one to many relationship for friends
+    // User.hasMany(models.User, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true})
     }
   };
   User.init(
