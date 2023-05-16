@@ -22,6 +22,15 @@ module.exports = {
       apiContent: {
         type: Sequelize.STRING(1000)
       },
+      characterClass:{
+        type: Sequelize.STRING(300)
+      },
+      server:{
+        type: Sequelize.STRING(300)
+      },
+      level:{
+        type: Sequelize.STRING(300)
+      },
       completed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
