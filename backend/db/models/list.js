@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-     List.belongsTo(models.User, {foreignKey:'userId'})
-     List.hasMany(models.Task, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true})
+      List.belongsTo(models.User, { foreignKey: "userId" });
+      List.hasMany(models.Task, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     }
   }
   List.init(
@@ -19,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       character: DataTypes.STRING,
       apiContent: DataTypes.STRING,
       completed: DataTypes.BOOLEAN,
+      characterClass: DataTypes.STRING,
+      server: DataTypes.STRING,
+      level: DataTypes.STRING,
     },
     {
       sequelize,

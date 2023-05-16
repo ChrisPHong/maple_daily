@@ -8,6 +8,7 @@ import Navigation from './components/Navigation';
 import { Modal } from './context/Modal';
 
 import ListForm from './components/Lists/ListForm';
+import Lists from './components/Lists/Lists';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,13 +21,15 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {/* <button onClick={() => setShowModal(true)}>Modal</button> */}
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <h1>Hello I am a Modal</h1>
-        </Modal>
-      )}
+     
+  <Route path='/'>
+  <Lists />
+  </Route>
+      <Route path='/CreateList'>
+
       <ListForm />
+      </Route>
+
       {isLoaded && (
         <Switch>
           {/* <Route path="/login" >
