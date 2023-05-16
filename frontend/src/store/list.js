@@ -1,5 +1,6 @@
 const CREATE_LIST = "list/CREATE";
 const GET_LISTS = "lists/GET";
+const DELETE_LIST = 'lists/Delete';
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -14,6 +15,13 @@ export const getLists = (lists) => {
   return {
     type: GET_LISTS,
     lists,
+  };
+};
+
+export const removeList = (list) => {
+  return {
+    type: DELETE_LIST,
+    list,
   };
 };
 
@@ -34,33 +42,54 @@ export const createListForm = (data) => async (dispatch) => {
 };
 
 export const getUserLists = (data) => async (dispatch) => {
-  console.log(data, "<<<<<< data")
   const res = await csrfFetch(`/api/lists/${data.userId}`, {
     method: "GET",
   });
-  // console.log(res, "<<<<<<< data >>>>>>>>>>>>>>>>>");
+
   if (res.ok) {
     const lists = await res.json();
     dispatch(getLists(lists));
+    return lists;
   }
 };
-const initialState = { entries: {}, list: {}, isLoading: true };
+
+export const deletingList = (data) => async (dispatch) => {
+  const res = await csrfFetch(`/api/lists/${data.id}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    const list = await res.json();
+    dispatch(removeList(list));
+    return list;
+  }
+};
+const initialState = { entries: {}, lists: {}, isLoading: true };
 
 const listReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case CREATE_LIST:
+      console.log(action, "<<<< action >>>>")
       newState = {
         ...state,
-        entries: { ...state.entries, [action.list.id]: action.list },
+        lists: { ...state.lists, [action.list.id]: action.list },
       };
       return newState;
     case GET_LISTS:
       newState = {
         ...state,
+        lists: {},
       };
-      console.log(action, "<<<<<<< what is this");
+      const { lists } = action.lists;
+      lists.map((list) => {
+        return (newState.lists[list.id] = list);
+      });
+      return newState;
 
+    case DELETE_LIST:
+      newState = {...state}
+      delete newState.lists[action.list.id]
       return newState;
     default:
       return state;
