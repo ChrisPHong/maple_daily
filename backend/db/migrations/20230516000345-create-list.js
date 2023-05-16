@@ -12,10 +12,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      taskId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -24,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       apiContent: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1000)
       },
       completed: {
         type: Sequelize.BOOLEAN,

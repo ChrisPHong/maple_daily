@@ -6,6 +6,9 @@ import SignupFormPage from './components/SignupFormPage';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import { Modal } from './context/Modal';
+
+import ListForm from './components/Lists/ListForm';
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -17,12 +20,13 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <button onClick={() => setShowModal(true)}>Modal</button>
+      {/* <button onClick={() => setShowModal(true)}>Modal</button> */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <h1>Hello I am a Modal</h1>
         </Modal>
       )}
+      <ListForm />
       {isLoaded && (
         <Switch>
           {/* <Route path="/login" >
