@@ -26,7 +26,7 @@ function App() {
       <Route exact path="/">
         <Lists />
       </Route>
-      <Route path="/CreateList">
+      <Route exact path="/CreateList">
         <ListForm />
       </Route>
 
