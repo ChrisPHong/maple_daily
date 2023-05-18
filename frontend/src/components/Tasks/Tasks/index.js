@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTasks } from "../../../store/task.js";
+import OneTask from "../OneTask";
 
-const TasksList = () => {
-  const tasks = useSelector((state) =>state.listReducer.lists);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(fetchTasks({ listId }));
-  }, []);
-
+const TasksList = ({ props }) => {
+  const tasks = Object.values(props);
+  useEffect(() => {}, []);
+  
   return (
-    <>
+    <div>
+      {tasks.map((task) => {
+        return (
+          <div key={task.id}>
+            <OneTask task={task}/>
 
-    </>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

@@ -17,11 +17,25 @@ router.get(
   "/:userId",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.userId)
+    const userId = parseInt(req.params.userId);
     const lists = await List.findAll({
-      where: { userId: userId }, include:{model:Task}
+      where: { userId: userId },
+      include: { model: Task },
     });
-    return res.json( {lists} );
+
+    let updatedLists = lists.map((list) => {
+      let updatedList = Object.assign({}, list.get());
+      let updatedTasks = {};
+
+      list.Tasks.forEach((task) => {
+        updatedTasks[task.id] = Object.assign({}, task.get());
+      });
+
+      updatedList.Tasks = updatedTasks;
+      return updatedList;
+    });
+
+    return res.json(updatedLists);
   })
 );
 

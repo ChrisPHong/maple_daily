@@ -1,16 +1,17 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux";
-import {createTask} from '../../../store/task'
+import {createTask} from '../../../store/list'
 
 const TaskForm = ({props}) =>{
 const [obj, setObj] = useState('');
 const dispatch = useDispatch();
 
-const onSubmit = (e) =>{
+const onSubmit = async (e) =>{
     e.preventDefault();
     const payload = props
     payload.objective = obj
-    dispatch(createTask(props))
+   await dispatch(createTask(props));
+
 }
 return (
 

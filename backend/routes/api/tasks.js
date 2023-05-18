@@ -13,34 +13,34 @@ const router = express.Router();
 const validateSignup = [];
 
 // Get a list
-router.get(
-  "/:listId",
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const listId = parseInt(req.params.listId);
-    const tasks = await Task.findAll({ where: { listId }, include: List });
-    return res.json({ tasks });
-  })
-);
+// router.get(
+//   "/:listId",
+//   requireAuth,
+//   asyncHandler(async (req, res) => {
+//     const listId = parseInt(req.params.listId);
+//     const tasks = await Task.findAll({ where: { listId }, include: List });
+//     return res.json({ tasks });
+//   })
+// );
 
 router.post(
   "/",
   asyncHandler(async (req, res) => {
     const { userId, listId, objective } = req.body;
-
-    const task = Task.create({
+    const task = await Task.create({
       userId,
       listId,
       objective,
     });
-    return res.json({ task });
+
+    return res.json(task);
   })
 );
 
 router.delete(
   "/:taskId",
   asyncHandler(async (req, res) => {
-    const id = Number(req.params.listId);
+    const id = Number(req.params.taskId);
     const task = await Task.findByPk(id);
     await task.destroy();
 
@@ -48,4 +48,16 @@ router.delete(
   })
 );
 
+router.put(
+  "/:taskId",
+  asyncHandler(async (req, res) => {
+    const { userId, listId, objective, completed, id } = req.body;
+    const task = await Task.findByPk(id);
+    task.listId = listId;
+    task.objective = objective;
+    task.completed = completed;
+    await task.save();
+    return res.json(task);
+  })
+);
 module.exports = router;
