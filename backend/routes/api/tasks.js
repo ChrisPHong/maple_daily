@@ -13,34 +13,22 @@ const router = express.Router();
 const validateSignup = [];
 
 // Get a list
-// router.get(
-//   "/:userId",
-//   requireAuth,
-//   asyncHandler(async (req, res) => {
-//     const userId = parseInt(req.params.userId);
-
-//     const lists = await List.findAll({ where: { userId: userId } });
-
-//     // const tasks = await Task.findAll({where: {listId}})
-
-//     // trying to send the tasks and lists all at once
-
-//     // lists.map(async (list)=>{
-//     //   const tasks = await Task.findAll({where: {listId: list.id}})
-//     //   list.tasks = tasks;
-//     // })
-//     // console.log(lists, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-
-//     return res.json({ lists });
-//   })
-// );
+router.get(
+  "/:listId",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const listId = parseInt(req.params.listId);
+    const tasks = await Task.findAll({ where: { listId }, include: List });
+    return res.json({ tasks });
+  })
+);
 
 router.post(
   "/",
   asyncHandler(async (req, res) => {
     const { userId, listId, objective } = req.body;
 
-   const task = Task.create({
+    const task = Task.create({
       userId,
       listId,
       objective,

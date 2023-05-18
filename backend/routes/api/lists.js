@@ -17,21 +17,11 @@ router.get(
   "/:userId",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.userId);
-
-    const lists = await List.findAll({ where: { userId: userId } });
-
-    // const tasks = await Task.findAll({where: {listId}})
-
-    // trying to send the tasks and lists all at once
-
-    lists.map(async (list)=>{
-      const tasks = await Task.findAll({where: {listId: list.id}})
-      list.tasks = tasks;
-    })
-    console.log(lists, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-
-    return res.json({ lists });
+    const userId = parseInt(req.params.userId)
+    const lists = await List.findAll({
+      where: { userId: userId }, include:{model:Task}
+    });
+    return res.json( {lists} );
   })
 );
 
@@ -47,7 +37,7 @@ router.post(
     let characterClass;
     let server;
     let level;
-   await axios
+    await axios
       .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
       .then((response) => {
         apiContent = response.data.CharacterData.CharacterImageURL;
@@ -64,7 +54,7 @@ router.post(
           server,
           level,
         });
-        return res.json({list})
+        return res.json({ list });
       })
       .catch((error) => {
         console.error(error);
@@ -81,7 +71,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const id = Number(req.params.listId);
     const list = await List.findByPk(id);
-    console.log(list, "<<<<< list >>>>>>>>>>>>>>>")
+    console.log(list, "<<<<< list >>>>>>>>>>>>>>>");
     await list.destroy();
 
     return res.json(list);

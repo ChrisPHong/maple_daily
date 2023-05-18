@@ -1,6 +1,7 @@
 const CREATE_LIST = "list/CREATE";
 const GET_LISTS = "lists/GET";
 const DELETE_LIST = 'lists/Delete';
+const GET_TASKS = "tasks/GET";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -24,6 +25,15 @@ export const removeList = (list) => {
     list,
   };
 };
+
+
+// Tasks
+export const getTasks = (tasks) =>{
+  return{
+    type: GET_TASKS,
+    tasks
+  }
+}
 
 export const createListForm = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/lists/`, {
@@ -53,6 +63,15 @@ export const getUserLists = (data) => async (dispatch) => {
   }
 };
 
+export const fetchTasks = (data) => async (dispatch) => {
+
+  const res = await csrfFetch(`/api/tasks/${data.listId}`);
+  if (res.ok) {
+    const tasks = await res.json();
+    dispatch(getTasks(tasks));
+  }
+};
+
 export const deletingList = (data) => async (dispatch) => {
   const res = await csrfFetch(`/api/lists/${data.id}`, {
     method: "DELETE",
@@ -70,7 +89,6 @@ const listReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case CREATE_LIST:
-      console.log(action, "<<<< action >>>>")
       newState = {
         ...state,
         lists: { ...state.lists, [action.list.id]: action.list },
@@ -90,6 +108,16 @@ const listReducer = (state = initialState, action) => {
     case DELETE_LIST:
       newState = {...state}
       delete newState.lists[action.list.id]
+      return newState;
+    case GET_TASKS:
+      newState = {...state}
+      const tasks = action.tasks.tasks;
+      if(tasks.length > 0){
+        newState.lists[tasks[0].listId].Tasks = tasks
+      }
+
+      // console.log(action.tasks.tasks, "<<<<<<<<<<<<<< action")
+
       return newState;
     default:
       return state;
