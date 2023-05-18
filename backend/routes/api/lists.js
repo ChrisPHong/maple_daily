@@ -27,12 +27,16 @@ router.get(
       let updatedList = Object.assign({}, list.get());
       let updatedTasks = {};
 
-      list.Tasks.forEach((task) => {
-        updatedTasks[task.id] = Object.assign({}, task.get());
-      });
+      if (list.Tasks.length > 0) {
+        list.Tasks.forEach((task) => {
+          updatedTasks[task.id] = Object.assign({}, task.get());
+        });
 
-      updatedList.Tasks = updatedTasks;
-      return updatedList;
+        updatedList.Tasks = updatedTasks;
+        return updatedList;
+      } else {
+        return updatedList;
+      }
     });
 
     return res.json(updatedLists);
@@ -85,7 +89,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const id = Number(req.params.listId);
     const list = await List.findByPk(id);
-    console.log(list, "<<<<< list >>>>>>>>>>>>>>>");
+
     await list.destroy();
 
     return res.json(list);

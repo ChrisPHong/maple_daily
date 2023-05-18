@@ -147,7 +147,7 @@ const listReducer = (state = initialState, action) => {
         lists: {},
       };
       const { lists } = action;
-
+    
       lists.map((list) => {
         return (newState.lists[list.id] = list);
       });

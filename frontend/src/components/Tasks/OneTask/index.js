@@ -36,11 +36,11 @@ const OneTask = ({ task }) => {
   };
 
   const handleCheckboxChange = async () => {
-    console.log(task, "<<<<<< before");
+
     setComplete(!complete);
     task.objective = text;
     task.completed = !complete;
-    console.log(task, "<<<<<< after");
+   
     await dispatch(editTask(task));
   };
 
