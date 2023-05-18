@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DeleteList from '../DeleteList'
 import { useHistory } from "react-router-dom";
 import { getUserLists } from "../../../store/list";
+import OneList from '../OneList'
+import './Lists.css'
+
 
 const Lists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
@@ -18,32 +20,20 @@ const Lists = () => {
   }, [dispatch, userId]);
 
   return (
-    <>
+    <div className="All-lists-Container">
       <button onClick={()=>{history.push('/createlist')}}>Create a list</button>
     {
       lists.map(list =>{
       return (
         <div key={list.id}>
-          <DeleteList id={list.id}/>
-          <img src={list.apiContent}/>
-          <div>
-            {list.characterClass}
-          </div>
-          <div>
-            {list.character}
-          </div>
-          <div>
-            {list.level}
-          </div>
-          <div>
-            {list.server}
-          </div>
-        {list.name}
+
+        <OneList props={list}/>
+
         </div>
       )
      })
     }
-    </>
+    </div>
   );
 };
 

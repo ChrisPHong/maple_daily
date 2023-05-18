@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      List.belongsTo(models.User, { foreignKey: "userId" });
+      List.belongsTo(models.User, { foreignKey: "userId", hooks: true });
       List.hasMany(models.Task, {
-        foreignKey: "userId",
+        foreignKey: "listId",
         onDelete: "CASCADE",
         hooks: true,
       });
