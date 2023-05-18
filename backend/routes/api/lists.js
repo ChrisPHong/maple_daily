@@ -26,13 +26,17 @@ router.get(
     let updatedLists = lists.map((list) => {
       let updatedList = Object.assign({}, list.get());
       let updatedTasks = {};
+    
+      if (list.Tasks.length > 0) {
+        list.Tasks.forEach((task) => {
+          updatedTasks[task.id] = Object.assign({}, task.get());
+        });
 
-      list.Tasks.forEach((task) => {
-        updatedTasks[task.id] = Object.assign({}, task.get());
-      });
-
-      updatedList.Tasks = updatedTasks;
-      return updatedList;
+        updatedList.Tasks = updatedTasks;
+        return updatedList;
+      } else {
+        return updatedList;
+      }
     });
 
     return res.json(updatedLists);
