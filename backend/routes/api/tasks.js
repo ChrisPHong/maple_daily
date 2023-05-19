@@ -26,10 +26,12 @@ const validateSignup = [];
 router.post(
   "/",
   asyncHandler(async (req, res) => {
-    const { userId, listId, objective } = req.body;
+    const { userId, listId, resetTime,category, objective } = req.body;
     const task = await Task.create({
       userId,
       listId,
+      resetTime,
+      category,
       objective,
     });
 
@@ -51,9 +53,11 @@ router.delete(
 router.put(
   "/:taskId",
   asyncHandler(async (req, res) => {
-    const { userId, listId, objective, completed, id } = req.body;
+    const { userId, listId, objective, resetTime,category, completed, id } = req.body;
     const task = await Task.findByPk(id);
     task.listId = listId;
+    task.resetTime = resetTime;
+    task.category = category;
     task.objective = objective;
     task.completed = completed;
     await task.save();

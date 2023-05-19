@@ -12,6 +12,45 @@ const router = express.Router();
 
 const validateSignup = [];
 
+const sortingLists = async (lists) => {
+  let updatedLists = lists.map((list) => {
+    return sortingTasks(list);
+  });
+
+  return updatedLists;
+};
+
+const sortingTasks = (list) => {
+  let updatedList = Object.assign({}, list.get());
+  let updatedTasks = {
+    Weekly: { Boss: {}, Quest: {} },
+    Daily: { Boss: {}, Quest: {} },
+  };
+
+  if (list.Tasks.length > 0) {
+    list.Tasks.forEach((task) => {
+      const { resetTime, category } = task;
+      if (resetTime === "Weekly" && category === "Boss") {
+        updatedTasks["Weekly"]["Boss"][task.id] = Object.assign({}, task.get());
+      } else if (resetTime === "Weekly" && category === "Quest") {
+        updatedTasks["Weekly"]["Quest"][task.id] = Object.assign(
+          {},
+          task.get()
+        );
+      } else if (resetTime === "Daily" && category === "Boss") {
+        updatedTasks["Daily"]["Boss"][task.id] = Object.assign({}, task.get());
+      } else {
+        updatedTasks["Daily"]["Quest"][task.id] = Object.assign({}, task.get());
+      }
+      // updatedTasks[task.id] = Object.assign({}, task.get());
+    });
+
+    updatedList.Tasks = updatedTasks;
+    return updatedList;
+  } else {
+    return updatedList;
+  }
+};
 // Get a list
 router.get(
   "/:userId",
@@ -23,82 +62,11 @@ router.get(
       include: { model: Task },
     });
 
-    let updatedLists = lists.map((list) => {
-      let updatedList = Object.assign({}, list.get());
-      let updatedTasks = {};
-
-      if (list.Tasks.length > 0) {
-        list.Tasks.forEach((task) => {
-          updatedTasks[task.id] = Object.assign({}, task.get());
-        });
-
-        updatedList.Tasks = updatedTasks;
-        return updatedList;
-      } else {
-        return updatedList;
-      }
-    });
-
+    const updatedLists = await sortingLists(lists);
     return res.json(updatedLists);
   })
 );
 
-// router.post(
-//   "/",
-//   validateSignup,
-//   asyncHandler(async (req, res) => {
-//     const { userId, name, character } = req.body;
-//     // https://api.maplestory.gg/v2/public/character/gms/charactername
-
-
-//     let apiContent;
-//     let list;
-//     let characterClass;
-//     let server;
-//     let level;
-//     await axios
-//       .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
-//       .then((response) => {
-//         apiContent = response.data.CharacterData.CharacterImageURL;
-//         characterClass = response.data.CharacterData.Class;
-//         server = response.data.CharacterData.Server;
-//         level = response.data.CharacterData.Level;
-
-//         list = List.create({
-//           userId,
-//           name,
-//           character,
-//           apiContent,
-//           characterClass,
-//           server,
-//           level,
-//         });
-
-//         // const listId = list.id;
-//         // const bosses = Object.keys(tasks);
-//         // const result = [];
-
-//         // const arr = bosses.forEach(async (boss) => {
-//         //   const task = await Task.create({
-//         //     userId,
-//         //     listId,
-//         //     objective: boss,
-//         //   });
-//         //   result.push(task);
-//         // });
-//         // console.log(result, "<<<<<< result");
-//         // console.log(list, "<<<<<<<<<<<< tasks >>>>>>>>>")
-//         return res.json(list);
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-
-//     // return res.json({
-//     //   list,
-//     // });
-//   })
-// );
 router.post(
   "/",
   validateSignup,
@@ -141,18 +109,18 @@ router.post(
         level,
       });
 
-
       const listId = list.dataValues.id;
 
       // Create an array of promises for task creation
-      const bosses = Object.keys(payload)
-    
-      const taskCreationPromises = bosses.map(async (boss) => {
-
+      const bossesNames = Object.keys(payload);
+      const taskCreationPromises = bossesNames.map(async (bossName) => {
+        const { resetTime, category } = payload[bossName];
         return Task.create({
           userId,
           listId,
-          objective: boss,
+          resetTime,
+          category,
+          objective: bossName,
         });
       });
 
@@ -160,10 +128,12 @@ router.post(
       await Promise.all([list, ...taskCreationPromises]);
 
       // Fetch the list with associated tasks after creation
-      const updatedList = await List.findOne({
+      const oneList = await List.findOne({
         where: { id: list.id },
         include: { model: Task },
       });
+      // organizes the tasks into weeklies and dailies
+      const updatedList = sortingTasks(oneList);
 
       return res.json(updatedList);
     } catch (error) {

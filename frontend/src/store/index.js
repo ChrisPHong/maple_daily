@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import listReducer from './list.js'
 import taskReducer from './task.js'
+import bossReducer from './boss';
 
 const rootReducer = combineReducers({
   session,
   listReducer,
-  taskReducer
+  taskReducer,
+  bossReducer
 });
 
 let enhancer;

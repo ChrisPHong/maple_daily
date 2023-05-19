@@ -1,397 +1,462 @@
-'use strict';
+"use strict";
 
 module.exports = {
-
-    up: async (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert('Bosses', [
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert(
+      "Bosses",
+      [
         {
-          bossNames: 'Extreme Black Mage',
-          resetTime: 'Weekly',
+          bossNames: "Extreme Black Mage",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Extreme Chosen Seren',
-          resetTime: 'Weekly',
+          bossNames: "Extreme Chosen Seren",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Black Mage',
-          resetTime: 'Weekly',
+          bossNames: "Hard Black Mage",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Kaos The Gaurdian',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Kaos The Gaurdian",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Chosen Seren',
-          resetTime: 'Weekly',
+          bossNames: "Hard Chosen Seren",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Chosen Seren',
-          resetTime: 'Weekly',
+          bossNames: "Normal Chosen Seren",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Versus Hilla',
-          resetTime: 'Weekly',
+          bossNames: "Hard Versus Hilla",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Darknell',
-          resetTime: 'Weekly',
+          bossNames: "Hard Darknell",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Gloom',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Gloom",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Guardian Angel Slime',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Guardian Angel Slime",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Versus Hilla',
-          resetTime: 'Weekly',
+          bossNames: "Normal Versus Hilla",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Will',
-          resetTime: 'Weekly',
+          bossNames: "Hard Will",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Lucid',
-          resetTime: 'Weekly',
+          bossNames: "Hard Lucid",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Lotus',
-          resetTime: 'Weekly',
+          bossNames: "Hard Lotus",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Damien',
-          resetTime: 'Weekly',
+          bossNames: "Hard Damien",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Darknell',
-          resetTime: 'Weekly',
+          bossNames: "Normal Darknell",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Gloom',
-          resetTime: 'Weekly',
+          bossNames: "Normal Gloom",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Will',
-          resetTime: 'Weekly',
+          bossNames: "Normal Will",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Lucid',
-          resetTime: 'Weekly',
+          bossNames: "Normal Lucid",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Will',
-          resetTime: 'Weekly',
+          bossNames: "Easy Will",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Lucid',
-          resetTime: 'Weekly',
+          bossNames: "Easy Lucid",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Guardian Angel Slime',
-          resetTime: 'Weekly',
+          bossNames: "Normal Guardian Angel Slime",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Damien',
-          resetTime: 'Weekly',
+          bossNames: "Normal Damien",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Lotus',
-          resetTime: 'Weekly',
+          bossNames: "Normal Lotus",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Akechi Mitsuhide',
-          resetTime: 'Weekly',
+          bossNames: "Akechi Mitsuhide",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Papulatus',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Papulatus",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Vellum',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Vellum",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Magnus',
-          resetTime: 'Weekly',
+          bossNames: "Hard Magnus",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Princess No',
-          resetTime: 'Weekly',
+          bossNames: "Princess No",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Pierre',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Pierre",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Von Bon',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Von Bon",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Zakum',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Zakum",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Crimeson Queen',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Crimeson Queen",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Cygnus',
-          resetTime: 'Weekly',
+          bossNames: "Normal Cygnus",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Pink Bean',
-          resetTime: 'Weekly',
+          bossNames: "Chaos Pink Bean",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Hilla',
-          resetTime: 'Weekly',
+          bossNames: "Hard Hilla",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Cygnus',
-          resetTime: 'Weekly',
+          bossNames: "Easy Cygnus",
+          category: "Boss",
+          resetTime: "Weekly",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Mori Ranmaru',
-          resetTime: 'Daily',
+          bossNames: "Hard Mori Ranmaru",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Papulatus',
-          resetTime: 'Daily',
+          bossNames: "Normal Papulatus",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Magnus',
-          resetTime: 'Daily',
+          bossNames: "Normal Magnus",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Akarium',
-          resetTime: 'Daily',
+          bossNames: "Normal Akarium",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Hard Von Leon',
-          resetTime: 'Daily',
+          bossNames: "Hard Von Leon",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Von Leon',
-          resetTime: 'Daily',
+          bossNames: "Normal Von Leon",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Pink Bean',
-          resetTime: 'Daily',
+          bossNames: "Normal Pink Bean",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Chaos Horntail',
-          resetTime: 'Daily',
+          bossNames: "Chaos Horntail",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'OMNI-CLN',
-          resetTime: 'Daily',
+          bossNames: "OMNI-CLN",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Frenzied Gigatoad',
-          resetTime: 'Daily',
+          bossNames: "Frenzied Gigatoad",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Arkarium',
-          resetTime: 'Daily',
+          bossNames: "Easy Arkarium",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Von Lean',
-          resetTime: 'Daily',
+          bossNames: "Easy Von Lean",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Horntail',
-          resetTime: 'Daily',
+          bossNames: "Normal Horntail",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Vellum',
-          resetTime: 'Daily',
+          bossNames: "Normal Vellum",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Crimson Queen',
-          resetTime: 'Daily',
+          bossNames: "Normal Crimson Queen",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Von Bon',
-          resetTime: 'Daily',
+          bossNames: "Normal Von Bon",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Pierre',
-          resetTime: 'Daily',
+          bossNames: "Normal Pierre",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Gigatoad',
-          resetTime: 'Daily',
+          bossNames: "Gigatoad",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Horntail',
-          resetTime: 'Daily',
+          bossNames: "Easy Horntail",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Mori Ranmaru',
-          resetTime: 'Daily',
+          bossNames: "Mori Ranmaru",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Hilla',
-          resetTime: 'Daily',
+          bossNames: "Normal Hilla",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Yakuza Boss',
-          resetTime: 'Daily',
+          bossNames: "Yakuza Boss",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Magnus',
-          resetTime: 'Daily',
+          bossNames: "Easy Magnus",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Papulatus',
-          resetTime: 'Daily',
+          bossNames: "Easy Papulatus",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Normal Zakum',
-          resetTime: 'Daily',
+          bossNames: "Normal Zakum",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
         {
-          bossNames: 'Easy Zakum',
-          resetTime: 'Daily',
+          bossNames: "Easy Zakum",
+          category: "Boss",
+          resetTime: "Daily",
           createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ]
-      , {});
-    },
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
+  },
 
   down: async (queryInterface, Sequelize) => {
     /**
      * Add commands to revert seed here.
      *
      * Example:
-    */
-    await queryInterface.bulkDelete('Bosses', null, {});
-  }
+     */
+    await queryInterface.bulkDelete("Bosses", null, {});
+  },
 };

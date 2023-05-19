@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Boss.init({
     bossNames: DataTypes.STRING,
     resetTime: DataTypes.STRING,
+    category: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Boss',
