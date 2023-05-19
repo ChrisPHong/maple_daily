@@ -140,6 +140,7 @@ const listReducer = (state = initialState, action) => {
         ...state,
         lists: { ...state.lists, [action.list.id]: action.list },
       };
+      console.log(action, "<<<<<<<<<<< action >>>>>")
       return newState;
     case GET_LISTS:
       newState = {
@@ -147,7 +148,7 @@ const listReducer = (state = initialState, action) => {
         lists: {},
       };
       const { lists } = action;
-    
+
       lists.map((list) => {
         return (newState.lists[list.id] = list);
       });
