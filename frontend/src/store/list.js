@@ -140,7 +140,7 @@ const listReducer = (state = initialState, action) => {
         ...state,
         lists: { ...state.lists, [action.list.id]: action.list },
       };
-      console.log(action, "<<<<<<<<<<< action >>>>>")
+      console.log(action, "<<<<<< action ")
       return newState;
     case GET_LISTS:
       newState = {

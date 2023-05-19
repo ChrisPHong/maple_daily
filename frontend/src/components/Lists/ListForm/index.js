@@ -22,7 +22,8 @@ const ListForm = () => {
   const miscArr = ["Monster Park", "Maple Tour"];
   const dailyQuest = ["Arcana", "Morass", "Lachlain"];
   const weekQuest = ["Haven", "Dark World Tree"];
-console.log(payload, "<<<<<<<<<payload");
+
+
   const buttonDisplay = (name) => {
     if (!payload[name]) {
       setPayLoad({ ...payload, [name]: true });
@@ -42,7 +43,7 @@ console.log(payload, "<<<<<<<<<payload");
       delete newPayload[button];
       setPayLoad(newPayload);
     } else {
-      setPayLoad({ ...payload, [button]: true });
+      setPayLoad({ ...payload, [button.bossNames]: button });
     }
   };
 
@@ -58,7 +59,7 @@ console.log(payload, "<<<<<<<<<payload");
       const newPayload = {};
       for (let boss of weeklybosses) {
         if (!payload[boss.bossNames]) {
-          newPayload[boss.bossNames] = true;
+          newPayload[boss.bossNames] = boss;
         }
       }
       setPayLoad({ ...payload, ...newPayload });
@@ -78,7 +79,7 @@ console.log(payload, "<<<<<<<<<payload");
       const newPayload = {};
       for (let boss of dailybosses) {
         if (!payload[boss.bossNames]) {
-          newPayload[boss.bossNames] = true;
+          newPayload[boss.bossNames] = boss;
         }
       }
       setPayLoad({ ...payload, ...newPayload });
@@ -135,7 +136,7 @@ console.log(payload, "<<<<<<<<<payload");
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      handleBtnClick(boss.bossNames);
+                      handleBtnClick(boss);
                     }}
                   >
                     {boss.bossNames}
@@ -163,7 +164,7 @@ console.log(payload, "<<<<<<<<<payload");
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      handleBtnClick(boss.bossNames);
+                      handleBtnClick(boss);
                     }}
                   >
                     {boss.bossNames}
