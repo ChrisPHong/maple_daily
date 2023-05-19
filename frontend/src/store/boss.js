@@ -23,10 +23,18 @@ const bossReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOSSES:
       newState = { ...state };
-      let weeklyBoss = action.bosses.weekly;
-      let daily = action.bosses.daily;
-      newState.boss.weekly = weeklyBoss;
-      newState.boss.daily = daily;
+      let weeklyBoss = action.bosses.Weekly.Boss;
+      let dailyBoss = action.bosses.Daily.Boss;
+      let weeklyQuest = action.bosses.Weekly.Quest;
+      let dailyQuest = action.bosses.Daily.Quest;
+
+      newState.boss.Weekly = { Boss: {}, Quest: {} };
+      newState.boss.Daily = { Boss: {}, Quest: {} };
+
+      newState.boss.Weekly.Boss = Object.values(weeklyBoss);
+      newState.boss.Daily.Boss = Object.values(dailyBoss);
+      newState.boss.Weekly.Quest = Object.values(weeklyQuest);
+      newState.boss.Daily.Quest = Object.values(dailyQuest);
       return newState;
     default:
       return state;

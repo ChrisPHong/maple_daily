@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
 import Categories from "../categories/index.js";
+import './ListForm.css'
 
 const ListForm = () => {
   const dispatch = useDispatch();
@@ -13,34 +14,54 @@ const ListForm = () => {
   const [payload, setPayLoad] = useState({});
   const [weeklyMarked, setWeeklyMarked] = useState(false);
   const [dailyMarked, setDailyMarked] = useState(false);
+  const [showWQ, setShowWQ] = useState(false);
+  const [showWB, setShowWB] = useState(false);
+  const [showDQ, setShowDQ] = useState(false);
+  const [showDB, setShowDB] = useState(false);
   const userId = useSelector((state) => state.session.user?.id);
 
-  const weeklybosses = useSelector((state) => state.bossReducer.boss.weekly);
-  const dailybosses = useSelector((state) => state?.bossReducer?.boss?.daily);
-  const guildArr = ["Flag", "Culver"];
-  const redemptionArr = ["Daily Gift", "Event Gift", "Special Event GiveAway"];
-  const miscArr = ["Monster Park", "Maple Tour"];
-  const dailyQuest = ["Arcana", "Morass", "Lachlain"];
-  const weekQuest = ["Haven", "Dark World Tree"];
+  const weeklybosses = useSelector(
+    (state) => state?.bossReducer?.boss?.Weekly?.Boss
+  );
+  const dailybosses = useSelector(
+    (state) => state?.bossReducer?.boss?.Daily?.Boss
+  );
+  const dailyQuests = useSelector(
+    (state) => state?.bossReducer?.boss?.Daily?.Quest
+  );
 
+  const weeklyQuests = useSelector(
+    (state) => state?.bossReducer?.boss?.Weekly?.Quest
+  );
 
-  const buttonDisplay = (name) => {
-    if (!payload[name]) {
-      setPayLoad({ ...payload, [name]: true });
+  const redemptionArr = [
+    { bossNames: "Daily Gift", resetTime: "Daily", category: "Quest" },
+    { bossNames: "Event Gift", resetTime: "Daily", category: "Quest" },
+    {
+      bossNames: "Special Event GiveAway",
+      resetTime: "Daily",
+      category: "Quest",
+    },
+  ];
+
+  console.log(payload, "<<<<< what is the payload");
+
+  const buttonDisplay = (obj) => {
+    if (!payload[obj.bossNames]) {
+      setPayLoad({ ...payload, [obj.bossNames]: obj });
       return;
     } else {
       const newPayload = { ...payload };
-      delete newPayload[name];
+      delete newPayload[obj.bossNames];
       setPayLoad(newPayload);
     }
     return;
   };
 
-  // const category = { weeklyBosses:["Extreme Black Mage", "Extreme Chosen Seren", "Hard Black Mage", "Chaos Kaos The Gaurdian", "Hard Chosen Seren", "Normal Chosen Seren", "Hard Versus Hilla", "Hard Darknell", "Chaos Gloom", "Chaos Guardian Angel Slim", "Normal Versus Hilla", "Hard Will", "Hard Lucid", "Hard Lotus", "Hard Damien", "Normal Darknell", "Normal Gloom", "Normal Will", "Normal Lucid", "Easy Will", "Easy Lucid", "Normal Guardian Angel Slime", "Normal Damien", "Normal Lotus", "Akechi Mitsuhide", "Chaos Papulatus", "Chaos Vellum", "Hard Magnus", "Princess No", "Chaos Pierre", "Chaos Von Bon", "Chaos Zakum", "Chaos Crimeson Queen", "Normal Cygnus", "Chaos Pink Bean", "Hard Hilla", "Easy Cygnus", "Mori Ranmaru", "Normal Papulatus", "Normal Magnus", "Normal Akarium", "Hard Von Leon", "Normal Von Leon", "Normal Pink Bean", "Chaos Horntail", "OMNI-CLN", "Frenzied Gigatoad", "Easy Arkarium", "Easy Von Lean", "Normal Horntail", "Normal Vellum", "Normal Crimson Queen", "Normal Von Bon", "normal Pierre", "Gigatoad", "Easy Horntail", "Mori Ranmaru", "Normal Hilla", "Yakuza Boss", "Easy Magnus", "Easy Papulatus", "Normal Zakum", "Easy Zakum"  ]};
   const handleBtnClick = (button) => {
-    if (payload[button]) {
+    if (payload[button.bossNames]) {
       const newPayload = { ...payload };
-      delete newPayload[button];
+      delete newPayload[button.bossNames];
       setPayLoad(newPayload);
     } else {
       setPayLoad({ ...payload, [button.bossNames]: button });
@@ -91,13 +112,12 @@ const ListForm = () => {
     const data = { name, character, userId, payload };
     await dispatch(createListForm(data));
     await history.push("/");
-
-    // await dispatch(getUserLists({userId}))
   };
 
-  useEffect(async () => {
-    await dispatch(getBosses());
+  useEffect(() => {
+    dispatch(getBosses());
   }, []);
+
   return (
     <>
       <form>
@@ -117,7 +137,10 @@ const ListForm = () => {
             }}
           ></input>
           <div>
-            <div>Weekly Bosses</div>
+            <button onClick={()=>{
+              setShowWB(!showWB)
+            }}>Weekly Bosses</button>
+
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -134,6 +157,8 @@ const ListForm = () => {
               return (
                 <>
                   <button
+                  // className="boss-btn"
+                  style={{backgroundColor: payload[boss.bossNames] ? 'green': 'transparent'}}
                     onClick={(e) => {
                       e.preventDefault();
                       handleBtnClick(boss);
@@ -162,6 +187,8 @@ const ListForm = () => {
               return (
                 <>
                   <button
+                  // className="boss-btn"
+                  style={{backgroundColor: payload[boss.bossNames] ? 'green': 'transparent'}}
                     onClick={(e) => {
                       e.preventDefault();
                       handleBtnClick(boss);
@@ -173,90 +200,65 @@ const ListForm = () => {
               );
             })}
         </label>
-        <div className="Guild-Container">
-          <div>Guild Tasks</div>
-          {guildArr.map((task) => {
-            return (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    buttonDisplay(task);
-                  }}
-                >
-                  {task}
-                </button>
-              </>
-            );
-          })}
-        </div>
+
         <div className="Redemption-Container">
           <div>Redemption Tasks</div>
-          {redemptionArr.map((task) => {
+          {redemptionArr.map((task, idx) => {
             return (
-              <>
+              <div key={task.id}>
                 <button
+                className="boss-btn"
+                style={{backgroundColor: payload[task.bossNames] ? 'green': 'transparent'}}
                   onClick={(e) => {
                     e.preventDefault();
                     buttonDisplay(task);
                   }}
                 >
-                  {task}
+                  {task.bossNames}
                 </button>
-              </>
-            );
-          })}
-        </div>
-        <div className="misc-Container">
-          <div>Miscellaneous Tasks</div>
-          {miscArr.map((task) => {
-            return (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    buttonDisplay(task);
-                  }}
-                >
-                  {task}
-                </button>
-              </>
+              </div>
             );
           })}
         </div>
         <div className="daily-Container">
           <div>Daily Quests</div>
-          {dailyQuest.map((task) => {
-            return (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    buttonDisplay(task);
-                  }}
-                >
-                  {task}
-                </button>
-              </>
-            );
-          })}
+          {dailyQuests &&
+            dailyQuests.map((task) => {
+              return (
+                <>
+                  <button
+                  className="boss-btn"
+                  style={{backgroundColor: payload[task.bossNames] ? 'green': 'transparent'}}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      buttonDisplay(task);
+                    }}
+                  >
+                    {task.bossNames}
+                  </button>
+                </>
+              );
+            })}
         </div>
         <div className="weekly-Container">
           <div>Weekly Quests</div>
-          {weekQuest.map((task) => {
-            return (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    buttonDisplay(task);
-                  }}
-                >
-                  {task}
-                </button>
-              </>
-            );
-          })}
+          {weeklyQuests &&
+            weeklyQuests.map((quest) => {
+              return (
+                <>
+                  <button
+                    className="boss-btn"
+                  style={{backgroundColor: payload[quest.bossNames] ? 'green': 'transparent'}}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      buttonDisplay(quest);
+                    }}
+                  >
+                    {quest.bossNames}
+                  </button>
+                </>
+              );
+            })}
         </div>
         <button onClick={onSubmit}>Submit</button>
       </form>

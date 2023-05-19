@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import OneTask from "../OneTask";
 
 const TasksList = ({ props }) => {
-  console.log(props, "<<<<<< what is this????")
   const WeeklyBosses = Object.values(props?.Weekly?.Boss);
   const WeeklyQuests = Object.values(props?.Weekly?.Quest);
   const DailyBossess = Object.values(props?.Daily?.Boss);

@@ -23,7 +23,6 @@ const OneTask = ({ task }) => {
   const handleBlur = async () => {
     setEditing(false);
     task.objective = text;
-    task.completed = complete;
     await dispatch(editTask(task));
   };
 
@@ -38,9 +37,8 @@ const OneTask = ({ task }) => {
   const handleCheckboxChange = async () => {
 
     setComplete(!complete);
-    task.objective = text;
     task.completed = !complete;
-   
+
     await dispatch(editTask(task));
   };
 
