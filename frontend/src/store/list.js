@@ -140,7 +140,6 @@ const listReducer = (state = initialState, action) => {
         ...state,
         lists: { ...state.lists, [action.list.id]: action.list },
       };
-      console.log(action, "<<<<<< action ")
       return newState;
     case GET_LISTS:
       newState = {
@@ -161,16 +160,30 @@ const listReducer = (state = initialState, action) => {
 
     case DELETE_TASK:
       newState = { ...state };
-      delete newState.lists[action.task.listId].Tasks[action.task.id];
+      let resetTime = action.task.resetTime;
+      let category = action.task.category;
+      delete newState.lists[action.task.listId].Tasks[resetTime][category][
+        action.task.id
+      ];
 
       return newState;
     case CREATE_TASK:
       newState = { ...state };
-      newState.lists[action.task.listId].Tasks[action.task.id] = action.task;
+
+      let time = action.task.resetTime;
+      let ctgy = action.task.category;
+      if(Array.isArray(newState.lists[action.task.listId].Tasks)){
+        newState.lists[action.task.listId].Tasks = {Daily:{Boss:{}, Quest:{}}, Weekly: {Boss:{}, Quest:{}},}
+      }
+
+      newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] = action.task;
       return newState;
     case EDIT_TASK:
       newState = { ...state };
-      newState.lists[action.task.listId].Tasks[action.task.id] = action.task;
+      const x = action.task.resetTime;
+      const y = action.task.category;
+      newState.lists[action.task.listId].Tasks[x][y][action.task.id] =
+        action.task;
 
       return newState;
     default:

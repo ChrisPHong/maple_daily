@@ -12,21 +12,10 @@ const router = express.Router();
 
 const validateSignup = [];
 
-// Get a list
-// router.get(
-//   "/:listId",
-//   requireAuth,
-//   asyncHandler(async (req, res) => {
-//     const listId = parseInt(req.params.listId);
-//     const tasks = await Task.findAll({ where: { listId }, include: List });
-//     return res.json({ tasks });
-//   })
-// );
-
 router.post(
   "/",
   asyncHandler(async (req, res) => {
-    const { userId, listId, resetTime,category, objective } = req.body;
+    const { userId, listId, resetTime, category, objective } = req.body;
     const task = await Task.create({
       userId,
       listId,
@@ -53,7 +42,8 @@ router.delete(
 router.put(
   "/:taskId",
   asyncHandler(async (req, res) => {
-    const { userId, listId, objective, resetTime,category, completed, id } = req.body;
+    const { userId, listId, objective, resetTime, category, completed, id } =
+      req.body;
     const task = await Task.findByPk(id);
     task.listId = listId;
     task.resetTime = resetTime;

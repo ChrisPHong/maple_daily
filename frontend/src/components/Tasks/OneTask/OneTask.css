@@ -1,0 +1,38 @@
+.task-delete-btn {
+  border: none;
+  font-weight: bold;
+  background-color: transparent;
+  color: red;
+}
+.task-delete-btn:hover {
+  cursor: pointer;
+}
+/* OneTask.css */
+
+/* Hide the default checkbox */
+.custom-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .custom-checkbox:checked {
+    border-color: #007bff;
+    background-color: #007bff;
+  }
+
+  .task-delete-btn {
+    margin-left: 10px;
+  }
+  /* Additional styles for the task container */
+  .task-container {
+    display: flex;
+    align-items: center;
+  }

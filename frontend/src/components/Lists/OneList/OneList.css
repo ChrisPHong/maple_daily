@@ -1,3 +1,38 @@
-.OneList-container{
-    border: 2px solid red;;
+.OneList-container {
+    border-bottom: 2px solid black;
+  border-radius: 5px 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ListTitle {
+  font-weight: bold;
+}
+
+.characterInfo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Top-OneList-Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: rgba(148, 147, 147, 0.548);
+}
+
+.character-info-data {
+  font-weight: bold;
+}
+
+.Task-title-task-container {
+    /* display: flex;
+    flex-direction: column;
+    width: 500px; */
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserLists } from "../../../store/list";
+import { getBosses } from "../../../store/boss";
 import OneList from '../OneList'
 import './Lists.css'
 
@@ -15,6 +16,7 @@ const Lists = () => {
   useEffect(() => {
     if(userId){
       dispatch(getUserLists({userId}));
+
     }
 
   }, [dispatch, userId]);

@@ -113,29 +113,39 @@ router.post(
 
       // Create an array of promises for task creation
       const bossesNames = Object.keys(payload);
-      const taskCreationPromises = bossesNames.map(async (bossName) => {
-        const { resetTime, category } = payload[bossName];
-        return Task.create({
-          userId,
-          listId,
-          resetTime,
-          category,
-          objective: bossName,
+      if (bossesNames.length > 0) {
+        const taskCreationPromises = bossesNames.map(async (bossName) => {
+          const { resetTime, category } = payload[bossName];
+          return Task.create({
+            userId,
+            listId,
+            resetTime,
+            category,
+            objective: bossName,
+          });
         });
-      });
 
-      // Wait for the list creation and all task creation promises to resolve
-      await Promise.all([list, ...taskCreationPromises]);
+        // Wait for the list creation and all task creation promises to resolve
+        await Promise.all([list, ...taskCreationPromises]);
 
-      // Fetch the list with associated tasks after creation
-      const oneList = await List.findOne({
-        where: { id: list.id },
-        include: { model: Task },
-      });
-      // organizes the tasks into weeklies and dailies
-      const updatedList = sortingTasks(oneList);
+        // Fetch the list with associated tasks after creation
+        const oneList = await List.findOne({
+          where: { id: list.id },
+          include: { model: Task },
+        });
+        // organizes the tasks into weeklies and dailies
+        const updatedList = sortingTasks(oneList);
 
-      return res.json(updatedList);
+        return res.json(updatedList);
+      } else {
+
+        let updatedTasks = {
+          Weekly: { Boss: {}, Quest: {} },
+          Daily: { Boss: {}, Quest: {} },
+        };
+        list.Tasks = updatedTasks;
+        return res.json(list);
+      }
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "An error occurred." });
