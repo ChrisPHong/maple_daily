@@ -2,6 +2,7 @@
 const CREATE_LIST = "list/CREATE";
 const GET_LISTS = "lists/GET";
 const DELETE_LIST = "lists/Delete";
+const CLEAR_LISTS = "lists/CLEAR"
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -25,6 +26,13 @@ export const removeList = (list) => {
     list,
   };
 };
+
+export const clearSession = (data) =>{
+  return{
+    type: CLEAR_LISTS,
+    data
+  }
+}
 
 export const createListForm = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/lists/`, {
@@ -65,10 +73,16 @@ export const deletingList = (data) => async (dispatch) => {
     return list;
   }
 };
+
+export const clearingSession = (data) => async ( dispatch) =>{
+  dispatch(clearSession())
+  return {};
+}
 // Tasks
 const CREATE_TASK = "task/create";
 const DELETE_TASK = "task/delete";
 const EDIT_TASK = "task/edit";
+
 
 const removeTask = (task) => {
   return {
@@ -130,7 +144,7 @@ export const deleteTask = (data) => async (dispatch) => {
   }
 };
 
-const initialState = { entries: {}, lists: {}, isLoading: true };
+const initialState = { lists: {}, isLoading: true };
 
 const listReducer = (state = initialState, action) => {
   let newState;
@@ -186,6 +200,8 @@ const listReducer = (state = initialState, action) => {
         action.task;
 
       return newState;
+    case CLEAR_LISTS:
+      return {lists:{}, isLoading: false}
     default:
       return state;
   }

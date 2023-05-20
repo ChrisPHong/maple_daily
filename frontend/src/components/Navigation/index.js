@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
         <NavLink exact to="/">
           Home
         </NavLink>
-        {/* {isLoaded && sessionLinks} */}
+        {isLoaded && sessionLinks}
         <div>
           <NavLink exact to="/createlist">
             Create List
