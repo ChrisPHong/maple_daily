@@ -454,7 +454,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          bossNames: "Culver",
+          bossNames: "Culvert",
           resetTime: "Weekly",
           category: "Quest",
           createdAt: new Date(),

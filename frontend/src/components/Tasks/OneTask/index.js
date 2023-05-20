@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteTask, editTask } from "../../../store/list";
+import './OneTask.css'
 
 const OneTask = ({ task }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,11 @@ const OneTask = ({ task }) => {
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(task.objective);
   const [complete, setComplete] = useState(task.completed);
+  const [showBtn, setShowBtn] = useState(true);
+
+  const handleMouse = ()=>{
+    setShowBtn(!showBtn)
+  }
 
   const handleClick = () => {
     if (!editing) {
@@ -43,13 +49,14 @@ const OneTask = ({ task }) => {
   };
 
   return (
-    <>
+    <div className="task-container">
       <input
         onClick={() => {
           handleCompleted();
         }}
         type="checkbox"
         checked={complete}
+        className="custom-checkbox"
         onChange={handleCheckboxChange}
       />
 
@@ -65,14 +72,17 @@ const OneTask = ({ task }) => {
         <span onClick={handleClick}>{task.objective}</span>
       )}
 
-      <button
+      <button className="task-delete-btn"
+      style={{color: showBtn ? 'transparent': 'red'}}
+      onMouseEnter={handleMouse}
+      onMouseLeave={handleMouse}
         onClick={() => {
           onDelete(task);
         }}
       >
-        Delete
+        X
       </button>
-    </>
+    </div>
   );
 };
 

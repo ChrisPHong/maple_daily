@@ -169,10 +169,14 @@ const listReducer = (state = initialState, action) => {
       return newState;
     case CREATE_TASK:
       newState = { ...state };
+
       let time = action.task.resetTime;
       let ctgy = action.task.category;
-      newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] =
-        action.task;
+      if(Array.isArray(newState.lists[action.task.listId].Tasks)){
+        newState.lists[action.task.listId].Tasks = {Daily:{Boss:{}, Quest:{}}, Weekly: {Boss:{}, Quest:{}},}
+      }
+
+      newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] = action.task;
       return newState;
     case EDIT_TASK:
       newState = { ...state };

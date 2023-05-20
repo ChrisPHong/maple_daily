@@ -19,6 +19,7 @@ const ListForm = () => {
   const [showDQ, setShowDQ] = useState(false);
   const [showDB, setShowDB] = useState(false);
   const [showRD, setShowRD] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const keys = Object.keys(payload);
 
@@ -38,6 +39,15 @@ const ListForm = () => {
     (state) => state?.bossReducer?.boss?.Weekly?.Quest
   );
 
+  const changeView = (showing) => {
+
+    const arr = [showWQ, showWB, showDQ, showDB, showRD];
+    for (let ele of arr) {
+      if (ele !== showing) {
+      }
+    }
+  };
+
   const redemptionArr = [
     { bossNames: "Daily Gift", resetTime: "Daily", category: "Quest" },
     { bossNames: "Event Gift", resetTime: "Daily", category: "Quest" },
@@ -47,8 +57,6 @@ const ListForm = () => {
       category: "Quest",
     },
   ];
-
-  console.log(payload, "<<<<< what is the payload");
 
   const buttonDisplay = (obj) => {
     if (!payload[obj.bossNames]) {
@@ -114,8 +122,10 @@ const ListForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = { name, character, userId, payload };
+    await setDisableBtn(true);
     await dispatch(createListForm(data));
     await history.push("/");
+    await setDisableBtn(false);
   };
 
   useEffect(() => {
@@ -255,6 +265,7 @@ const ListForm = () => {
               {showDB ? (
                 <div>
                   <button
+                    className="check-btn"
                     onClick={(e) => {
                       e.preventDefault();
                       addAllDailyBosses();
@@ -381,17 +392,24 @@ const ListForm = () => {
                 </div>
               ) : null}
             </div>
-            <button className="submit-btn" onClick={onSubmit}>
+            <button
+              disabled={disableBtn}
+              className="submit-btn"
+              onClick={onSubmit}
+            >
               Submit
             </button>
           </div>
           <div className="right-container">
-            <ul>
-              {keys &&
-                keys.map((key) => {
-                  return <li>{key}</li>;
-                })}
-            </ul>
+            <div className="title-ul-div">
+              <span className="container-title-right">You've Clicked On:</span>
+              <ul className="ul-container">
+                {keys &&
+                  keys.map((key) => {
+                    return <li className="li-listForm">{key}</li>;
+                  })}
+              </ul>
+            </div>
           </div>
         </div>
       </form>

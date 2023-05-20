@@ -54,7 +54,7 @@ router.get(
         newObj.daily.push(task);
       }
     });
-    console.log(sortedTasks, "<<<<<<<<<<<<<<< sorted Tasks")
+
     return res.json(sortedTasks);
   })
 );

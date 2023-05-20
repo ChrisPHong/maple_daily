@@ -21,7 +21,7 @@
   border-radius: 5px 5px;
   border: 1px solid grey;
   margin: 10px;
-  /* background-color: #3bcc64; */
+  background-color: #3bcc64;
   transition: background-color 0.4s ease;
   border-radius: 25px 25px;
   font-weight: bold;
@@ -136,4 +136,51 @@
     display: grid;
     grid-template-columns: 1fr 4fr 1fr; /* Adjust the column sizes as needed */
     gap: 20px; /* Adds a gap of 20px between each column */
+  }
+
+
+  .li-listForm{
+    font-family: sans-serif;
+    font-weight: bold;
+    list-style: none;
+    border-radius: 5px;
+    padding:10px;
+    /* border: 1px solid black; */
+    margin: 5px;
+    width:max-content;
+
+  }
+
+  .right-container{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .container-title-right{
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .ul-container{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .title-ul-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
