@@ -17,3 +17,17 @@
   cursor: pointer;
   box-shadow: 1px 1px 10px black;
 }
+
+.DQ-Timer-Container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.All-Quests-Container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

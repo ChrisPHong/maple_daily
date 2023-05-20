@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OneTask from "../OneTask";
+import CountdownTimer from '../../Timer'
 import "./Tasks.css";
 
 const TasksList = ({ props }) => {
-  console.log(props, "<<<<<<<<<<<<")
+
   const WeeklyBosses = Object.values(props?.Weekly?.Boss ?? {});
   const WeeklyQuests = Object.values(props?.Weekly?.Quest ?? {});
   const DailyBossess = Object.values(props?.Daily?.Boss ?? {});
   const DailyQuests = Object.values(props?.Daily?.Quest ?? {});
 
   useEffect(() => {}, []);
+  const targetDate = '2023-06-01T00:00:00Z'; // Replace with your desired target UTC date
 
   return (
-    <div>
+    <div className="All-Quests-Container">
       {DailyQuests.length > 0 ? (
+        <div className="DQ-Timer-Container">
+
         <div className="Task-title-task-container">
           <div className="tasks-title">Daily Quests</div>
           {DailyQuests.map((task) => {
@@ -25,6 +29,10 @@ const TasksList = ({ props }) => {
             );
           })}
         </div>
+        <div>
+        <CountdownTimer/>
+        </div>
+          </div>
       ) : null}
       {DailyBossess.length > 0 ? (
         <div className="Task-title-task-container">
