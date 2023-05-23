@@ -73,22 +73,41 @@
 }
 .submit-btn:hover {
   cursor: pointer;
-  background: linear-gradient(to bottom, #d62e62, #ff6a93);
+}
+.submit-btn.pressed{
+  /* background-color: #ccc; */
+  /* background: linear-gradient(to bottom, #ff6a93, #d62e62);
+  box-shadow: inset 5px 5px 5px 5px rgba(0, 0, 0, .8); */
+  background-color: #333;
+  border-color: #333;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.tasks-container {
+.create-tasks-container {
   display: grid;
   grid-template-columns: repeat(4, 2fr); /* Creates four equal-width columns */
   gap: 10px; /* Adds a gap of 10px between each column */
+  padding-bottom: 20px;
 }
 
+.create-three-tasks-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding-bottom: 20px;
+/* display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center; */
+}
 .all-boss-quests-container {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
-  /* max-height: 100vh; */
+
 }
 
 .character-label-container {

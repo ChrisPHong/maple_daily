@@ -23,20 +23,20 @@ const OneList = ({ props }) => {
           <img className="image-character" src={props.apiContent} />
         </div>
         <div className="characterInfo-container">
-          <label className="character-info-data">
+          <span className="character-info-data">
             Character Name: {props.character}
-          </label>
-          <label className="character-info-data">
+          </span>
+          <span className="character-info-data">
             Class: {props.characterClass}
-          </label>
-          <label className="character-info-data">level: {props.level}</label>
-          <label className="character-info-data">Server: {props.server}</label>
+          </span>
+          <span className="character-info-data">level: {props.level}</span>
+          <span className="character-info-data">Server: {props.server}</span>
         </div>
       </div>
       {/* <button>{checkAll ? 'Check All Dailies' : "Uncheck All Dailies"}</button> */}
-      <TaskForm props={{ listId: props.id, userId }} />
+      <TaskForm props={{ listId: props.id, userId, name: props.character }} />
       <div className="tasks-container">
-      {props.Tasks ? <TasksList props={props?.Tasks} /> : <></>}
+        {props.Tasks ? <TasksList props={props?.Tasks} /> : <></>}
       </div>
     </div>
   );
