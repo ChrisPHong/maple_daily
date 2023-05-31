@@ -51,6 +51,28 @@ const sortingTasks = (list) => {
     return updatedList;
   }
 };
+
+// Error Handler for A List
+
+// router.post(
+//   "/validate",
+//   validateSignup,
+//   asyncHandler(async (req, res) => {
+//     const { userId, name, character, payload } = req.body;
+
+//     const foundOne = await List.findOne({
+//       where: { character: character.toLowerCase(), userId },
+//     });
+//     console.log(foundOne, "WHERE AM I??!?!?!!?!?");
+//     if (foundOne) {
+//       return res.status(400).json({
+//         message: "Bad request. You already made a list for this character.",
+//       });
+//     }
+//     return res.status(200).json({ message: "Create Character" });
+//   })
+// );
+
 // Get a list
 router.get(
   "/:userId",
@@ -89,6 +111,7 @@ router.post(
           })
           .catch((error) => {
             reject(error);
+            return error;
           });
       });
 
@@ -102,7 +125,7 @@ router.post(
       list = await List.create({
         userId,
         name,
-        character,
+        character: character.toLowerCase(),
         apiContent,
         characterClass,
         server,
@@ -138,7 +161,6 @@ router.post(
 
         return res.json(updatedList);
       } else {
-
         let updatedTasks = {
           Weekly: { Boss: {}, Quest: {} },
           Daily: { Boss: {}, Quest: {} },

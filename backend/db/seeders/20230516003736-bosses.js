@@ -551,6 +551,13 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          bossNames: "Ursus",
+          resetTime: "Daily",
+          category: "Quest",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

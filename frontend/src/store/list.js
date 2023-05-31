@@ -2,6 +2,8 @@
 const CREATE_LIST = "list/CREATE";
 const GET_LISTS = "lists/GET";
 const DELETE_LIST = "lists/Delete";
+const CLEAR_LISTS = "lists/CLEAR";
+const ERROR_LIST = "lists/ERROR";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -26,6 +28,20 @@ export const removeList = (list) => {
   };
 };
 
+export const clearSession = (data) => {
+  return {
+    type: CLEAR_LISTS,
+    data,
+  };
+};
+
+export const errorList = (error) => {
+  return {
+    type: ERROR_LIST,
+    error,
+  };
+};
+
 export const createListForm = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/lists/`, {
     method: "POST",
@@ -33,14 +49,27 @@ export const createListForm = (data) => async (dispatch) => {
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) {
-    return "Please provide the correct inputs";
-  }
   if (response.ok) {
     const list = await response.json();
     dispatch(createList(list));
+    return list;
   }
 };
+// export const validateForm = (data) => async (dispatch) => {
+//   console.log("were in the thunk action creator");
+
+//   const response = await csrfFetch(`/api/lists/`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+
+//   if (response.ok) {
+//     const list = await response.json();
+//     dispatch(errorList(list));
+//     return list;
+//   }
+// };
 
 export const getUserLists = (data) => async (dispatch) => {
   const res = await csrfFetch(`/api/lists/${data.userId}`, {
@@ -65,10 +94,16 @@ export const deletingList = (data) => async (dispatch) => {
     return list;
   }
 };
+
+export const clearingSession = (data) => async (dispatch) => {
+  dispatch(clearSession());
+  return {};
+};
 // Tasks
 const CREATE_TASK = "task/create";
 const DELETE_TASK = "task/delete";
 const EDIT_TASK = "task/edit";
+const RESET_DAILY_TASKS = "task/daily/reset";
 
 const removeTask = (task) => {
   return {
@@ -87,6 +122,12 @@ const putTask = (task) => {
   return {
     type: EDIT_TASK,
     task,
+  };
+};
+const resetEveryDayTasks = (tasks) => {
+  return {
+    type: RESET_DAILY_TASKS,
+    tasks,
   };
 };
 
@@ -130,7 +171,22 @@ export const deleteTask = (data) => async (dispatch) => {
   }
 };
 
-const initialState = { entries: {}, lists: {}, isLoading: true };
+export const resetDailyTasks = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/tasks/${data.userId}/daily`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    return "Please provide the correct inputs";
+  }
+  if (response.ok) {
+    const tasks = await response.json();
+    dispatch(resetEveryDayTasks(tasks));
+  }
+};
+
+const initialState = { lists: {}, errors: {}, isLoading: true };
 
 const listReducer = (state = initialState, action) => {
   let newState;
@@ -141,6 +197,7 @@ const listReducer = (state = initialState, action) => {
         lists: { ...state.lists, [action.list.id]: action.list },
       };
       return newState;
+
     case GET_LISTS:
       newState = {
         ...state,
@@ -151,11 +208,17 @@ const listReducer = (state = initialState, action) => {
       lists.map((list) => {
         return (newState.lists[list.id] = list);
       });
+
+      console.log(newState, "<<<< this is new State");
       return newState;
 
     case DELETE_LIST:
       newState = { ...state };
       delete newState.lists[action.list.id];
+      return newState;
+
+    case ERROR_LIST:
+      newState = { ...state };
       return newState;
 
     case DELETE_TASK:
@@ -172,11 +235,15 @@ const listReducer = (state = initialState, action) => {
 
       let time = action.task.resetTime;
       let ctgy = action.task.category;
-      if(Array.isArray(newState.lists[action.task.listId].Tasks)){
-        newState.lists[action.task.listId].Tasks = {Daily:{Boss:{}, Quest:{}}, Weekly: {Boss:{}, Quest:{}},}
+      if (Array.isArray(newState.lists[action.task.listId].Tasks)) {
+        newState.lists[action.task.listId].Tasks = {
+          Daily: { Boss: {}, Quest: {} },
+          Weekly: { Boss: {}, Quest: {} },
+        };
       }
 
-      newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] = action.task;
+      newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] =
+        action.task;
       return newState;
     case EDIT_TASK:
       newState = { ...state };
@@ -186,6 +253,21 @@ const listReducer = (state = initialState, action) => {
         action.task;
 
       return newState;
+    case RESET_DAILY_TASKS:
+      newState = { ...state };
+      const taskArr = action.tasks;
+
+      for (let i = 0; i < taskArr.length; i++) {
+        let task = taskArr[i];
+
+        newState.lists[task.listId].Tasks[task.resetTime][task.category][task.id] = task;
+      }
+
+
+      return newState;
+
+    case CLEAR_LISTS:
+      return { lists: {}, isLoading: false };
     default:
       return state;
   }

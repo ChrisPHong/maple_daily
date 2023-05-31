@@ -54,4 +54,19 @@ router.put(
     return res.json(task);
   })
 );
+
+router.put('/:userId/daily',
+asyncHandler(async (req, res) =>{
+  const userId = parseInt(req.params.userId);
+
+  const tasks = await Task.findAll({where:{userId}});
+
+  for(let i = 0; i < tasks.length; i++){
+    let task = tasks[i];
+    task.completed = false
+    await task.save();
+  }
+
+  return res.json(tasks)
+}))
 module.exports = router;

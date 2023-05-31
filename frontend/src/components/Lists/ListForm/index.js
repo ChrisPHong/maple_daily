@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createListForm, getUserLists } from "../../../store/list.js";
+import { createListForm } from "../../../store/list.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
@@ -14,6 +14,7 @@ const ListForm = () => {
   const [payload, setPayLoad] = useState({});
   const [weeklyMarked, setWeeklyMarked] = useState(false);
   const [dailyMarked, setDailyMarked] = useState(false);
+  const [redemptionTask, setRedemptionTask] = useState(false);
   const [showWQ, setShowWQ] = useState(false);
   const [showWB, setShowWB] = useState(false);
   const [showDQ, setShowDQ] = useState(false);
@@ -21,6 +22,8 @@ const ListForm = () => {
   const [showRD, setShowRD] = useState(false);
   const [disableBtn, setDisableBtn] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [btnPressed, setBtnPressed] = useState(false);
+  const [error, setError] = useState([]);
   const keys = Object.keys(payload);
 
   const userId = useSelector((state) => state.session.user?.id);
@@ -38,15 +41,6 @@ const ListForm = () => {
   const weeklyQuests = useSelector(
     (state) => state?.bossReducer?.boss?.Weekly?.Quest
   );
-
-  const changeView = (showing) => {
-
-    const arr = [showWQ, showWB, showDQ, showDB, showRD];
-    for (let ele of arr) {
-      if (ele !== showing) {
-      }
-    }
-  };
 
   const redemptionArr = [
     { bossNames: "Daily Gift", resetTime: "Daily", category: "Quest" },
@@ -99,6 +93,25 @@ const ListForm = () => {
       setWeeklyMarked(true);
     }
   };
+  const addRedemptionTasks = () => {
+    if (redemptionTask) {
+      const newPayload = { ...payload };
+      for (let task of redemptionArr) {
+        delete newPayload[task.bossNames];
+      }
+      setPayLoad(newPayload);
+      setRedemptionTask(false);
+    } else {
+      const newPayload = {};
+      for (let task of redemptionArr) {
+        if (!payload[task.bossNames]) {
+          newPayload[task.bossNames] = task;
+        }
+      }
+      setPayLoad({ ...payload, ...newPayload });
+      setRedemptionTask(true);
+    }
+  };
 
   const addAllDailyBosses = () => {
     if (dailyMarked) {
@@ -119,15 +132,58 @@ const ListForm = () => {
       setDailyMarked(true);
     }
   };
+
+  const handleButtonPress = () => {
+    setBtnPressed(true);
+  };
+
+  const handleButtonRelease = () => {
+    setBtnPressed(false);
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = { name, character, userId, payload };
     await setDisableBtn(true);
+
     await dispatch(createListForm(data));
     await history.push("/");
     await setDisableBtn(false);
   };
 
+  const checkCharacterName = (cNames) => {
+    let errors = [];
+
+    for (let obj in cNames) {
+      if (character === cNames[obj].character) {
+        console.log(obj, "<<<<< what is this");
+        console.log(cNames[obj].character, "<<<<< what is this name");
+        errors.push(
+          "You contain a list with that character's name. Please change"
+        );
+        setError(errors);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const changeTab = (showing) => {
+    const sectionVisibility = {
+      showWB: false,
+      showDB: false,
+      showRD: false,
+      showDQ: false,
+      showWQ: false,
+    };
+
+    sectionVisibility[showing] = true;
+    // Update the visibility state of all sections
+    setShowWB(sectionVisibility.showWB);
+    setShowDB(sectionVisibility.showDB);
+    setShowRD(sectionVisibility.showRD);
+    setShowDQ(sectionVisibility.showDQ);
+    setShowWQ(sectionVisibility.showWQ);
+  };
   useEffect(() => {
     dispatch(getBosses());
   }, []);
@@ -136,15 +192,7 @@ const ListForm = () => {
     <div>
       <form>
         <div className="character-label-container">
-          <div
-            className="input-div"
-            onMouseEnter={() => {
-              setShowMessage(true);
-            }}
-            onMouseLeave={() => {
-              setShowMessage(false);
-            }}
-          >
+          <div className="input-div">
             <label className="input-div">
               List Name
               <input
@@ -175,46 +223,60 @@ const ListForm = () => {
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setShowWB(!showWB);
+                // setShowWB(!showWB);
+                changeTab("showWB");
               }}
             >
-              {showWB ? "Hide Weekly Bosses" : "Show Weekly Bosses"}
+              {showWB ? "Weekly Bosses" : "Show Weekly Bosses"}
             </button>
             <button
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setShowDB(!showDB);
+                // setShowDB(!showDB);
+                changeTab("showDB");
               }}
             >
-              {showDB ? "Hide Daily Bosses" : "Show Daily Bosses"}
+              {showDB ? "Daily Bosses" : "Show Daily Bosses"}
             </button>
             <button
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setShowRD(!showRD);
+                // setShowRD(!showRD);
+                changeTab("showRD");
               }}
             >
-              {showRD ? "Hide Redemption Tasks" : "Show Redemption Tasks"}
+              {showRD ? "Redemption Tasks" : "Show Redemption Tasks"}
             </button>
             <button
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setShowDQ(!showDQ);
+                // setShowDQ(!showDQ);
+                changeTab("showDQ");
               }}
             >
-              {showDQ ? "Hide Daily Quests" : "Show Daily Quests"}
+              {showDQ ? "Daily Quests" : "Show Daily Quests"}
             </button>
             <button
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                setShowWQ(!showWQ);
+                // setShowWQ(!showWQ);
+                changeTab("showWQ");
               }}
             >
-              {showWQ ? "Hide Weekly Quests" : "Show Weekly Quests"}
+              {showWQ ? "Weekly Quests" : "Show Weekly Quests"}
+            </button>
+            <button
+              disabled={disableBtn}
+              className={`submit-btn ${btnPressed ? "pressed" : ""} `}
+              onClick={onSubmit}
+              onMouseDown={handleButtonPress}
+              onMouseUp={handleButtonRelease}
+            >
+              Submit
             </button>
           </div>
 
@@ -236,7 +298,7 @@ const ListForm = () => {
                     ? "UnCheck All Weekly Bosses"
                     : "Check All Weekly Bosses"}
                 </button>
-                <div className="tasks-container">
+                <div className="create-tasks-container">
                   {weeklybosses &&
                     weeklybosses.map((boss) => {
                       return (
@@ -260,7 +322,6 @@ const ListForm = () => {
                 </div>
               </div>
             ) : null}
-
             <div>
               {showDB ? (
                 <div>
@@ -275,7 +336,7 @@ const ListForm = () => {
                       ? "UnCheck All Daily Bosses"
                       : "Check All Daily Bosses"}
                   </button>
-                  <div className="tasks-container">
+                  <div className="create-tasks-container">
                     {dailybosses &&
                       dailybosses.map((boss) => {
                         return (
@@ -304,37 +365,55 @@ const ListForm = () => {
                 </div>
               ) : null}
             </div>
-
             <div className="Redemption-Container">
               {showRD ? (
-                <div className="tasks-container">
-                  {redemptionArr.map((task, idx) => {
-                    return (
-                      <div key={task.id}>
-                        <button
-                          className="boss-btn"
-                          style={{
-                            backgroundColor: payload[task.bossNames]
-                              ? "#3bcc64"
-                              : "transparent",
-                            color: payload[task.bossNames] ? "white" : "black",
-                          }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            buttonDisplay(task);
-                          }}
-                        >
-                          {task.bossNames}
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
+                <>
+                  <button
+                    className="check-btn"
+                    style={{
+                      backgroundColor: showRD ? "#3bcc64" : "white",
+                      color: showRD ? "white" : "black",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addRedemptionTasks();
+                    }}
+                  >
+                    {redemptionTask
+                      ? "UnCheck All Redemption Tasks"
+                      : "Check All Redemption Tasks"}
+                  </button>
+                  <div className="create-three-tasks-container">
+                    {redemptionArr.map((task, idx) => {
+                      return (
+                        <div key={task.id}>
+                          <button
+                            className="boss-btn"
+                            style={{
+                              backgroundColor: payload[task.bossNames]
+                                ? "#3bcc64"
+                                : "transparent",
+                              color: payload[task.bossNames]
+                                ? "white"
+                                : "black",
+                            }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              buttonDisplay(task);
+                            }}
+                          >
+                            {task.bossNames}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
               ) : null}
             </div>
             <div className="daily-Container">
               {showDQ ? (
-                <div className="tasks-container">
+                <div className="create-tasks-container">
                   {dailyQuests &&
                     dailyQuests.map((task) => {
                       return (
@@ -364,7 +443,7 @@ const ListForm = () => {
             </div>
             <div className="weekly-Container">
               {showWQ ? (
-                <div className="tasks-container">
+                <div className="create-tasks-container">
                   {weeklyQuests &&
                     weeklyQuests.map((quest) => {
                       return (
@@ -392,13 +471,7 @@ const ListForm = () => {
                 </div>
               ) : null}
             </div>
-            <button
-              disabled={disableBtn}
-              className="submit-btn"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
+            {/* Old Submit Button */}
           </div>
           <div className="right-container">
             <div className="title-ul-div">
