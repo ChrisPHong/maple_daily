@@ -15,6 +15,8 @@ const ListForm = () => {
   const [weeklyMarked, setWeeklyMarked] = useState(false);
   const [dailyMarked, setDailyMarked] = useState(false);
   const [redemptionTask, setRedemptionTask] = useState(false);
+  const [showDailyQuests, setShowDailyQuests] = useState(false);
+  const [showWeeklyQuests, setShowWeeklyQuests] = useState(false);
   const [showWQ, setShowWQ] = useState(false);
   const [showWB, setShowWB] = useState(false);
   const [showDQ, setShowDQ] = useState(false);
@@ -24,7 +26,7 @@ const ListForm = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [btnPressed, setBtnPressed] = useState(false);
   const [error, setError] = useState([]);
-  const keys = Object.keys(payload);
+  const keys = Object.keys(payload).reverse();
 
   const userId = useSelector((state) => state.session.user?.id);
 
@@ -93,6 +95,27 @@ const ListForm = () => {
       setWeeklyMarked(true);
     }
   };
+
+  const addAllDailyBosses = () => {
+    if (dailyMarked) {
+      const newPayload = { ...payload };
+      for (let boss of dailybosses) {
+        delete newPayload[boss.bossNames];
+      }
+      setPayLoad(newPayload);
+      setDailyMarked(false);
+    } else {
+      const newPayload = {};
+      for (let boss of dailybosses) {
+        if (!payload[boss.bossNames]) {
+          newPayload[boss.bossNames] = boss;
+        }
+      }
+      setPayLoad({ ...payload, ...newPayload });
+      setDailyMarked(true);
+    }
+  };
+
   const addRedemptionTasks = () => {
     if (redemptionTask) {
       const newPayload = { ...payload };
@@ -113,23 +136,43 @@ const ListForm = () => {
     }
   };
 
-  const addAllDailyBosses = () => {
-    if (dailyMarked) {
+  const addDailyQuests = () => {
+    if (showDailyQuests) {
       const newPayload = { ...payload };
-      for (let boss of dailybosses) {
-        delete newPayload[boss.bossNames];
+      for (let task of dailyQuests) {
+        delete newPayload[task.bossNames];
       }
       setPayLoad(newPayload);
-      setDailyMarked(false);
+      setShowDailyQuests(false);
     } else {
       const newPayload = {};
-      for (let boss of dailybosses) {
-        if (!payload[boss.bossNames]) {
-          newPayload[boss.bossNames] = boss;
+      for (let task of dailyQuests) {
+        if (!payload[task.bossNames]) {
+          newPayload[task.bossNames] = task;
         }
       }
       setPayLoad({ ...payload, ...newPayload });
-      setDailyMarked(true);
+      setShowDailyQuests(true);
+    }
+  };
+
+  const addWeeklyQuests = () => {
+    if (showWeeklyQuests) {
+      const newPayload = { ...payload };
+      for (let task of weeklyQuests) {
+        delete newPayload[task.bossNames];
+      }
+      setPayLoad(newPayload);
+      setShowWeeklyQuests(false);
+    } else {
+      const newPayload = {};
+      for (let task of weeklyQuests) {
+        if (!payload[task.bossNames]) {
+          newPayload[task.bossNames] = task;
+        }
+      }
+      setPayLoad({ ...payload, ...newPayload });
+      setShowWeeklyQuests(true);
     }
   };
 
@@ -413,62 +456,96 @@ const ListForm = () => {
             </div>
             <div className="daily-Container">
               {showDQ ? (
-                <div className="create-tasks-container">
-                  {dailyQuests &&
-                    dailyQuests.map((task) => {
-                      return (
-                        <>
-                          <button
-                            className="boss-btn"
-                            style={{
-                              backgroundColor: payload[task.bossNames]
-                                ? "#3bcc64"
-                                : "transparent",
-                              color: payload[task.bossNames]
-                                ? "white"
-                                : "black",
-                            }}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              buttonDisplay(task);
-                            }}
-                          >
-                            {task.bossNames}
-                          </button>
-                        </>
-                      );
-                    })}
-                </div>
+                <>
+                  <button
+                    className="check-btn"
+                    style={{
+                      backgroundColor: showDQ ? "#3bcc64" : "white",
+                      color: showDQ ? "white" : "black",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addDailyQuests();
+                    }}
+                  >
+                    {showDailyQuests
+                      ? "UnCheck All Daily Quests"
+                      : "Check All Daily Quests"}
+                  </button>
+                  <div className="create-tasks-container">
+                    {dailyQuests &&
+                      dailyQuests.map((task) => {
+                        return (
+                          <>
+                            <button
+                              className="boss-btn"
+                              style={{
+                                backgroundColor: payload[task.bossNames]
+                                  ? "#3bcc64"
+                                  : "transparent",
+                                color: payload[task.bossNames]
+                                  ? "white"
+                                  : "black",
+                              }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                buttonDisplay(task);
+                              }}
+                            >
+                              {task.bossNames}
+                            </button>
+                          </>
+                        );
+                      })}
+                  </div>
+                </>
               ) : null}
             </div>
             <div className="weekly-Container">
               {showWQ ? (
-                <div className="create-tasks-container">
-                  {weeklyQuests &&
-                    weeklyQuests.map((quest) => {
-                      return (
-                        <>
-                          <button
-                            className="boss-btn"
-                            style={{
-                              backgroundColor: payload[quest.bossNames]
-                                ? "#3bcc64"
-                                : "transparent",
-                              color: payload[quest.bossNames]
-                                ? "white"
-                                : "black",
-                            }}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              buttonDisplay(quest);
-                            }}
-                          >
-                            {quest.bossNames}
-                          </button>
-                        </>
-                      );
-                    })}
-                </div>
+                <>
+                  <button
+                    className="check-btn"
+                    style={{
+                      backgroundColor: showWQ ? "#3bcc64" : "white",
+                      color: showWQ ? "white" : "black",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addWeeklyQuests();
+                    }}
+                  >
+                    {showWeeklyQuests
+                      ? "UnCheck All Weekly Quests"
+                      : "Check All Weekly Quests"}
+                  </button>
+                  <div className="create-tasks-container">
+                    {weeklyQuests &&
+                      weeklyQuests.map((quest) => {
+                        return (
+                          <>
+                            <button
+                              className="boss-btn"
+                              style={{
+                                backgroundColor: payload[quest.bossNames]
+                                  ? "#3bcc64"
+                                  : "transparent",
+                                color: payload[quest.bossNames]
+                                  ? "white"
+                                  : "black",
+                              }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                buttonDisplay(quest);
+                              }}
+                            >
+                              {quest.bossNames}
+                            </button>
+                          </>
+                        );
+                      })}
+                  </div>
+                </>
               ) : null}
             </div>
             {/* Old Submit Button */}
