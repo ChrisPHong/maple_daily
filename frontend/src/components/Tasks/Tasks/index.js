@@ -60,7 +60,7 @@ const TasksList = ({ props }) => {
               );
             })}
           </div>
-          <WeeklyCountDown props={{ day: 4 }} />
+          <WeeklyCountDown props={{ day: 4, length: 7 }} />
         </div>
       ) : null}
       {WeeklyQuests.length > 0 ? (

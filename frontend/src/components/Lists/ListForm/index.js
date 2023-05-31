@@ -14,6 +14,7 @@ const ListForm = () => {
   const [payload, setPayLoad] = useState({});
   const [weeklyMarked, setWeeklyMarked] = useState(false);
   const [dailyMarked, setDailyMarked] = useState(false);
+  const [redemptionTask, setRedemptionTask] = useState(false);
   const [showWQ, setShowWQ] = useState(false);
   const [showWB, setShowWB] = useState(false);
   const [showDQ, setShowDQ] = useState(false);
@@ -40,14 +41,6 @@ const ListForm = () => {
   const weeklyQuests = useSelector(
     (state) => state?.bossReducer?.boss?.Weekly?.Quest
   );
-
-  const changeView = (showing) => {
-    const arr = [showWQ, showWB, showDQ, showDB, showRD];
-    for (let ele of arr) {
-      if (ele !== showing) {
-      }
-    }
-  };
 
   const redemptionArr = [
     { bossNames: "Daily Gift", resetTime: "Daily", category: "Quest" },
@@ -98,6 +91,25 @@ const ListForm = () => {
       }
       setPayLoad({ ...payload, ...newPayload });
       setWeeklyMarked(true);
+    }
+  };
+  const addRedemptionTasks = () => {
+    if (redemptionTask) {
+      const newPayload = { ...payload };
+      for (let task of redemptionArr) {
+        delete newPayload[task.bossNames];
+      }
+      setPayLoad(newPayload);
+      setRedemptionTask(false);
+    } else {
+      const newPayload = {};
+      for (let task of redemptionArr) {
+        if (!payload[task.bossNames]) {
+          newPayload[task.bossNames] = task;
+        }
+      }
+      setPayLoad({ ...payload, ...newPayload });
+      setRedemptionTask(true);
     }
   };
 
@@ -257,6 +269,15 @@ const ListForm = () => {
             >
               {showWQ ? "Weekly Quests" : "Show Weekly Quests"}
             </button>
+            <button
+              disabled={disableBtn}
+              className={`submit-btn ${btnPressed ? "pressed" : ""} `}
+              onClick={onSubmit}
+              onMouseDown={handleButtonPress}
+              onMouseUp={handleButtonRelease}
+            >
+              Submit
+            </button>
           </div>
 
           <div className="all-boss-quests-container">
@@ -301,7 +322,6 @@ const ListForm = () => {
                 </div>
               </div>
             ) : null}
-
             <div>
               {showDB ? (
                 <div>
@@ -345,32 +365,50 @@ const ListForm = () => {
                 </div>
               ) : null}
             </div>
-
             <div className="Redemption-Container">
               {showRD ? (
-                <div className="create-three-tasks-container">
-                  {redemptionArr.map((task, idx) => {
-                    return (
-                      <div key={task.id}>
-                        <button
-                          className="boss-btn"
-                          style={{
-                            backgroundColor: payload[task.bossNames]
-                              ? "#3bcc64"
-                              : "transparent",
-                            color: payload[task.bossNames] ? "white" : "black",
-                          }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            buttonDisplay(task);
-                          }}
-                        >
-                          {task.bossNames}
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
+                <>
+                  <button
+                    className="check-btn"
+                    style={{
+                      backgroundColor: showRD ? "#3bcc64" : "white",
+                      color: showRD ? "white" : "black",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addRedemptionTasks();
+                    }}
+                  >
+                    {redemptionTask
+                      ? "UnCheck All Redemption Tasks"
+                      : "Check All Redemption Tasks"}
+                  </button>
+                  <div className="create-three-tasks-container">
+                    {redemptionArr.map((task, idx) => {
+                      return (
+                        <div key={task.id}>
+                          <button
+                            className="boss-btn"
+                            style={{
+                              backgroundColor: payload[task.bossNames]
+                                ? "#3bcc64"
+                                : "transparent",
+                              color: payload[task.bossNames]
+                                ? "white"
+                                : "black",
+                            }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              buttonDisplay(task);
+                            }}
+                          >
+                            {task.bossNames}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
               ) : null}
             </div>
             <div className="daily-Container">
@@ -433,15 +471,7 @@ const ListForm = () => {
                 </div>
               ) : null}
             </div>
-            <button
-              disabled={disableBtn}
-              className={`submit-btn ${btnPressed ? "pressed" : ""} `}
-              onClick={onSubmit}
-              onMouseDown={handleButtonPress}
-              onMouseUp={handleButtonRelease}
-            >
-              Submit
-            </button>
+            {/* Old Submit Button */}
           </div>
           <div className="right-container">
             <div className="title-ul-div">

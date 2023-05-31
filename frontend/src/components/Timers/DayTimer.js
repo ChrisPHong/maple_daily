@@ -16,9 +16,10 @@ const DailyCountDown = ({ props }) => {
       const nextReset = getNextResetTime().getTime();
       let remainingTime = nextReset - now;
 
-      if (remainingTime <= 0) {
+      if (remainingTime < 0) {
         await dispatch(resetDailyTasks({ userId }));
         remainingTime = getNextResetTime().getTime() - now;
+
         setRestartTimer(true);
       }
       setTimer(remainingTime);
@@ -31,9 +32,7 @@ const DailyCountDown = ({ props }) => {
 
   useEffect(() => {
     if (timer <= 0) {
-      // Timer has reached zero, handle your logic here
-      // For example, display a message or trigger an event
-      setRestartTimer(true); // Set restartTimer to true to trigger the effect re-run
+      setRestartTimer(true);
     }
   }, [timer]);
 
@@ -57,7 +56,7 @@ const DailyCountDown = ({ props }) => {
     const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
-    if (days <= 3) {
+    if (hours <= 3) {
       return (
         <span style={{ color: "red ", fontWeight: "bold" }}>
           {`${hours.toString().padStart(2, "0")} H ${minutes
@@ -68,7 +67,7 @@ const DailyCountDown = ({ props }) => {
     } else {
       return (
         <span style={{ color: "black ", fontWeight: "bold" }}>
-          {`${days}D ${hours.toString().padStart(2, "0")} Hours :${minutes
+          {`${hours.toString().padStart(2, "0")} Hours :${minutes
             .toString()
             .padStart(2, "0")} minutes:${seconds
             .toString()
