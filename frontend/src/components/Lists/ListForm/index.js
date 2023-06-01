@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
 import Categories from "../categories/index.js";
 import "./ListForm.css";
-import axios from "axios";
 
 const ListForm = () => {
   const dispatch = useDispatch();
@@ -185,30 +184,7 @@ const ListForm = () => {
   const handleButtonRelease = () => {
     setBtnPressed(false);
   };
-  const characterExists = async (character) => {
-    console.log(character, "<<<< this is the character");
-    try {
-      const axiosResponse = await new Promise((resolve, reject) => {
-        axios
-          .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-            return error;
-          });
-      });
 
-      console.log(axiosResponse, "<<<<< THIS ISTHE ERSPONSE!!!");
-    } catch (error) {
-      console.error(error);
-      return "An error occurred. it did . it did";
-    }
-
-    // console.log(response, "<<<< what is this response");
-    console.log("I dont know");
-  };
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = { name, character, userId, payload };
