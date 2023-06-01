@@ -1,11 +1,10 @@
 .OneList-container {
-    border-bottom: 2px solid black;
-  border-radius: 5px 5px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 80px;
 }
 
 .ListTitle {
@@ -18,7 +17,7 @@
   justify-content: center;
   padding: 0px 15px;
 }
-.testing-con{
+.testing-con {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -33,7 +32,6 @@
   background-color: rgba(212, 210, 210, 0.548);
   /* border-radius: 0px 25px 25px 0px; */
   border-radius: 25px;
-
 }
 
 .character-info-data {
@@ -41,13 +39,13 @@
 }
 
 .Task-title-task-container {
-    /* display: flex;
+  /* display: flex;
     flex-direction: column;
     width: 500px; */
 }
 
-.image-backdrop{
-  background-image: url('./images/Character-Select-V2.jpg');
+.image-backdrop {
+  background-image: url("./images/Character-Select-V2.jpg");
   background-size: cover;
   /* background-size: contain; */
   background-position: center;
@@ -56,19 +54,17 @@
   height: 150px;
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   position: relative;
   border-radius: 25px 0px 0px 25px;
 }
 
-.image-character{
+.image-character {
   position: relative; /* Added position property */
   margin-top: 18px; /* Move slightly lower by 10 pixels */
-
 }
 
-
-.tasks-container{
+.tasks-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,7 +85,7 @@
 .task-submit-btn:hover {
   cursor: pointer;
 }
-.task-submit-btn.pressed{
+.task-submit-btn.pressed {
   /* background-color: #ccc;
    background: linear-gradient(to bottom, #ff6a93, #d62e62);
   box-shadow: inset 5px 5px 5px 5px rgba(0, 0, 0, .8); */
