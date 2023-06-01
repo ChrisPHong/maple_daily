@@ -15,6 +15,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.top-list-container {
+  margin-top: 100px;
+}
+
 .check-btn {
   padding: 8px 10px;
   color: white;

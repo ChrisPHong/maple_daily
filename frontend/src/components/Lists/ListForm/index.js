@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
 import Categories from "../categories/index.js";
 import "./ListForm.css";
+import Loading from "../../Loading/index.js";
 
 const ListForm = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const ListForm = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [btnPressed, setBtnPressed] = useState(false);
   const [error, setError] = useState([]);
+  const [showLoading, setShowLoading] = useState(false);
   const keys = Object.keys(payload).reverse();
 
   const userId = useSelector((state) => state.session.user?.id);
@@ -190,6 +192,7 @@ const ListForm = () => {
     const data = { name, character, userId, payload };
 
     try {
+      await setShowLoading(true);
       await setDisableBtn(true);
       await dispatch(createListForm(data));
       await history.push("/");
@@ -197,6 +200,7 @@ const ListForm = () => {
       const { message } = await error.json();
       setError([message]);
     } finally {
+      await setShowLoading(false);
       await setDisableBtn(false);
     }
   };
@@ -223,7 +227,8 @@ const ListForm = () => {
   }, []);
 
   return (
-    <div>
+    <div className="top-list-container">
+      {showLoading ? <Loading /> : null}
       <form>
         <div className="character-label-container">
           <div className="errors-container"></div>
@@ -253,8 +258,12 @@ const ListForm = () => {
           </div>
           {error ? (
             <div>
-              {error.map((show) => {
-                return <div className="error-container">{show}</div>;
+              {error.map((show, idx) => {
+                return (
+                  <div key={idx} className="error-container">
+                    {show}
+                  </div>
+                );
               })}
             </div>
           ) : null}
@@ -564,6 +573,7 @@ const ListForm = () => {
           </div>
         </div>
       </form>
+      )
     </div>
   );
 };
