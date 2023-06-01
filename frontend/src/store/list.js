@@ -260,9 +260,10 @@ const listReducer = (state = initialState, action) => {
       for (let i = 0; i < taskArr.length; i++) {
         let task = taskArr[i];
 
-        newState.lists[task.listId].Tasks[task.resetTime][task.category][task.id] = task;
+        newState.lists[task.listId].Tasks[task.resetTime][task.category][
+          task.id
+        ] = task;
       }
-
 
       return newState;
 

@@ -111,6 +111,13 @@ align-items: center; */
 
 .character-label-container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.all-input-container {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
@@ -204,5 +211,16 @@ align-items: center; */
 .left-container {
   display: flex;
   flex-direction: column;
-  
+}
+
+.error-container {
+  border: #d62e62 2px solid;
+  padding: 15px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  /* background: linear-gradient(to bottom, #ff6a93, #d62e62); */
+  background: linear-gradient(to bottom, #ff0048, #ff0051);
+  font-family: sans-serif;
+  color: white;
+  font-weight: bold;
 }

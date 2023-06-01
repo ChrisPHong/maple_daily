@@ -101,6 +101,21 @@ router.post(
     let server;
     let level;
 
+    // Checks to make sure that only one list exists for each character
+    const foundOne = await List.findOne({
+      where: {
+        userId,
+        character,
+      },
+    });
+
+    if (foundOne) {
+      return res.status(400).json({
+        message:
+          "This character already exists in your lists. Please choose a different character",
+      });
+    }
+
     try {
       // Wrap the axios request in a Promise and await it
       const axiosResponse = await new Promise((resolve, reject) => {
@@ -169,8 +184,10 @@ router.post(
         return res.json(list);
       }
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "An error occurred." });
+      return res.status(500).json({
+        message:
+          "This character does not exist. Please input a character that has already been created.",
+      });
     }
   })
 );
