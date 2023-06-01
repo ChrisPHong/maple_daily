@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
 import Categories from "../categories/index.js";
 import "./ListForm.css";
+import axios from "axios";
 
 const ListForm = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const ListForm = () => {
   const keys = Object.keys(payload).reverse();
 
   const userId = useSelector((state) => state.session.user?.id);
+  const names = useSelector((state) => state.listReducer.lists);
 
   const weeklybosses = useSelector(
     (state) => state?.bossReducer?.boss?.Weekly?.Boss
@@ -183,31 +185,44 @@ const ListForm = () => {
   const handleButtonRelease = () => {
     setBtnPressed(false);
   };
+  const characterExists = async (character) => {
+    console.log(character, "<<<< this is the character");
+    try {
+      const axiosResponse = await new Promise((resolve, reject) => {
+        axios
+          .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+            return error;
+          });
+      });
+
+      console.log(axiosResponse, "<<<<< THIS ISTHE ERSPONSE!!!");
+    } catch (error) {
+      console.error(error);
+      return "An error occurred. it did . it did";
+    }
+
+    // console.log(response, "<<<< what is this response");
+    console.log("I dont know");
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = { name, character, userId, payload };
-    await setDisableBtn(true);
 
-    await dispatch(createListForm(data));
-    await history.push("/");
-    await setDisableBtn(false);
-  };
-
-  const checkCharacterName = (cNames) => {
-    let errors = [];
-
-    for (let obj in cNames) {
-      if (character === cNames[obj].character) {
-        console.log(obj, "<<<<< what is this");
-        console.log(cNames[obj].character, "<<<<< what is this name");
-        errors.push(
-          "You contain a list with that character's name. Please change"
-        );
-        setError(errors);
-        return true;
-      }
+    try {
+      await setDisableBtn(true);
+      await dispatch(createListForm(data));
+      await history.push("/");
+    } catch (error) {
+      const { message } = await error.json();
+      setError([message]);
+    } finally {
+      await setDisableBtn(false);
     }
-    return false;
   };
 
   const changeTab = (showing) => {
@@ -235,28 +250,38 @@ const ListForm = () => {
     <div>
       <form>
         <div className="character-label-container">
-          <div className="input-div">
-            <label className="input-div">
-              List Name
-              <input
-                className="input"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              ></input>
-            </label>
+          <div className="errors-container"></div>
+          <div className="all-input-container">
+            <div className="input-div">
+              <label className="input-div">
+                List Name
+                <input
+                  className="input"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                ></input>
+              </label>
+            </div>
+            <div className="input-div">
+              <label className="input-div">
+                Character
+                <input
+                  className="input"
+                  onChange={(e) => {
+                    setCharacter(e.target.value);
+                  }}
+                ></input>
+              </label>
+            </div>
           </div>
-          <div className="input-div">
-            <label className="input-div">
-              Character
-              <input
-                className="input"
-                onChange={(e) => {
-                  setCharacter(e.target.value);
-                }}
-              ></input>
-            </label>
-          </div>
+          {error ? (
+            <div>
+              {error.map((show) => {
+                return <div className="error-container">{show}</div>;
+              })}
+            </div>
+          ) : null}
         </div>
 
         {/* Start of the div */}
