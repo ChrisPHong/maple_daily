@@ -6,8 +6,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import { Modal } from "./context/Modal";
-import Footer from "./components/Footer";
 
+import Footer from "./components/Footer";
 import ListForm from "./components/Lists/ListForm";
 import DashBoardLists from "./components/Lists/DashBoardLists";
 import TaskForm from "./components/Tasks/TaskForm";
