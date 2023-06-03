@@ -6,6 +6,10 @@ body {
 
 .dashboard-Container-app {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; */
+  /* justify-content: space-between; */
 }

@@ -38,9 +38,6 @@ const TaskForm = ({ props }) => {
   return (
     <div>
       <form className="Overall-Task-Form-Container">
-        <span className="name-title-create-task">
-          Create a Task for: {props.name}
-        </span>
         <div className="Task-Form-Container">
           {show
             ? error.map((error, idx) => {

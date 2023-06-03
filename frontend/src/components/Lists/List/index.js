@@ -5,15 +5,16 @@ import TasksList from "../../Tasks/Tasks";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { getOneList } from "../../../store/list.js";
+import "./List.css";
+
 const List = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
   const list = useSelector((state) => Object.values(state?.listReducer?.list));
   const params = useParams();
   const { listId } = params;
-  console.log(list, "in the List");
   const dispatch = useDispatch();
 
-  const [checkAll, setCheckAll] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -21,16 +22,20 @@ const List = () => {
       dispatch(getOneList(payload));
     }
   }, [dispatch, userId]);
-  /*
-Things to do:
-console.log
-- Figure out why it is not deleting on the page. In state it is always deleting and updating and creating but not on the page
--
 
-*/
-  // {/* <div>Completed Todays Dailies: {`${list.completed}`}</div> */}
   return (
-    <div>
+    <div className="list-container">
+      <div>
+        <button
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          Create Task
+        </button>
+        <div>{list?.id}</div>
+        {show ? <TaskForm props={{ listId: list[0]?.id, userId }} /> : <> </>}
+      </div>
       {list.map((list) => {
         return (
           <div className="OneList-container">
@@ -56,9 +61,6 @@ console.log
               </div>
             </div>
             <div className="tasks-container">
-              <TaskForm
-                props={{ listId: list?.id, userId, name: list?.character }}
-              />
               {list?.Tasks ? <TasksList props={list?.Tasks} /> : <></>}
             </div>
           </div>

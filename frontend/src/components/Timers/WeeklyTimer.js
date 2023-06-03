@@ -61,18 +61,18 @@ const WeeklyCountDown = ({ props }) => {
     if (days <= 0) {
       return (
         <span style={{ color: "red", fontWeight: "bold" }}>
-          {`${days}d ${hours.toString().padStart(2, "0")}:${minutes
+          {`${days} D ${hours.toString().padStart(2, "0")} H ${minutes
             .toString()
             .padStart(2, "0")}
-          :${seconds.toString().padStart(2, "0")}`}
+          M ${seconds.toString().padStart(2, "0")} S`}
         </span>
       );
     } else {
       return (
         <span style={{ color: "black ", fontWeight: "bold" }}>
-          {`${days}d ${hours.toString().padStart(2, "0")}:${minutes
+          {`${days} D ${hours.toString().padStart(2, "0")} H ${minutes
             .toString()
-            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`}
+            .padStart(2, "0")} M ${seconds.toString().padStart(2, "0")} S`}
         </span>
       );
     }

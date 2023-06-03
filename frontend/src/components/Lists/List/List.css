@@ -1,0 +1,7 @@
+.list-container {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates four equal-width columns */
+  gap: 10px; /* Adds a gap of 10px between each column */
+  padding-bottom: 20px;
+}

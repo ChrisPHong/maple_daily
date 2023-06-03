@@ -235,7 +235,6 @@ const listReducer = (state = initialState, action) => {
       delete newState.lists[action.task.listId].Tasks[resetTime][category][
         action.task.id
       ];
-      console.log(newState, "<<<<<");
       if (newState.list[0].id === action.task.listId) {
         delete newState.list[0].Tasks[resetTime][category][action.task.id];
       }
@@ -248,6 +247,10 @@ const listReducer = (state = initialState, action) => {
       let ctgy = action.task.category;
       if (Array.isArray(newState.lists[action.task.listId].Tasks)) {
         newState.lists[action.task.listId].Tasks = {
+          Daily: { Boss: {}, Quest: {} },
+          Weekly: { Boss: {}, Quest: {} },
+        };
+        newState.list[0][action.task.listId].Tasks = {
           Daily: { Boss: {}, Quest: {} },
           Weekly: { Boss: {}, Quest: {} },
         };
@@ -292,7 +295,7 @@ const listReducer = (state = initialState, action) => {
       return newState;
 
     case CLEAR_LISTS:
-      return { lists: {}, isLoading: false };
+      return { lists: {}, list: {}, isLoading: false };
     default:
       return state;
   }
