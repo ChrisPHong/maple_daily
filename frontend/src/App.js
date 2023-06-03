@@ -7,8 +7,9 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import { Modal } from "./context/Modal";
 
+import Footer from "./components/Footer";
 import ListForm from "./components/Lists/ListForm";
-import Lists from "./components/Lists/Lists";
+import DashBoardLists from "./components/Lists/DashBoardLists";
 import TaskForm from "./components/Tasks/TaskForm";
 
 function App() {
@@ -22,15 +23,16 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <Switch>
+        <Route exact path="/">
+          <DashBoardLists />
+        </Route>
+        <Route exact path="/CreateList">
+          <ListForm />
+        </Route>
+      </Switch>
 
-      <Route exact path="/">
-        <Lists />
-      </Route>
-      <Route exact path="/CreateList">
-        <ListForm />
-      </Route>
-
-      {isLoaded && (
+      {/* {isLoaded && (
         <Switch>
           <Route path="/login">
             <LoginFormPage />
@@ -39,7 +41,8 @@ function App() {
             <SignupFormPage />
           </Route>
         </Switch>
-      )}
+      )} */}
+      <Footer />
     </>
   );
 }

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./UsersLists.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserLists } from "../../../store/list";
 import { getBosses } from "../../../store/boss";
 import OneList from "../OneList";
-import "./Lists.css";
 
 const Lists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
@@ -20,12 +22,34 @@ const Lists = () => {
     }
   }, [dispatch, userId]);
 
+const UsersLists = () => {
+  const listNames = useSelector((state) =>
+    Object.values(state.listReducer.lists)
+  );
+  const history = useHistory();
   return (
-    <div className="All-lists-Container">
-      {lists.map((list) => {
+
+    <div className="sideListNames-container">
+      {listNames.map((list) => {
         return (
-          <div key={list.id}>
-            <OneList props={list} />
+          <div
+            onClick={() => {
+              history.push(`/lists/${list.id}`);
+            }}
+            className="listName-button-container"
+          >
+            <div className="list-Button-div">
+              <h2 className="list-character-div">
+                {list.character.toUpperCase()}
+              </h2>
+              <h6 className="list-characterclass-div">{list.characterClass}</h6>
+            </div>
+            <div
+              className="characterImageList-Container"
+              style={{
+                backgroundImage: `url(${list.apiContent})`,
+              }}
+            ></div>
           </div>
         );
       })}
@@ -33,4 +57,4 @@ const Lists = () => {
   );
 };
 
-export default Lists;
+export default UsersLists;
