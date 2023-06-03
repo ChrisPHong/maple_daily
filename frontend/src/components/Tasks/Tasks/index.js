@@ -10,7 +10,7 @@ const TasksList = ({ props }) => {
   const DailyBossess = Object.values(props?.Daily?.Boss ?? {});
   const DailyQuests = Object.values(props?.Daily?.Quest ?? {});
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [props]);
   const targetDate = "2023-06-01T00:00:00Z"; // Replace with your desired target UTC date
 
   return (

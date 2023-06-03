@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteTask, editTask } from "../../../store/list";
-import './OneTask.css'
+import "./OneTask.css";
 
 const OneTask = ({ task }) => {
   const dispatch = useDispatch();
 
-  const onDelete = async (e) => {
-    await dispatch(deleteTask(e));
+  const onDelete = async (taskId) => {
+    await dispatch(deleteTask({ taskId }));
   };
 
   const [editing, setEditing] = useState(false);
@@ -16,9 +16,9 @@ const OneTask = ({ task }) => {
   const [complete, setComplete] = useState(task.completed);
   const [showBtn, setShowBtn] = useState(true);
 
-  const handleMouse = ()=>{
-    setShowBtn(!showBtn)
-  }
+  const handleMouse = () => {
+    setShowBtn(!showBtn);
+  };
 
   const handleClick = () => {
     if (!editing) {
@@ -41,10 +41,8 @@ const OneTask = ({ task }) => {
   };
 
   const handleCheckboxChange = async () => {
-
     setComplete(!complete);
     task.completed = !complete;
-
     await dispatch(editTask(task));
   };
 
@@ -72,12 +70,14 @@ const OneTask = ({ task }) => {
         <span onClick={handleClick}>{task.objective}</span>
       )}
 
-      <button className="task-delete-btn"
-      style={{color: showBtn ? 'transparent': 'red'}}
-      onMouseEnter={handleMouse}
-      onMouseLeave={handleMouse}
-        onClick={() => {
-          onDelete(task);
+      <button
+        className="task-delete-btn"
+        style={{ color: showBtn ? "transparent" : "red" }}
+        onMouseEnter={handleMouse}
+        onMouseLeave={handleMouse}
+        onClick={(e) => {
+          e.preventDefault();
+          onDelete(task.id);
         }}
       >
         X

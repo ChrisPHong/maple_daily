@@ -25,17 +25,18 @@ function App() {
       <Switch>
         <Route exact path="/">
           <div className="dashboard-Container-app">
-
-          <DashBoardLists />
-          <UsersLists />
+            <DashBoardLists />
+            <UsersLists />
           </div>
         </Route>
         <Route exact path="/lists">
           {/* <CreateAListsComponenet /> */}
         </Route>
         <Route exact path="/lists/:listId">
-          <List />
-          <UsersLists />
+          <div className="dashboard-Container-app">
+            <List />
+            <UsersLists />
+          </div>
         </Route>
         <Route exact path="/CreateList">
           <ListForm />

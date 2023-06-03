@@ -16,7 +16,7 @@ const OneList = ({ props }) => {
   const [checkAll, setCheckAll] = useState(false);
 
   useEffect(() => {}, [props]);
-
+  console.log(props.Tasks, "in the OneList");
   // {/* <div>Completed Todays Dailies: {`${props.completed}`}</div> */}
   return (
     <div>

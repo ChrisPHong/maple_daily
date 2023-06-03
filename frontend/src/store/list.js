@@ -146,7 +146,7 @@ export const editTask = (data) => async (dispatch) => {
 };
 
 export const deleteTask = (data) => async (dispatch) => {
-  const res = await csrfFetch(`api/tasks/${data.id}`, {
+  const res = await csrfFetch(`/api/tasks/${data.taskId}`, {
     method: "DELETE",
   });
   if (res.ok) {
@@ -235,6 +235,10 @@ const listReducer = (state = initialState, action) => {
       delete newState.lists[action.task.listId].Tasks[resetTime][category][
         action.task.id
       ];
+      console.log(newState, "<<<<<");
+      if (newState.list[0].id === action.task.listId) {
+        delete newState.list[0].Tasks[resetTime][category][action.task.id];
+      }
 
       return newState;
     case CREATE_TASK:
@@ -251,6 +255,9 @@ const listReducer = (state = initialState, action) => {
 
       newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] =
         action.task;
+      if (newState.list[0].id === action.task.listId) {
+        newState.list[0].Tasks[time][ctgy][action.task.id] = action.task;
+      }
       return newState;
     case EDIT_TASK:
       newState = { ...state };
@@ -258,6 +265,10 @@ const listReducer = (state = initialState, action) => {
       const y = action.task.category;
       newState.lists[action.task.listId].Tasks[x][y][action.task.id] =
         action.task;
+
+      if (newState.list[0].id === action.task.listId) {
+        newState.list[0].Tasks[x][y][action.task.id] = action.task;
+      }
 
       return newState;
     case RESET_DAILY_TASKS:
@@ -275,7 +286,8 @@ const listReducer = (state = initialState, action) => {
       return newState;
     case GET_LIST:
       newState = { ...state, list: {} };
-      newState.list = action.list[0];
+      const list = action.list;
+      newState.list = list;
 
       return newState;
 

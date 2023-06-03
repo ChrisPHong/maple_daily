@@ -2,26 +2,29 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./UsersLists.css";
-import { getOneList } from "../../../store/list";
+import { getOneList, getUserLists } from "../../../store/list";
 
 const UsersLists = () => {
   const listNames = useSelector((state) =>
     Object.values(state.listReducer.lists)
   );
-  const userId = useSelector((state) => state?.session?.user?.id);
 
-  // console.log(listNames, "<<<<< lisNames");
+  const userId = useSelector((state) => state?.session?.user?.id);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserLists({ userId }));
+    }
+  }, [dispatch, userId]);
   const history = useHistory();
   return (
     <div className="sideListNames-container">
-      {listNames.map((list) => {
-        console.log(list, "<<<<< list for userlists");
+      {listNames.map((list, idx) => {
         return (
           <div
+            key={idx}
             onClick={async () => {
               const payload = { listId: list.id, userId };
               await history.push(`/lists/${list.id}`);
