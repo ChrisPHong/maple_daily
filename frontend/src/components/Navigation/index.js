@@ -33,9 +33,9 @@ function Navigation({ isLoaded }) {
               About
             </NavLink>
           </div>
-          <div className="nav-Link-Div">
+          {/* <div className="nav-Link-Div">
             <NavLink to="/lists">Lists</NavLink>
-          </div>
+          </div> */}
           <div className="nav-Link-Div">
             <NavLink exact to="/createlist">
               Create List
