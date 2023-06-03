@@ -19,6 +19,9 @@ const TasksList = ({ props }) => {
         <div className="DQ-Timer-Container">
           <div className="Task-title-task-container">
             <div className="tasks-title">Daily Quests</div>
+            <div>
+              <DailyCountDown props={{ length: 1 }} />
+            </div>
             {DailyQuests.map((task) => {
               return (
                 <div key={task.id}>
@@ -27,15 +30,15 @@ const TasksList = ({ props }) => {
               );
             })}
           </div>
-          <div>
-            <DailyCountDown props={{ length: 1 }} />
-          </div>
         </div>
       ) : null}
       {DailyBossess.length > 0 ? (
         <div className="DQ-Timer-Container">
           <div className="Task-title-task-container">
             <div className="tasks-title">Daily Bosses</div>
+            <div>
+              <DailyCountDown props={{ length: 1 }} />
+            </div>
             {DailyBossess.map((task) => {
               return (
                 <div key={task.id}>
@@ -44,13 +47,15 @@ const TasksList = ({ props }) => {
               );
             })}
           </div>
-          <DailyCountDown props={{ length: 1 }} />
         </div>
       ) : null}
       {WeeklyBosses.length > 0 ? (
         <div className="DQ-Timer-Container">
           <div className="Task-title-task-container">
             <div className="tasks-title">Weekly Bosses</div>
+            <div>
+              <WeeklyCountDown props={{ day: 4, length: 7 }} />
+            </div>
             {WeeklyBosses.map((task) => {
               return (
                 <div key={task.id}>
@@ -59,13 +64,15 @@ const TasksList = ({ props }) => {
               );
             })}
           </div>
-          <WeeklyCountDown props={{ day: 4, length: 7 }} />
         </div>
       ) : null}
       {WeeklyQuests.length > 0 ? (
         <div className="DQ-Timer-Container">
           <div className="Task-title-task-container">
             <div className="tasks-title">Weekly Quests</div>
+            <div>
+              <WeeklyCountDown props={{ day: 0 }} />
+            </div>
             {WeeklyQuests.map((task) => {
               return (
                 <div key={task.id}>
@@ -74,7 +81,6 @@ const TasksList = ({ props }) => {
               );
             })}
           </div>
-          <WeeklyCountDown props={{ day: 0 }} />
         </div>
       ) : null}
     </div>

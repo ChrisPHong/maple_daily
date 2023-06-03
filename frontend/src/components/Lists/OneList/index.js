@@ -2,22 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import DeleteList from "../DeleteList";
 import TaskForm from "../../Tasks/TaskForm";
 import TasksList from "../../Tasks/Tasks";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
-import bgImage from "./images/Character-Select-V2.jpg";
-import UsersLists from "../Lists/index";
+import { useEffect } from "react";
+
 import "./OneList.css";
-import { getOneList } from "../../../store/list.js";
+
 const OneList = ({ props }) => {
   const userId = useSelector((state) => state?.session?.user?.id);
 
-  const dispatch = useDispatch();
-
-  const [checkAll, setCheckAll] = useState(false);
-
   useEffect(() => {}, [props]);
-  console.log(props.Tasks, "in the OneList");
-  // {/* <div>Completed Todays Dailies: {`${props.completed}`}</div> */}
+
   return (
     <div>
       <div className="OneList-container">

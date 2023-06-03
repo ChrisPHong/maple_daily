@@ -67,11 +67,9 @@ const DailyCountDown = ({ props }) => {
     } else {
       return (
         <span style={{ color: "black ", fontWeight: "bold" }}>
-          {`${hours.toString().padStart(2, "0")} Hours :${minutes
+          {`${hours.toString().padStart(2, "0")} H  ${minutes
             .toString()
-            .padStart(2, "0")} minutes:${seconds
-            .toString()
-            .padStart(2, "0")} seconds`}
+            .padStart(2, "0")} M ${seconds.toString().padStart(2, "0")} S`}
         </span>
       );
     }

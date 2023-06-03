@@ -54,27 +54,6 @@ const sortingTasks = (list) => {
   }
 };
 
-// Error Handler for A List
-
-// router.post(
-//   "/validate",
-//   validateSignup,
-//   asyncHandler(async (req, res) => {
-//     const { userId, name, character, payload } = req.body;
-
-//     const foundOne = await List.findOne({
-//       where: { character: character.toLowerCase(), userId },
-//     });
-//     console.log(foundOne, "WHERE AM I??!?!?!!?!?");
-//     if (foundOne) {
-//       return res.status(400).json({
-//         message: "Bad request. You already made a list for this character.",
-//       });
-//     }
-//     return res.status(200).json({ message: "Create Character" });
-//   })
-// );
-
 // Get a list
 router.get(
   "/:userId",

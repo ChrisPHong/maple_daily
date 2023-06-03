@@ -89,9 +89,11 @@
 }
 
 .create-tasks-container {
-  display: grid;
-  grid-template-columns: repeat(4, 2fr); /* Creates four equal-width columns */
-  gap: 10px; /* Adds a gap of 10px between each column */
+  /* display: grid;
+  grid-template-columns: repeat(4, 2fr);  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding-bottom: 20px;
 }
 
