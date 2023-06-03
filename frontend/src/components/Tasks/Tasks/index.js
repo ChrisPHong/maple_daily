@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import OneTask from "../OneTask";
 import DailyCountDown from "../../Timers/DayTimer";
 import WeeklyCountDown from "../../Timers/WeeklyTimer";

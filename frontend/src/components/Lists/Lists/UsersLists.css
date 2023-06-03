@@ -16,16 +16,11 @@
   border: 1px solid blue;
   justify-content: space-between;
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
-  /* align-items: center; */
-  /* background: linear-gradient(to bottom, #67d9ee, #0087d7);
-  background-repeat: no-repeat;
-  background-position: right;
-  background-size: auto;
-  background-color: transparent; */
+  transition-duration: 0.4s;
 }
 .listName-button-container:hover {
   cursor: pointer;
-  background-color: aqua;
+  size: 5rem;
 }
 
 .characterImageList-Container {

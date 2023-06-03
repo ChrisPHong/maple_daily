@@ -3,3 +3,9 @@
 body {
   margin: 0px;
 }
+
+.dashboard-Container-app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
