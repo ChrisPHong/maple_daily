@@ -7,6 +7,8 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 
 const { List, Task } = require("../../db/models");
 const axios = require("axios");
+// const { Op } = require("Sequelize");
+const Op = require("sequelize");
 
 const router = express.Router();
 
@@ -204,4 +206,18 @@ router.delete(
   })
 );
 
+router.get(
+  "/:listId/:userId",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const listId = parseInt(req.params.listId);
+    const userId = parseInt(req.params.userId);
+    const list = await List.findOne({
+      where: { id: listId, userId },
+      include: [{ model: Task }],
+    });
+    const updatedList = await sortingLists([list]);
+    return res.json(updatedList);
+  })
+);
 module.exports = router;

@@ -1,40 +1,31 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import "./UsersLists.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUserLists } from "../../../store/list";
-import { getBosses } from "../../../store/boss";
-import OneList from "../OneList";
-
-const Lists = () => {
-  const userId = useSelector((state) => state?.session?.user?.id);
-  const lists = useSelector((state) =>
-    Object.values(state?.listReducer?.lists)
-  );
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  useEffect(() => {
-    if (userId) {
-      dispatch(getUserLists({ userId }));
-    }
-  }, [dispatch, userId]);
+import "./UsersLists.css";
+import { getOneList } from "../../../store/list";
 
 const UsersLists = () => {
   const listNames = useSelector((state) =>
     Object.values(state.listReducer.lists)
   );
+  const userId = useSelector((state) => state?.session?.user?.id);
+
+  // console.log(listNames, "<<<<< lisNames");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {}, [dispatch]);
   const history = useHistory();
   return (
-
     <div className="sideListNames-container">
       {listNames.map((list) => {
+        console.log(list, "<<<<< list for userlists");
         return (
           <div
-            onClick={() => {
-              history.push(`/lists/${list.id}`);
+            onClick={async () => {
+              const payload = { listId: list.id, userId };
+              await history.push(`/lists/${list.id}`);
+              await dispatch(getOneList(payload));
             }}
             className="listName-button-container"
           >

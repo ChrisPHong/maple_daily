@@ -55,21 +55,6 @@ export const createListForm = (data) => async (dispatch) => {
     return list;
   }
 };
-// export const validateForm = (data) => async (dispatch) => {
-//   console.log("were in the thunk action creator");
-
-//   const response = await csrfFetch(`/api/lists/`, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(data),
-//   });
-
-//   if (response.ok) {
-//     const list = await response.json();
-//     dispatch(errorList(list));
-//     return list;
-//   }
-// };
 
 export const getUserLists = (data) => async (dispatch) => {
   const res = await csrfFetch(`/api/lists/${data.userId}`, {
@@ -170,7 +155,7 @@ export const deleteTask = (data) => async (dispatch) => {
     return task;
   }
 };
-
+// Reset Tasks
 export const resetDailyTasks = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/tasks/${data.userId}/daily`, {
     method: "PUT",
@@ -186,7 +171,30 @@ export const resetDailyTasks = (data) => async (dispatch) => {
   }
 };
 
-const initialState = { lists: {}, errors: {}, isLoading: true };
+// One List
+
+const GET_LIST = "list/GET";
+
+const getList = (list) => {
+  return {
+    type: GET_LIST,
+    list,
+  };
+};
+
+export const getOneList = (data) => async (dispatch) => {
+  const res = await csrfFetch(`/api/lists/${data.listId}/${data.userId}`, {
+    method: "GET",
+  });
+
+  if (res.ok) {
+    const list = await res.json();
+    dispatch(getList(list));
+    return list;
+  }
+};
+
+const initialState = { lists: {}, list: {}, errors: {}, isLoading: true };
 
 const listReducer = (state = initialState, action) => {
   let newState;
@@ -209,7 +217,6 @@ const listReducer = (state = initialState, action) => {
         return (newState.lists[list.id] = list);
       });
 
-      console.log(newState, "<<<< this is new State");
       return newState;
 
     case DELETE_LIST:
@@ -264,6 +271,11 @@ const listReducer = (state = initialState, action) => {
           task.id
         ] = task;
       }
+
+      return newState;
+    case GET_LIST:
+      newState = { ...state, list: {} };
+      newState.list = action.list[0];
 
       return newState;
 
