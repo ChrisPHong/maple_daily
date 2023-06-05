@@ -14,7 +14,7 @@
 }
 .tite-btn:hover {
   cursor: pointer;
-  box-shadow: 1px 1px 10px black;
+  /* box-shadow: 1px 1px 10px black; */
 }
 
 .DQ-Timer-Container {
@@ -34,11 +34,12 @@
 .quests-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .mini-tasks-container {
-  border: 1px solid black;
-  border-radius: 5px;
+  /* border: 1px solid black; */
+  /* border-radius: 5px; */
   padding: 10px;
   min-width: 100px;
 }
@@ -46,6 +47,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
   border-bottom: 1px solid black;
 }
 
@@ -53,22 +57,123 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  border: 1px solid black;
 }
 
 .tasks-title {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 200px;
+  /* width: 100vw; */
   width: 200px;
+  /* background: linear-gradient(to bottom, #67d9ee, #0087d7); */
   color: white;
-  background: linear-gradient(to bottom, #67d9ee, #0087d7);
   padding: 8px 15px;
-  border-radius: 20px 20px;
-  border: none;
   font-weight: bold;
   font-family: sans-serif;
   transition-duration: 0.6s;
   font-size: 25px;
   margin: 5px;
+}
+
+.top-list-div {
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 300px;
+  margin: 10px auto 0;
+  word-break: break-all;
+}
+
+.bloc-tabs {
+  display: flex;
+}
+
+.tabs {
+  padding: 15px;
+  text-align: center;
+  width: 50%;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+
+  color: white;
+  padding: 13px;
+  font-weight: bold;
+  /* font-family: sans-serif; */
+  transition-duration: 0.6s;
+  /* font-size: 25px; */
+}
+.tabs:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+.active-tabs {
+  background: white;
+  background: linear-gradient(to bottom, #ff6a93, #d62e62);
+
+  border-bottom: 1px solid transparent;
+}
+
+.active-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 2px);
+  height: 5px;
+  /* background: rgb(88, 147, 241); */
+  /* background: rgb(214, 12, 255); */
+}
+
+button {
+  border: none;
+}
+.content-tabs {
+  flex-grow: 1;
+  background-color: #747474;
+  box-shadow: 1px 1px 20px black;
+}
+.content {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.content h2 {
+  padding: 0px 0 5px 0px;
+  margin: 0px;
+}
+
+.active-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+.No-tasks-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: sans-serif;
+  margin-top: 30px;
 }

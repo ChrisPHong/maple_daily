@@ -5,3 +5,21 @@
   gap: 10px; /* Adds a gap of 10px between each column */
   padding-bottom: 20px;
 }
+
+.OneCharacter-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
+  min-width: 250px;
+  background: rgba(158, 158, 158, 0.671);
+  border-radius: 25px 25px;
+  color: black;
+  font-weight: bold;
+  /* background-color: rgba(18, 59, 94, 0.76); */
+}
+
+.image-character {
+  position: relative;
+  margin-bottom: -16px;
+}
