@@ -25,24 +25,65 @@ const sortingLists = async (lists) => {
 const sortingTasks = (list) => {
   let updatedList = Object.assign({}, list.get());
   let updatedTasks = {
-    Weekly: { Boss: {}, Quest: {} },
-    Daily: { Boss: {}, Quest: {} },
+    Weekly: {
+      Boss: { incomplete: {}, complete: {} },
+      Quest: { incomplete: {}, complete: {} },
+    },
+    Daily: {
+      Boss: { incomplete: {}, complete: {} },
+      Quest: { incomplete: {}, complete: {} },
+    },
   };
 
   if (list.Tasks.length > 0) {
     list.Tasks.forEach((task) => {
       const { resetTime, category } = task;
       if (resetTime === "Weekly" && category === "Boss") {
-        updatedTasks["Weekly"]["Boss"][task.id] = Object.assign({}, task.get());
+        if (task.completed === false) {
+          updatedTasks["Weekly"]["Boss"]["incomplete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        } else {
+          updatedTasks["Weekly"]["Boss"]["complete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        }
       } else if (resetTime === "Weekly" && category === "Quest") {
-        updatedTasks["Weekly"]["Quest"][task.id] = Object.assign(
-          {},
-          task.get()
-        );
+        if (task.completed === false) {
+          updatedTasks["Weekly"]["Quest"]["incomplete"][task.id] =
+            Object.assign({}, task.get());
+        } else {
+          updatedTasks["Weekly"]["Quest"]["complete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        }
       } else if (resetTime === "Daily" && category === "Boss") {
-        updatedTasks["Daily"]["Boss"][task.id] = Object.assign({}, task.get());
+        if (task.completed === false) {
+          updatedTasks["Daily"]["Boss"]["incomplete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        } else {
+          updatedTasks["Daily"]["Boss"]["complete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        }
       } else {
-        updatedTasks["Daily"]["Quest"][task.id] = Object.assign({}, task.get());
+        if (task.completed === false) {
+          updatedTasks["Daily"]["Quest"]["incomplete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        } else {
+          updatedTasks["Daily"]["Quest"]["complete"][task.id] = Object.assign(
+            {},
+            task.get()
+          );
+        }
       }
       // updatedTasks[task.id] = Object.assign({}, task.get());
     });
@@ -50,6 +91,7 @@ const sortingTasks = (list) => {
     updatedList.Tasks = updatedTasks;
     return updatedList;
   } else {
+    updatedList.Tasks = updatedTasks;
     return updatedList;
   }
 };
@@ -158,8 +200,14 @@ router.post(
         return res.json(updatedList);
       } else {
         let updatedTasks = {
-          Weekly: { Boss: {}, Quest: {} },
-          Daily: { Boss: {}, Quest: {} },
+          Weekly: {
+            Boss: { incomplete: {}, complete: {} },
+            Quest: { incomplete: {}, complete: {} },
+          },
+          Daily: {
+            Boss: { incomplete: {}, complete: {} },
+            Quest: { incomplete: {}, complete: {} },
+          },
         };
         list.Tasks = updatedTasks;
         return res.json(list);

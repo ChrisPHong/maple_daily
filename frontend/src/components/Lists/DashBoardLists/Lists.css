@@ -1,19 +1,101 @@
 .All-lists-Container {
+  margin-top: 90px;
+  /* justify-content: center; */
+  position: relative;
 }
 
-.tasks-title {
+.character-select-div {
+  display: grid;
+  display: grid;
+  grid-template-columns: repeat(6, 2fr);
+  grid-template-rows: repeat(2, 5fr);
+
+  padding-bottom: 20px;
+}
+
+.flipped {
+  transform: scaleX(-1);
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1100px;
+  height: 100vh;
+  z-index: -1;
+}
+
+.character-Name-tag {
+  width: min-content;
+  background-color: rgb(68, 39, 39, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border: 1px solid rgb(233, 233, 233);
+  border-radius: 5px;
+}
+
+.characterImage {
+  width: 110px;
+}
+.character-name-container {
   display: flex;
+  flex-direction: column;
+  width: fit-content;
+  justify-content: center;
+  align-content: center;
+}
+
+.displayButton {
+  border: none;
+  background-color: transparent;
+  font-size: 50px;
+  font-weight: bold;
+  color: rgb(70, 70, 70);
+  font-family: sans-serif;
+}
+.displayButton:hover {
+  cursor: pointer;
+  background-color: blue;
+}
+
+.character-list-btn {
+  background-color: burlywood;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  color: white;
-  background: linear-gradient(to bottom, #67d9ee, #0087d7);
-  padding: 8px 15px;
-  border-radius: 20px 20px;
-  border: none;
-  font-weight: bold;
-  font-family: sans-serif;
-  transition-duration: 0.6s;
-  font-size: 25px;
-  margin: 5px;
+  z-index: 1;
+}
+.plus-sign {
+  font-size: 30px;
+}
+.CC-btn-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.character-button-div {
+  /* margin-top: 60px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Dashboard-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-div-dashboard {
+  height: fit-content;
 }

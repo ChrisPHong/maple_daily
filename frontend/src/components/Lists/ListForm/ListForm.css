@@ -89,11 +89,11 @@
 }
 
 .create-tasks-container {
-  /* display: grid;
-  grid-template-columns: repeat(4, 2fr);  */
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 2fr);
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   padding-bottom: 20px;
 }
 
