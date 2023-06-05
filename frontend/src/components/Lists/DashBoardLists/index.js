@@ -26,6 +26,7 @@ const DashBoardLists = () => {
   const [fullList, setFullList] = useState([]);
   const [mainList, setMainList] = useState([]);
   const [index, setIndex] = useState(0);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (listCheck) {
@@ -56,12 +57,13 @@ const DashBoardLists = () => {
     } else {
       if (index <= 0) return;
       const num = index - 1;
-      console.log(num, "<<<<<<w hat is index");
       setIndex(num);
       return;
     }
   };
-
+  const showCharacterInfo = () => {
+    setShow(!show);
+  };
   return (
     <div className="Dashboard-page">
       <div className="All-lists-Container">
@@ -88,10 +90,13 @@ const DashBoardLists = () => {
                       history.push(`/lists/${list.id}`);
                     }}
                     alt="characterImage"
-                    className={flippedImage(idx)}
+                    className={`${flippedImage(idx)} characterImage-Dashboard`}
                     src={list.apiContent}
                   />
                   <div className="character-Name-tag">{list.character}</div>
+                  <div className="info">
+                    <OneList props={list} />
+                  </div>
                 </div>
               </div>
             );

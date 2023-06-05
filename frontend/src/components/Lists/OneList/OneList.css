@@ -37,17 +37,15 @@
 }
 
 .Task-title-task-container {
-  /* display: flex;
-    flex-direction: column;
-    width: 500px; */
+
 }
 
 .image-backdrop {
   background-image: url("./images/Character-Select-V2.jpg");
   background-size: cover;
-  /* background-size: contain; */
+
   background-position: center;
-  /* background-size: 50% auto; */
+
   width: 250px;
   height: 150px;
   display: flex;
@@ -58,7 +56,7 @@
 }
 
 .image-character {
-  position: relative; /* Added position property */
+  position: relative;
   margin-bottom: 8px;
 }
 
@@ -84,9 +82,6 @@
   cursor: pointer;
 }
 .task-submit-btn.pressed {
-  /* background-color: #ccc;
-   background: linear-gradient(to bottom, #ff6a93, #d62e62);
-  box-shadow: inset 5px 5px 5px 5px rgba(0, 0, 0, .8); */
   background-color: #333;
   border-color: #333;
   color: #fff;

@@ -79,9 +79,6 @@
   cursor: pointer;
 }
 .submit-btn.pressed {
-  /* background-color: #ccc; */
-  /* background: linear-gradient(to bottom, #ff6a93, #d62e62);
-  box-shadow: inset 5px 5px 5px 5px rgba(0, 0, 0, .8); */
   background-color: #333;
   border-color: #333;
   color: #fff;
@@ -91,9 +88,6 @@
 .create-tasks-container {
   display: grid;
   grid-template-columns: repeat(4, 2fr);
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   padding-bottom: 20px;
 }
 
@@ -102,10 +96,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding-bottom: 20px;
-  /* display: flex;
-flex-direction: row;
-justify-content: space-around;
-align-items: center; */
 }
 .all-boss-quests-container {
   margin-top: 10px;
@@ -175,7 +165,6 @@ align-items: center; */
   list-style: none;
   border-radius: 5px;
   padding: 10px;
-  /* border: 1px solid black; */
   margin: 5px;
   width: max-content;
 }
@@ -184,7 +173,6 @@ align-items: center; */
   border: 1px solid black;
   border-radius: 5px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 }
@@ -224,7 +212,6 @@ align-items: center; */
   padding: 15px 20px;
   margin: 10px;
   border-radius: 5px;
-  /* background: linear-gradient(to bottom, #ff6a93, #d62e62); */
   background: linear-gradient(to bottom, #ff0048, #ff0051);
   font-family: sans-serif;
   color: white;
