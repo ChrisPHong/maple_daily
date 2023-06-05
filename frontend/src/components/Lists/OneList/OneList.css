@@ -29,7 +29,6 @@
   align-items: center;
   flex-direction: row;
   background-color: rgba(212, 210, 210, 0.548);
-  /* border-radius: 0px 25px 25px 0px; */
   border-radius: 25px;
 }
 
@@ -60,7 +59,7 @@
 
 .image-character {
   position: relative; /* Added position property */
-  margin-top: 18px; /* Move slightly lower by 10 pixels */
+  margin-bottom: 8px;
 }
 
 .tasks-container {

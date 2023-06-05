@@ -31,7 +31,6 @@ const OneList = ({ props }) => {
             <span className="character-info-data">Server: {props.server}</span>
           </div>
         </div>
-        <TaskForm props={{ listId: props.id, userId, name: props.character }} />
         <div className="tasks-container">
           {props.Tasks ? <TasksList props={props?.Tasks} /> : <></>}
         </div>

@@ -15,7 +15,6 @@ const List = () => {
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
-
   useEffect(() => {
     if (userId) {
       const payload = { listId, userId };

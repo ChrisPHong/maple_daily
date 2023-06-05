@@ -222,6 +222,9 @@ const listReducer = (state = initialState, action) => {
     case DELETE_LIST:
       newState = { ...state };
       delete newState.lists[action.list.id];
+      if (newState.list[0].id === action.list.id) {
+        delete newState.list[0];
+      }
       return newState;
 
     case ERROR_LIST:
@@ -232,11 +235,15 @@ const listReducer = (state = initialState, action) => {
       newState = { ...state };
       let resetTime = action.task.resetTime;
       let category = action.task.category;
+      let completed = action.task.completed ? "complete" : "incomplete";
+
       delete newState.lists[action.task.listId].Tasks[resetTime][category][
-        action.task.id
-      ];
+        completed
+      ][action.task.id];
       if (newState.list[0].id === action.task.listId) {
-        delete newState.list[0].Tasks[resetTime][category][action.task.id];
+        delete newState.list[0].Tasks[resetTime][category][completed][
+          action.task.id
+        ];
       }
 
       return newState;
@@ -245,32 +252,40 @@ const listReducer = (state = initialState, action) => {
 
       let time = action.task.resetTime;
       let ctgy = action.task.category;
-      if (Array.isArray(newState.lists[action.task.listId].Tasks)) {
-        newState.lists[action.task.listId].Tasks = {
-          Daily: { Boss: {}, Quest: {} },
-          Weekly: { Boss: {}, Quest: {} },
-        };
-        newState.list[0][action.task.listId].Tasks = {
-          Daily: { Boss: {}, Quest: {} },
-          Weekly: { Boss: {}, Quest: {} },
-        };
-      }
+      let cmplt = action.task.completed ? "complete" : "incomplete";
 
-      newState.lists[action.task.listId].Tasks[time][ctgy][action.task.id] =
-        action.task;
+      newState.lists[action.task.listId].Tasks[time][ctgy][cmplt][
+        action.task.id
+      ] = action.task;
       if (newState.list[0].id === action.task.listId) {
-        newState.list[0].Tasks[time][ctgy][action.task.id] = action.task;
+        newState.list[0].Tasks[time][ctgy][cmplt][action.task.id] = action.task;
       }
       return newState;
+
     case EDIT_TASK:
       newState = { ...state };
       const x = action.task.resetTime;
       const y = action.task.category;
-      newState.lists[action.task.listId].Tasks[x][y][action.task.id] =
+      const z = action.task.completed ? "complete" : "incomplete";
+      const opposite = !action.task.completed ? "complete" : "incomplete";
+
+      const taskExists =
+        newState.lists[action.task.listId].Tasks[x][y][opposite][
+          action.task.id
+        ];
+
+      newState.lists[action.task.listId].Tasks[x][y][z][action.task.id] =
         action.task;
 
       if (newState.list[0].id === action.task.listId) {
-        newState.list[0].Tasks[x][y][action.task.id] = action.task;
+        newState.list[0].Tasks[x][y][z][action.task.id] = action.task;
+      }
+
+      if (taskExists) {
+        delete newState.lists[action.task.listId].Tasks[x][y][opposite][
+          action.task.id
+        ];
+        delete newState.list[0].Tasks[x][y][opposite][action.task.id];
       }
 
       return newState;
@@ -280,10 +295,11 @@ const listReducer = (state = initialState, action) => {
 
       for (let i = 0; i < taskArr.length; i++) {
         let task = taskArr[i];
+        let completeReset = task.completed ? "complete" : "incomplete";
 
         newState.lists[task.listId].Tasks[task.resetTime][task.category][
-          task.id
-        ] = task;
+          completeReset
+        ][task.id] = task;
       }
 
       return newState;
