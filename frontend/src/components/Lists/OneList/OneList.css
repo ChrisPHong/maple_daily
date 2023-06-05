@@ -4,6 +4,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* background-color: #d62e62; */
+  /* background-color: rgba(0, 84, 153, 0.384); */
+
+  color: white;
 }
 
 .ListTitle {
@@ -13,8 +17,8 @@
 .characterInfo-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0px 15px;
+  justify-content: flex-start;
+  padding: 0px 5px;
 }
 .testing-con {
   display: flex;
@@ -25,29 +29,27 @@
 
 .Top-OneList-Container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   flex-direction: row;
-  background-color: rgba(212, 210, 210, 0.548);
-  border-radius: 25px;
+  padding: 5px 0px;
+  min-width: 250px;
+  background-color: rgba(18, 59, 94, 0.76);
 }
 
 .character-info-data {
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .Task-title-task-container {
-  /* display: flex;
-    flex-direction: column;
-    width: 500px; */
 }
 
 .image-backdrop {
   background-image: url("./images/Character-Select-V2.jpg");
   background-size: cover;
-  /* background-size: contain; */
+
   background-position: center;
-  /* background-size: 50% auto; */
+
   width: 250px;
   height: 150px;
   display: flex;
@@ -57,10 +59,6 @@
   border-radius: 25px 0px 0px 25px;
 }
 
-.image-character {
-  position: relative; /* Added position property */
-  margin-bottom: 8px;
-}
 
 .tasks-container {
   display: flex;
@@ -84,11 +82,53 @@
   cursor: pointer;
 }
 .task-submit-btn.pressed {
-  /* background-color: #ccc;
-   background: linear-gradient(to bottom, #ff6a93, #d62e62);
-  box-shadow: inset 5px 5px 5px 5px rgba(0, 0, 0, .8); */
   background-color: #333;
   border-color: #333;
   color: #fff;
   box-shadow: 10px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.top-One-List-container {
+  background-color: rgba(49, 117, 173, 0.87);
+  width: -webkit-fill-available;
+  width: 210px;
+  padding: 5px 20px;
+}
+
+.prop-character-info {
+  font-family: sans-serif;
+  font-size: large;
+  font-weight: bold;
+}
+.prop-character-div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.props-characterClass-info {
+  color: rgba(218, 218, 218, 0.836);
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+.props-characterClass-div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.level-character-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.level-size-container {
+  margin: 0px;
+}
+.level-size-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }

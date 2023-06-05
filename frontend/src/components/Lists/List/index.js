@@ -40,7 +40,7 @@ const List = () => {
           <div className="OneList-container">
             <DeleteList id={list?.id} />
             <div className="ListTitle">{list?.name?.toUpperCase()}</div>
-            <div className="Top-OneList-Container">
+            <div className="OneCharacter-Container">
               <div className="image-backdrop">
                 <img className="image-character" src={list?.apiContent} />
               </div>
