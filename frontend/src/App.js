@@ -10,6 +10,7 @@ import ListForm from "./components/Lists/ListForm";
 import DashBoardLists from "./components/Lists/DashBoardLists";
 import TaskForm from "./components/Tasks/TaskForm";
 import UsersLists from "./components/Lists/Lists";
+import EditFormList from "./components/Lists/EditList";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
             <List />
             <UsersLists />
           </div>
+        </Route>
+        <Route exact path="/lists/:listId/edit">
+          <EditFormList />
         </Route>
         <Route exact path="/CreateList">
           <ListForm />

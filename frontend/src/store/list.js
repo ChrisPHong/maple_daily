@@ -4,6 +4,7 @@ const GET_LISTS = "lists/GET";
 const DELETE_LIST = "lists/Delete";
 const CLEAR_LISTS = "lists/CLEAR";
 const ERROR_LIST = "lists/ERROR";
+const UPDATE_LIST = "lists/UPDATE";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -42,6 +43,12 @@ export const errorList = (error) => {
   };
 };
 
+export const updateListInfo = (list) => {
+  return {
+    type: UPDATE_LIST,
+    list,
+  };
+};
 export const createListForm = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/lists/`, {
     method: "POST",
@@ -80,6 +87,19 @@ export const deletingList = (data) => async (dispatch) => {
   }
 };
 
+export const updateList = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/lists/${data.id}/update`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const list = await response.json();
+    dispatch(updateListInfo(list));
+    return list;
+  }
+};
 export const clearingSession = (data) => async (dispatch) => {
   dispatch(clearSession());
   return {};
@@ -204,6 +224,13 @@ const listReducer = (state = initialState, action) => {
         ...state,
         lists: { ...state.lists, [action.list.id]: action.list },
       };
+      return newState;
+    case UPDATE_LIST:
+      newState = {
+        ...state,
+      };
+      newState.list = [action.list];
+      newState.lists[action.list.id] = action.list;
       return newState;
 
     case GET_LISTS:

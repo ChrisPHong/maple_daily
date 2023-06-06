@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deletingList } from "../../../store/list";
+import "./deletelist.css";
 
 const DeleteList = ({ id }) => {
   const history = useHistory();
@@ -11,7 +12,9 @@ const DeleteList = ({ id }) => {
   };
   return (
     <>
-      <button onClick={deleteClick}>Delete</button>
+      <button className="delete-btn" onClick={deleteClick}>
+        X
+      </button>
     </>
   );
 };
