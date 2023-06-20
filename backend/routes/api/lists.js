@@ -215,7 +215,7 @@ router.post(
     } catch (error) {
       return res.status(500).json({
         message:
-          "This character does not exist. Please input a character that has already been created.",
+          "This character does not exist. Please input a character that already exists in MapleStory.",
       });
     }
   })
@@ -247,4 +247,81 @@ router.get(
     return res.json(updatedList);
   })
 );
+
+router.put(
+  "/:listId/update",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const listId = parseInt(req.params.listId);
+    const { character } = req.body;
+
+    const oldList = await List.findByPk(listId, { include: Task });
+    try {
+      // Wrap the axios request in a Promise and await it
+      const axiosResponse = await new Promise((resolve, reject) => {
+        axios
+          .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+            return error;
+          });
+      });
+
+      // Handle the axios response
+      apiContent = axiosResponse.data.CharacterData.CharacterImageURL;
+      characterClass = axiosResponse.data.CharacterData.Class;
+      level = axiosResponse.data.CharacterData.Level;
+
+      // Update the list Information
+      oldList.apiContent = apiContent;
+      oldList.characterClass = characterClass;
+      oldList.level = level;
+      await oldList.save();
+
+      const updatedList = sortingTasks(oldList);
+
+      return res.json(updatedList);
+    } catch (error) {
+      return res.status(500).json({
+        message:
+          "This character does not exist. Please input a character that has already been created.",
+      });
+    }
+  })
+);
+
+// router.put(
+//   "/:listId/edit",
+//   requireAuth,
+//   asyncHandler(async (req, res) => {
+//     const id = req.params();
+//     const pastList = await List.findByPk(id, { include: Task });
+//   })
+// );
+
+router.get(
+  "/:listId/:userId/update",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const id = parseInt(req.params.listId);
+    const userId = parseInt(req.params.userId);
+    // const pastList = await List.findOne({
+    //   where: { id, userId: userId },
+    //   include: { model: Task },
+    // });
+    const pastList = await List.findOne({
+      where: { id },
+      include: { model: Task },
+    });
+    console.log(userId, "<<<<<< what is this >>>>>>");
+
+    console.log(pastList, "<<<<<<<<<<<<<<<< WHAT IS THIS LIST?!?!?!");
+    return res.json(pastList);
+    // return res.json.message("Hello There");
+  })
+);
+
 module.exports = router;

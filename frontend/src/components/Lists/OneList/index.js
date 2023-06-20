@@ -7,46 +7,46 @@ import { useEffect } from "react";
 
 import "./OneList.css";
 
-const countingTasks = (obj) => {
-  const dqc = Object.values(obj["Daily"]["Quest"]["complete"]);
-  const dqIc = Object.values(obj["Daily"]["Quest"]["incomplete"]);
-  const wqc = Object.values(obj["Weekly"]["Quest"]["complete"]);
-  const wqIc = Object.values(obj["Weekly"]["Quest"]["incomplete"]);
-  const dbc = Object.values(obj["Daily"]["Boss"]["complete"]);
-  const dbIc = Object.values(obj["Daily"]["Boss"]["incomplete"]);
-  const wbc = Object.values(obj["Weekly"]["Boss"]["complete"]);
-  const wbIc = Object.values(obj["Weekly"]["Boss"]["incomplete"]);
-  let completed = 0;
-  let needToDo = 0;
-
-  for (let ele of dqc) {
-    completed += 1;
-  }
-  for (let ele of dqIc) {
-    needToDo += 1;
-  }
-  for (let ele of dbc) {
-    completed += 1;
-  }
-  for (let ele of dbIc) {
-    needToDo += 1;
-  }
-  for (let ele of wqc) {
-    completed += 1;
-  }
-  for (let ele of wqIc) {
-    needToDo += 1;
-  }
-
-  for (let ele of wbc) {
-    completed += 1;
-  }
-  for (let ele of wbIc) {
-    needToDo += 1;
-  }
-  return [needToDo, completed];
-};
 const OneList = ({ props }) => {
+  const countingTasks = (obj) => {
+    const dqc = Object.values(obj["Daily"]["Quest"]["complete"]);
+    const dqIc = Object.values(obj["Daily"]["Quest"]["incomplete"]);
+    const wqc = Object.values(obj["Weekly"]["Quest"]["complete"]);
+    const wqIc = Object.values(obj["Weekly"]["Quest"]["incomplete"]);
+    const dbc = Object.values(obj["Daily"]["Boss"]["complete"]);
+    const dbIc = Object.values(obj["Daily"]["Boss"]["incomplete"]);
+    const wbc = Object.values(obj["Weekly"]["Boss"]["complete"]);
+    const wbIc = Object.values(obj["Weekly"]["Boss"]["incomplete"]);
+    let completed = 0;
+    let needToDo = 0;
+
+    for (let ele of dqc) {
+      completed += 1;
+    }
+    for (let ele of dqIc) {
+      needToDo += 1;
+    }
+    for (let ele of dbc) {
+      completed += 1;
+    }
+    for (let ele of dbIc) {
+      needToDo += 1;
+    }
+    for (let ele of wqc) {
+      completed += 1;
+    }
+    for (let ele of wqIc) {
+      needToDo += 1;
+    }
+
+    for (let ele of wbc) {
+      completed += 1;
+    }
+    for (let ele of wbIc) {
+      needToDo += 1;
+    }
+    return [needToDo, completed];
+  };
   useEffect(() => {}, [props]);
   return (
     <div className="OneList-container">

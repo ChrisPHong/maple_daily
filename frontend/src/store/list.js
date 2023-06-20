@@ -4,6 +4,8 @@ const GET_LISTS = "lists/GET";
 const DELETE_LIST = "lists/Delete";
 const CLEAR_LISTS = "lists/CLEAR";
 const ERROR_LIST = "lists/ERROR";
+const UPDATE_LIST = "lists/UPDATE";
+const GET_EDIT_LIST = "lists/GET_EDIT_LIST";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -39,6 +41,20 @@ export const errorList = (error) => {
   return {
     type: ERROR_LIST,
     error,
+  };
+};
+
+export const updateListInfo = (list) => {
+  return {
+    type: UPDATE_LIST,
+    list,
+  };
+};
+
+export const getEditList = (list) => {
+  return {
+    type: GET_EDIT_LIST,
+    list,
   };
 };
 
@@ -80,10 +96,40 @@ export const deletingList = (data) => async (dispatch) => {
   }
 };
 
+export const updateList = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/lists/${data.id}/update`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const list = await response.json();
+    dispatch(updateListInfo(list));
+    return list;
+  }
+};
 export const clearingSession = (data) => async (dispatch) => {
   dispatch(clearSession());
   return {};
 };
+
+export const getEditLists = (data) => async (dispatch) => {
+  console.log(parseInt(data.id), "<<<<< what is the data");
+  const res = await csrfFetch(
+    `/api/lists/${parseInt(data.id)}/${data.userId}/update`,
+    {
+      method: "GET",
+    }
+  );
+  console.log(res, "<<<<<<<<<<<<<<<<<<<< RES");
+  if (res.ok) {
+    const list = await res.json();
+    dispatch(getEditList(list));
+    return list;
+  }
+};
+
 // Tasks
 const CREATE_TASK = "task/create";
 const DELETE_TASK = "task/delete";
@@ -194,7 +240,13 @@ export const getOneList = (data) => async (dispatch) => {
   }
 };
 
-const initialState = { lists: {}, list: {}, errors: {}, isLoading: true };
+const initialState = {
+  lists: {},
+  list: {},
+  editingList: {},
+  errors: {},
+  isLoading: true,
+};
 
 const listReducer = (state = initialState, action) => {
   let newState;
@@ -204,6 +256,13 @@ const listReducer = (state = initialState, action) => {
         ...state,
         lists: { ...state.lists, [action.list.id]: action.list },
       };
+      return newState;
+    case UPDATE_LIST:
+      newState = {
+        ...state,
+      };
+      newState.list = [action.list];
+      newState.lists[action.list.id] = action.list;
       return newState;
 
     case GET_LISTS:
@@ -246,6 +305,10 @@ const listReducer = (state = initialState, action) => {
         ];
       }
 
+      return newState;
+    case GET_EDIT_LIST:
+      newState = { ...state };
+      newState.editingList = action.list;
       return newState;
     case CREATE_TASK:
       newState = { ...state };
