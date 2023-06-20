@@ -3,10 +3,12 @@ import { createListForm } from "../../../store/list.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
+import { getEditLists } from "../../../store/list.js";
 import Categories from "../categories/index.js";
 import Loading from "../../Loading/index.js";
 
 const EditFormList = () => {
+  const list = useSelector((state) => state.listReducer.editingList);
   const dispatch = useDispatch();
   const history = useHistory();
   const [name, setName] = useState("");
@@ -31,14 +33,16 @@ const EditFormList = () => {
   const { listId } = useParams();
 
   const userId = useSelector((state) => state.session.user?.id);
-  const list = useSelector((state) => state.listReducer?.lists[listId]?.Tasks);
+  // const list = useSelector((state) => state.listReducer?.lists[listId]?.Tasks);
+
+  console.log(list, "<<<<<<<<<<<<<<<<<< list");
   const loadingPayload = (tasks) => {
     const payload = {};
 
-    const dailyBossesC = Object.values(tasks?.Daily?.Boss?.complete);
-    const dailyBossesIc = Object.values(tasks?.Daily.Boss?.incomplete);
+    // const dailyBossesC = Object.values(tasks?.Daily?.Boss?.complete);
+    // const dailyBossesIc = Object.values(tasks?.Daily.Boss?.incomplete);
     // const dailyQuests = Object.values(tasks.Daily.Quest);
-    const weeklies = Object.values(tasks?.Weekly);
+    // const weeklies = Object.values(tasks?.Weekly);
 
     const retrieveData = (label, data) => {};
 
@@ -53,6 +57,7 @@ const EditFormList = () => {
   useEffect(() => {
     if (list) {
       loadingPayload(list);
+      dispatch(getEditLists({ id: listId, userId: userId }));
     }
   }, []);
 
@@ -217,7 +222,7 @@ const EditFormList = () => {
     try {
       await setShowLoading(true);
       await setDisableBtn(true);
-      await dispatch(createListForm(data));
+      // await dispatch(createListForm(data));
       await history.push("/");
     } catch (error) {
       const { message } = await error.json();

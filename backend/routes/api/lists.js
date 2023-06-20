@@ -292,4 +292,36 @@ router.put(
     }
   })
 );
+
+// router.put(
+//   "/:listId/edit",
+//   requireAuth,
+//   asyncHandler(async (req, res) => {
+//     const id = req.params();
+//     const pastList = await List.findByPk(id, { include: Task });
+//   })
+// );
+
+router.get(
+  "/:listId/:userId/update",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const id = parseInt(req.params.listId);
+    const userId = parseInt(req.params.userId);
+    // const pastList = await List.findOne({
+    //   where: { id, userId: userId },
+    //   include: { model: Task },
+    // });
+    const pastList = await List.findOne({
+      where: { id },
+      include: { model: Task },
+    });
+    console.log(userId, "<<<<<< what is this >>>>>>");
+
+    console.log(pastList, "<<<<<<<<<<<<<<<< WHAT IS THIS LIST?!?!?!");
+    return res.json(pastList);
+    // return res.json.message("Hello There");
+  })
+);
+
 module.exports = router;
