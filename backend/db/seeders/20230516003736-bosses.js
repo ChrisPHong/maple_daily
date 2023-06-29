@@ -510,7 +510,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          bossNames: "Arcane",
+          bossNames: "Arcana",
           resetTime: "Daily",
           category: "Quest",
           createdAt: new Date(),
