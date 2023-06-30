@@ -190,7 +190,7 @@ const ListForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = { name, character, userId, payload };
-
+    console.log(data, "<<<<<<<<<<<<<< this is the data");
     try {
       await setShowLoading(true);
       await setDisableBtn(true);

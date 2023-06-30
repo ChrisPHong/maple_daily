@@ -6,6 +6,7 @@ const CLEAR_LISTS = "lists/CLEAR";
 const ERROR_LIST = "lists/ERROR";
 const UPDATE_LIST = "lists/UPDATE";
 const GET_EDIT_LIST = "lists/GET_EDIT_LIST";
+const EDIT_LIST = "lists/EDIT_LIST";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -54,6 +55,12 @@ export const updateListInfo = (list) => {
 export const getEditList = (list) => {
   return {
     type: GET_EDIT_LIST,
+    list,
+  };
+};
+export const editList = (list) => {
+  return {
+    type: EDIT_LIST,
     list,
   };
 };
@@ -109,20 +116,31 @@ export const updateList = (data) => async (dispatch) => {
     return list;
   }
 };
+
+export const editingList = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/lists/${data.listId}/edit`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const list = await response.json();
+    dispatch(editList(list));
+    return list;
+  }
+};
+
 export const clearingSession = (data) => async (dispatch) => {
   dispatch(clearSession());
   return {};
 };
 
 export const getEditLists = (data) => async (dispatch) => {
-  console.log(parseInt(data.id), "<<<<< what is the data");
-  const res = await csrfFetch(
-    `/api/lists/${parseInt(data.id)}/${data.userId}/update`,
-    {
-      method: "GET",
-    }
-  );
-  console.log(res, "<<<<<<<<<<<<<<<<<<<< RES");
+  const res = await csrfFetch(`/api/lists/editingList/${data.listId}/maple`, {
+    method: "GET",
+  });
+
   if (res.ok) {
     const list = await res.json();
     dispatch(getEditList(list));
@@ -324,7 +342,11 @@ const listReducer = (state = initialState, action) => {
         newState.list[0].Tasks[time][ctgy][cmplt][action.task.id] = action.task;
       }
       return newState;
+    case EDIT_LIST:
+      newState = { ...state };
+      newState.editingList = action.list;
 
+      return newState;
     case EDIT_TASK:
       newState = { ...state };
       const x = action.task.resetTime;

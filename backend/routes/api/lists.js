@@ -293,34 +293,68 @@ router.put(
   })
 );
 
-// router.put(
-//   "/:listId/edit",
-//   requireAuth,
-//   asyncHandler(async (req, res) => {
-//     const id = req.params();
-//     const pastList = await List.findByPk(id, { include: Task });
-//   })
-// );
+/*
+- any task that does not contain a listId is a new task that must be created
+- if it does contain a listId then we must query for the same task in the database based on the task's id
+  - if the database queried task's objective matches the sent in data's objective, then we do not do anything
+  - if they don't match, we must update the database task with the new input and save it
+  - we will create two loops,
+    - first loop on the incoming payload will create the new tasks that do not have a listId
+    - second loop, on the database tasks, if is not present within the payload, then we must delete that task
+      - maybe, during the first loop, we can create a set with the task id's and check to see if the task id is present, if it is not, then we delete that task from the database
 
-router.get(
-  "/:listId/:userId/update",
+*/
+router.put(
+  "/:listId/edit",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const id = parseInt(req.params.listId);
-    const userId = parseInt(req.params.userId);
-    // const pastList = await List.findOne({
-    //   where: { id, userId: userId },
-    //   include: { model: Task },
-    // });
-    const pastList = await List.findOne({
-      where: { id },
+    const id = req.params.listId;
+    const { name, userId, payload, listId } = req.body;
+    const list = await List.findByPk(id, { include: Task });
+    list.name = name;
+
+    const tasks = list.Tasks;
+    const payloadTasks = Object.values(payload);
+
+    const set = new Set();
+    for (let obj of payloadTasks) {
+      if (!obj.listId) {
+        const { resetTime, category, bossNames } = obj;
+
+        Task.create({
+          userId,
+          listId,
+          resetTime,
+          category,
+          objective: bossNames,
+        });
+      } else {
+        set.add(obj.id);
+      }
+    }
+
+    for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i].dataValues;
+      if (!set.has(task.id)) {
+        const delTask = await Task.findByPk(task.id);
+        delTask.destroy();
+      }
+    }
+    await list.save();
+    return res.json(list);
+  })
+);
+
+router.get(
+  "/editingList/:listId/maple",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const listId = parseInt(req.params.listId);
+
+    const list = await List.findByPk(listId, {
       include: { model: Task },
     });
-    console.log(userId, "<<<<<< what is this >>>>>>");
-
-    console.log(pastList, "<<<<<<<<<<<<<<<< WHAT IS THIS LIST?!?!?!");
-    return res.json(pastList);
-    // return res.json.message("Hello There");
+    return res.json(list);
   })
 );
 
