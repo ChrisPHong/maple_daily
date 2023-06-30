@@ -11,6 +11,7 @@ import DashBoardLists from "./components/Lists/DashBoardLists";
 import TaskForm from "./components/Tasks/TaskForm";
 import UsersLists from "./components/Lists/Lists";
 import EditFormList from "./components/Lists/EditList";
+import SignupFormPage from './components/SignupFormPage'
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route exact path="/CreateList">
           <ListForm />
+        </Route>
+        <Route exact path="/signup">
+          <SignupFormPage />
         </Route>
       </Switch>
 
