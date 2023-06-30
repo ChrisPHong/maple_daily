@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import DeleteList from "../DeleteList";
 import TaskForm from "../../Tasks/TaskForm";
 import TasksList from "../../Tasks/Tasks";
+import ConfirmationBoxModal from "../../ConfirmationBoxModal";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom";
 import { getOneList, updateList } from "../../../store/list.js";
@@ -66,22 +67,25 @@ const List = () => {
                   Server: {list?.server}
                 </span>
               </div>
-              <DeleteList id={list?.id} />
-              <button
-                onClick={() => {
-                  history.push(`/lists/${list?.id}/edit`);
-                }}
-              >
-                Add Tasks
-              </button>
-              <button
-                className="update-btn"
-                onClick={() => {
-                  updateInfo();
-                }}
-              >
-                Update Your Character
-              </button>
+              <div className="list-multi-purpose-container">
+                <ConfirmationBoxModal id={list?.id} />
+                {/* <DeleteList id={list?.id} /> */}
+                <button
+                  onClick={() => {
+                    history.push(`/lists/${list?.id}/edit`);
+                  }}
+                >
+                  Add Tasks
+                </button>
+                <button
+                  className="update-btn"
+                  onClick={() => {
+                    updateInfo();
+                  }}
+                >
+                  Update Your Character
+                </button>
+              </div>
             </div>
             <div className="tasks-container">
               {list?.Tasks ? <TasksList props={list?.Tasks} /> : <></>}
