@@ -41,7 +41,7 @@ const ChangeOrder = ({ lists, setShowChangeOrder, showChangeOrder }) => {
     dragItem.current = null;
     dragOverItem.current = null;
     //update the actual array
-    // console.log(dragItem, "<<<<, dragItem");
+
     setNames(copiedList);
     dispatch(sortList(copiedList));
   };
