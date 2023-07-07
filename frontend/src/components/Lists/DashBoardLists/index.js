@@ -9,9 +9,7 @@ import "./Lists.css";
 
 const DashBoardLists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
-  const lists = useSelector((state) =>
-    Object.values(state?.listReducer?.lists)
-  );
+  const lists = useSelector((state) => state?.listReducer?.changeList);
   const listCheck = useSelector((state) => state?.listReducer?.lists);
 
   const dispatch = useDispatch();
@@ -23,10 +21,8 @@ const DashBoardLists = () => {
     }
   }, [dispatch, userId]);
 
-  const [fullList, setFullList] = useState([]);
   const [mainList, setMainList] = useState([]);
   const [index, setIndex] = useState(0);
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (listCheck) {
@@ -45,7 +41,6 @@ const DashBoardLists = () => {
       j += 12;
     }
 
-    setFullList(result);
     setMainList(result[idx]);
   };
 
@@ -61,9 +56,7 @@ const DashBoardLists = () => {
       return;
     }
   };
-  const showCharacterInfo = () => {
-    setShow(!show);
-  };
+
   return (
     <div className="Dashboard-page">
       <div className="All-lists-Container">

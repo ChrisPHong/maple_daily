@@ -6,6 +6,28 @@ body {
 
 .dashboard-Container-app {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+}
+
+.changeOrder-button {
+  background: linear-gradient(to bottom, #ffdd6e, #ffa600);
+
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px black;
+  color: white;
+  font-family: sans-serif;
+}
+
+.changeOrder-button:hover {
+  cursor: pointer;
+}
+
+.changeOrder-button:active {
+  background: linear-gradient(to bottom, #e7c863, #ac7000);
+
+
 }

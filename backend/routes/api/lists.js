@@ -5,10 +5,8 @@ const asyncHandler = require("express-async-handler");
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 
-const { List, Task } = require("../../db/models");
+const { List, Task, sequelize } = require("../../db/models");
 const axios = require("axios");
-// const { Op } = require("Sequelize");
-const Op = require("sequelize");
 
 const router = express.Router();
 
@@ -85,7 +83,6 @@ const sortingTasks = (list) => {
           );
         }
       }
-      // updatedTasks[task.id] = Object.assign({}, task.get());
     });
 
     updatedList.Tasks = updatedTasks;
@@ -105,9 +102,11 @@ router.get(
     const lists = await List.findAll({
       where: { userId: userId },
       include: { model: Task },
+      order: sequelize.col("orderBy"),
     });
 
     const updatedLists = await sortingLists(lists);
+
     return res.json(updatedLists);
   })
 );
@@ -245,6 +244,22 @@ router.get(
     });
     const updatedList = await sortingLists([list]);
     return res.json(updatedList);
+  })
+);
+
+router.put(
+  "/changeOrder/:userId",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const { lists } = req.body;
+
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      const oldList = await List.findByPk(list.id);
+      oldList.orderBy = i + 1;
+      oldList.save();
+    }
+    return res.json(lists);
   })
 );
 
