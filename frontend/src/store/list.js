@@ -448,7 +448,15 @@ const listReducer = (state = initialState, action) => {
       return newState;
 
     case CLEAR_LISTS:
-      return { lists: {}, list: {}, isLoading: false };
+      return {
+        lists: {},
+        list: {},
+        isLoading: false,
+        editingList: {},
+        errors: {},
+        changeList: [],
+        storeChangeList: [],
+      };
     default:
       return state;
   }

@@ -26,17 +26,34 @@
 .update-btn {
   margin-top: 8px;
   cursor: pointer;
-  background-color: aquamarine;
+  background: linear-gradient(to bottom, #ffdd6e, #ffa600);
   border-radius: 5px;
   box-shadow: 0px 0px 3px black;
   font-family: sans-serif;
   font-weight: bold;
+  color: white;
+  padding: 5px 10px;
+}
+.update-btn:active {
+  background: linear-gradient(to bottom, #e7c863, #c47f00);
 }
 
+.list-multi-purpose-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
 
-.list-multi-purpose-container{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+.edit-list-button {
+  margin-top: 8px;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px black;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: white;
+  padding: 10px 15px;
 }

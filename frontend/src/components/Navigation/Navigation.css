@@ -30,6 +30,7 @@
   align-items: center;
   margin: 0px 10px;
   padding-right: 10px;
+  text-decoration: none;
 }
 
 .farthest-right {
@@ -38,4 +39,19 @@
 
 .logo-container:hover {
   cursor: pointer;
+}
+
+.navlink-span {
+  font-family: sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+.active {
+  font-weight: bold;
+  color: white;
+  font-family: sans-serif;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 8px;
 }

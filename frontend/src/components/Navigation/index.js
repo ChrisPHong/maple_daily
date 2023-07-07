@@ -24,20 +24,17 @@ function Navigation({ isLoaded }) {
 
         <div className="Nav-right-container">
           <div className="nav-Link-Div">
-            <NavLink exact to="/">
+            <NavLink className='navlink-span' exact to="/">
               Home
             </NavLink>
           </div>
           <div className="nav-Link-Div">
-            <NavLink exact to="/About">
+            <NavLink className='navlink-span' exact to="/About">
               About
             </NavLink>
           </div>
-          {/* <div className="nav-Link-Div">
-            <NavLink to="/lists">Lists</NavLink>
-          </div> */}
           <div className="nav-Link-Div">
-            <NavLink exact to="/createlist">
+            <NavLink className='navlink-span' exact to="/createlist">
               Create List
             </NavLink>
           </div>
@@ -62,21 +59,21 @@ function Navigation({ isLoaded }) {
 
           <div className="Nav-right-container">
             <div className="nav-Link-Div">
-              <NavLink exact to="/">
+              <NavLink className='navlink-span' exact to="/">
                 Home
               </NavLink>
             </div>
             <div className="nav-Link-Div">
-              <NavLink exact to="/About">
+              <NavLink className='navlink-span' exact to="/About">
                 About
               </NavLink>
             </div>
             <div className="nav-Link-Div">
-              <NavLink to="/signup">Sign Up</NavLink>
+              <NavLink className='navlink-span' to="/signup">Sign Up</NavLink>
             </div>
             <div className="nav-Link-Div farthest-right">
               <LoginFormModal />
-              <NavLink to="/login">Login</NavLink>
+              <NavLink className='navlink-span' to="/login">Login</NavLink>
             </div>
           </div>
         </div>

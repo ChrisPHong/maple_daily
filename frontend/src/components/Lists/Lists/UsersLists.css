@@ -2,11 +2,14 @@
   margin-top: 90px;
   display: flex;
   flex-direction: column;
-  max-width: 300px;
   border: none;
   max-height: 500px;
   overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid rgba(136, 136, 136, 0.753);
+  border-radius: 10px;
 }
+
 
 .list-character-div {
   margin: 0px;
@@ -15,11 +18,12 @@
 .listName-button-container {
   display: flex;
   flex-direction: row;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   border: 1px solid black;
   justify-content: space-between;
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
   transition-duration: 0.4s;
+  width: 300px;
 }
 .listName-button-container:hover {
   cursor: pointer;
