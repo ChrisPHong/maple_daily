@@ -57,7 +57,7 @@ function App() {
           </div>
         </Route>
         <Route exact path="/lists/:listId">
-          <div className="dashboard-Container-app">
+          <div className="single-list-Div">
             <List />
             <UsersLists />
           </div>
