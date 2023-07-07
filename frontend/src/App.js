@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
@@ -8,15 +8,20 @@ import List from "./components/Lists/List";
 import Footer from "./components/Footer";
 import ListForm from "./components/Lists/ListForm";
 import DashBoardLists from "./components/Lists/DashBoardLists";
-import TaskForm from "./components/Tasks/TaskForm";
 import UsersLists from "./components/Lists/Lists";
 import EditFormList from "./components/Lists/EditList";
-import SignupFormPage from './components/SignupFormPage'
+import SignupFormPage from "./components/SignupFormPage";
+import ChangeOrder from "./components/ChangeOrder";
+import { storingChangeList } from "./store/list";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
+  const [showChangeOrder, setShowChangeOrder] = useState(false);
+
+  const lists = useSelector((state) =>
+    Object.values(state?.listReducer?.changeList)
+  );
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -28,11 +33,28 @@ function App() {
         <Route exact path="/">
           <div className="dashboard-Container-app">
             <DashBoardLists />
-            {/* <UsersLists /> */}
+            <button
+              className="changeOrder-button"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowChangeOrder(!showChangeOrder);
+                if (!showChangeOrder) {
+                  dispatch(storingChangeList({ lists, type: "open" }));
+                } else {
+                  dispatch(storingChangeList({ lists, type: "close" }));
+                }
+              }}
+            >
+              Change Order
+            </button>
+            {showChangeOrder ? (
+              <ChangeOrder
+                lists={lists}
+                setShowChangeOrder={setShowChangeOrder}
+                showChangeOrder={showChangeOrder}
+              />
+            ) : null}
           </div>
-        </Route>
-        <Route exact path="/lists">
-          {/* <CreateAListsComponenet /> */}
         </Route>
         <Route exact path="/lists/:listId">
           <div className="dashboard-Container-app">
@@ -50,17 +72,6 @@ function App() {
           <SignupFormPage />
         </Route>
       </Switch>
-
-      {/* {isLoaded && (
-        <Switch>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-        </Switch>
-      )} */}
       <Footer />
     </>
   );

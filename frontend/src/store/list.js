@@ -7,6 +7,9 @@ const ERROR_LIST = "lists/ERROR";
 const UPDATE_LIST = "lists/UPDATE";
 const GET_EDIT_LIST = "lists/GET_EDIT_LIST";
 const EDIT_LIST = "lists/EDIT_LIST";
+const SORT_LIST = "lists/SORTING_LIST";
+const SORT_UPDATE_LIST = "lists/SORT_UPDATE_LIST";
+const STORE_CHANGE_LIST = "lists/STORE_CHANGE_LIST";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -65,6 +68,25 @@ export const editList = (list) => {
   };
 };
 
+export const sortList = (lists) => {
+  return {
+    type: SORT_LIST,
+    lists,
+  };
+};
+export const sortUpdateList = (lists) => {
+  return {
+    type: SORT_UPDATE_LIST,
+    lists,
+  };
+};
+export const storingChangeList = (lists) => {
+  return {
+    type: STORE_CHANGE_LIST,
+    lists,
+  };
+};
+
 export const createListForm = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/lists/`, {
     method: "POST",
@@ -114,6 +136,19 @@ export const updateList = (data) => async (dispatch) => {
     const list = await response.json();
     dispatch(updateListInfo(list));
     return list;
+  }
+};
+export const sortUpdatingList = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/lists/changeOrder/${data.userId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const lists = await response.json();
+    dispatch(sortUpdateList(lists));
+    return lists;
   }
 };
 
@@ -263,6 +298,8 @@ const initialState = {
   list: {},
   editingList: {},
   errors: {},
+  changeList: [],
+  storeChangeList: [],
   isLoading: true,
 };
 
@@ -289,11 +326,10 @@ const listReducer = (state = initialState, action) => {
         lists: {},
       };
       const { lists } = action;
-
       lists.map((list) => {
         return (newState.lists[list.id] = list);
       });
-
+      newState.changeList = lists;
       return newState;
 
     case DELETE_LIST:
@@ -346,6 +382,22 @@ const listReducer = (state = initialState, action) => {
       newState = { ...state };
       newState.editingList = action.list;
 
+      return newState;
+    case SORT_LIST:
+      newState = { ...state };
+      newState.changeList = action.lists;
+      return newState;
+    case SORT_UPDATE_LIST:
+      newState = { ...state };
+      newState.lists = action.lists;
+      return newState;
+    case STORE_CHANGE_LIST:
+      newState = { ...state };
+      if (action.lists.type === "open") {
+        newState.storeChangeList = action.lists.lists;
+      } else {
+        newState.changeList = newState.storeChangeList;
+      }
       return newState;
     case EDIT_TASK:
       newState = { ...state };

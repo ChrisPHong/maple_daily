@@ -1,0 +1,77 @@
+.change-order-container {
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.draggable {
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid black;
+  cursor: move;
+}
+
+.changeOrderForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.changeOrder-btn-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.character-drag-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aquamarine;
+  background: linear-gradient(aquamarine, blue);
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  max-height: 100px;
+  padding: 0px 10px;
+  border-radius: 5px;
+}
+
+.characterImage-drag {
+  /* display: flex;
+  flex-direction: column; */
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: initial;
+  /* background-size: cover; */
+  width: 100px;
+  height: 60px;
+}
+
+.drag-list-name {
+  color: white;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.cancel-drag-btn {
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px black;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  color: white;
+  font-family: sans-serif;
+}
+
+.submit-drag-btn {
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px black;
+  background: linear-gradient(to bottom, #ff6a93, #d62e62);
+  color: white;
+  font-family: sans-serif;
+}

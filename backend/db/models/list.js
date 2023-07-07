@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       characterClass: DataTypes.STRING,
       server: DataTypes.STRING,
       level: DataTypes.STRING,
+      orderBy: DataTypes.INTEGER,
     },
     {
       sequelize,
