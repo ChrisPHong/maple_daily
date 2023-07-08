@@ -58,7 +58,13 @@ const DailyCountDown = ({ props }) => {
 
     if (hours <= 3) {
       return (
-        <span style={{ color: "red ", fontWeight: "bold" }}>
+        <span
+          style={{
+            color: "red ",
+            fontWeight: "bold",
+            textShadow: "1px 1px 2px black",
+          }}
+        >
           {`${hours.toString().padStart(2, "0")} H ${minutes
             .toString()
             .padStart(2, "0")} M ${seconds.toString().padStart(2, "0")} S`}
@@ -66,7 +72,12 @@ const DailyCountDown = ({ props }) => {
       );
     } else {
       return (
-        <span style={{ color: "black ", fontWeight: "bold" }}>
+        <span
+          style={{
+            color: "black ",
+            fontWeight: "bold",
+          }}
+        >
           {`${hours.toString().padStart(2, "0")} H  ${minutes
             .toString()
             .padStart(2, "0")} M ${seconds.toString().padStart(2, "0")} S`}

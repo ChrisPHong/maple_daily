@@ -1,6 +1,5 @@
 .All-lists-Container {
   margin-top: 90px;
-  /* justify-content: center; */
   position: relative;
 }
 
@@ -56,11 +55,17 @@
 }
 .displayButton:hover {
   cursor: pointer;
-  background-color: blue;
+  color: rgb(78, 78, 78);
+}
+.displayButton:active {
+  color: rgb(34, 34, 34);
 }
 
 .character-list-btn {
-  background-color: burlywood;
+  background: linear-gradient(rgb(255, 210, 152), rgb(231, 156, 57));
+
+  /* background: linear-gradient(burlywood, rgb(221, 136, 24)); */
+
   border-radius: 25px;
   padding: 10px 20px;
   font-weight: bold;
@@ -70,15 +75,25 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
+  box-shadow: 0px 0px 5px black;
+}
+.character-list-btn:hover {
+  cursor: pointer;
+  background: linear-gradient(rgb(238, 197, 143), rgb(209, 141, 51));
+}
+.character-list-btn:active {
+  background: linear-gradient(burlywood, rgb(221, 136, 24));
 }
 .plus-sign {
+  color: rgb(255, 238, 6);
   font-size: 30px;
 }
 .CC-btn-div {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 5px;
 }
 
 .character-button-div {

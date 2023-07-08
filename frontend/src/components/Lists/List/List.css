@@ -15,7 +15,6 @@
   border-radius: 25px 25px;
   color: black;
   font-weight: bold;
-  /* background-color: rgba(18, 59, 94, 0.76); */
 }
 
 .image-character {
@@ -35,7 +34,10 @@
   padding: 5px 10px;
 }
 .update-btn:active {
-  background: linear-gradient(to bottom, #e7c863, #c47f00);
+  background: linear-gradient(to bottom, #b9a14f, #976200);
+}
+.update-btn:hover {
+  background: linear-gradient(to bottom, #f0d067, #db8f01);
 }
 
 .list-multi-purpose-container {
@@ -56,4 +58,13 @@
   font-weight: bold;
   color: white;
   padding: 10px 15px;
+  transition-duration: 2s;
+  transition-property: background;
+}
+
+.edit-list-button:hover {
+  background: linear-gradient(to bottom, #5ac1d3, #016aa7);
+}
+.edit-list-button:active {
+  background: linear-gradient(to bottom, #4ea8b8, #015586);
 }

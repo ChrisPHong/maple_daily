@@ -1,5 +1,3 @@
-
-
 .confirmationBoxModal-btn {
   background: linear-gradient(to bottom, #ff6a93, #d62e62);
   margin-top: 8px;
@@ -12,6 +10,9 @@
   padding: 10px 15px;
 }
 
-.confirmationBoxModal-btn:active {
+.confirmationBoxModal-btn:hover {
   background: linear-gradient(to bottom, #e76086, #be2958);
+}
+.confirmationBoxModal-btn:active {
+  background: linear-gradient(to bottom, #c55272, #922044);
 }

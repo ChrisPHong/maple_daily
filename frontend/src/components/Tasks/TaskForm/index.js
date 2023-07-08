@@ -42,7 +42,13 @@ const TaskForm = ({ props }) => {
           {show
             ? error.map((error, idx) => {
                 return (
-                  <div style={{ color: "red", fontWeight: "bold" }} key={idx}>
+                  <div
+                    style={{
+                      color: "red",
+                      fontWeight: "bold",
+                    }}
+                    key={idx}
+                  >
                     {error}
                   </div>
                 );
