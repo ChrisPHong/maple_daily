@@ -190,7 +190,7 @@ const ListForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const data = { name, character, userId, payload };
-    console.log(data, "<<<<<<<<<<<<<< this is the data");
+
     try {
       await setShowLoading(true);
       await setDisableBtn(true);
@@ -324,7 +324,7 @@ const ListForm = () => {
             </button>
             <button
               disabled={disableBtn}
-              className={`submit-btn ${btnPressed ? "pressed" : ""} `}
+              className={`submit-btn ${btnPressed ? "pressed" : ""}`}
               onClick={onSubmit}
               onMouseDown={handleButtonPress}
               onMouseUp={handleButtonRelease}
@@ -558,22 +558,24 @@ const ListForm = () => {
                 </>
               ) : null}
             </div>
-            {/* Old Submit Button */}
           </div>
           <div className="right-container">
-            <div className="title-ul-div">
-              <span className="container-title-right">You've Clicked On:</span>
-              <ul className="ul-container">
-                {keys &&
-                  keys.map((key) => {
-                    return <li className="li-listForm">{key}</li>;
-                  })}
-              </ul>
+            {/* <div className="title-ul-div"> */}
+            <span className="container-title-right">Added Tasks:</span>
+            <div className="ul-container">
+              {keys &&
+                keys.map((key) => {
+                  return (
+                    <div key={key} className="li-listForm">
+                      {key}
+                    </div>
+                  );
+                })}
             </div>
+            {/* </div> */}
           </div>
         </div>
       </form>
-      )
     </div>
   );
 };

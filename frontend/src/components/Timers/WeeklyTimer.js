@@ -69,7 +69,12 @@ const WeeklyCountDown = ({ props }) => {
       );
     } else {
       return (
-        <span style={{ color: "black ", fontWeight: "bold" }}>
+        <span
+          style={{
+            color: "black ",
+            fontWeight: "bold",
+          }}
+        >
           {`${days} D ${hours.toString().padStart(2, "0")} H ${minutes
             .toString()
             .padStart(2, "0")} M ${seconds.toString().padStart(2, "0")} S`}

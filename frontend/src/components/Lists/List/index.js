@@ -69,13 +69,13 @@ const List = () => {
               </div>
               <div className="list-multi-purpose-container">
                 <ConfirmationBoxModal id={list?.id} />
-                {/* <DeleteList id={list?.id} /> */}
                 <button
+                  className="edit-list-button"
                   onClick={() => {
                     history.push(`/lists/${list?.id}/edit`);
                   }}
                 >
-                  Add Tasks
+                  Edit List
                 </button>
                 <button
                   className="update-btn"

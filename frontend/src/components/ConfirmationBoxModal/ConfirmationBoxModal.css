@@ -1,5 +1,18 @@
-.modal-container{
-/* border-radius: 10px;
-padding: 10px;
-border: 2px solid red; */
+.confirmationBoxModal-btn {
+  background: linear-gradient(to bottom, #ff6a93, #d62e62);
+  margin-top: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px black;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: white;
+  padding: 10px 15px;
+}
+
+.confirmationBoxModal-btn:hover {
+  background: linear-gradient(to bottom, #e76086, #be2958);
+}
+.confirmationBoxModal-btn:active {
+  background: linear-gradient(to bottom, #c55272, #922044);
 }

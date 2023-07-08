@@ -40,10 +40,6 @@
   background-color: #3bcc64;
   color: white;
 }
-.active {
-  background-color: #3bcc64;
-  color: white;
-}
 
 .tite-btn {
   display: inline-block;
@@ -163,18 +159,22 @@
   font-family: sans-serif;
   font-weight: bold;
   list-style: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 5px;
-  width: max-content;
+  padding: 5px 10px;
+  width: -webkit-fill-available;
+  background-color: #f1f1f1;
+}
+.li-listForm:nth-child(even) {
+  background-color: rgba(148, 148, 148, 0.432);
 }
 
 .right-container {
   border: 1px solid black;
   border-radius: 5px;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  /* max-height: 400px;
+  overflow-y: scroll; */
+  height: fit-content;
 }
 
 .container-title-right {
@@ -192,8 +192,10 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 .title-ul-div {
   display: flex;
@@ -205,6 +207,7 @@
 .left-container {
   display: flex;
   flex-direction: column;
+  width: fit-content;
 }
 
 .error-container {

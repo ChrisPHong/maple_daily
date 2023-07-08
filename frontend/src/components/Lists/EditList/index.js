@@ -328,7 +328,7 @@ const EditFormList = () => {
               onMouseDown={handleButtonPress}
               onMouseUp={handleButtonRelease}
             >
-              Submit
+              Save Changes
             </button>
           </div>
 
