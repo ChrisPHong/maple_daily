@@ -13,7 +13,7 @@ import EditFormList from "./components/Lists/EditList";
 import SignupFormPage from "./components/SignupFormPage";
 import ChangeOrder from "./components/ChangeOrder";
 import { storingChangeList } from "./store/list";
-
+import MapleNews from "./components/MapleNews";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,7 +32,6 @@ function App() {
       <Switch>
         <Route exact path="/">
           <div className="dashboard-Container-app">
-            <DashBoardLists />
             <button
               className="changeOrder-button"
               onClick={(e) => {
@@ -54,6 +53,7 @@ function App() {
                 showChangeOrder={showChangeOrder}
               />
             ) : null}
+            <DashBoardLists />
           </div>
         </Route>
         <Route exact path="/lists/:listId">

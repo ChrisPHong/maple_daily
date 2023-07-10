@@ -2,18 +2,23 @@
 
 body {
   margin: 0px;
+  background: linear-gradient(to bottom, #28313b, #485461);
+  /* background: linear-gradient(to bottom, #e0d2c7, #44b09e); */
 }
 
 .dashboard-Container-app {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 100px;
 }
 
 .changeOrder-button {
   background: linear-gradient(to bottom, #ffdd6e, #ffa600);
-
+  /* position: absolute;
+  top: 100px;
+  left: 10px; */
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 5px;
