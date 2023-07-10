@@ -273,6 +273,7 @@ router.put(
     const oldList = await List.findByPk(listId, { include: Task });
     try {
       // Wrap the axios request in a Promise and await it
+
       const axiosResponse = await new Promise((resolve, reject) => {
         axios
           .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)

@@ -212,7 +212,7 @@ const EditFormList = () => {
       await setShowLoading(true);
       await setDisableBtn(true);
       await dispatch(editingList(data));
-      await history.push("/");
+      await history.push(`/lists/${listId}`);
     } catch (error) {
       const { message } = await error.json();
       setError([message]);

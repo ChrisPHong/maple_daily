@@ -6,6 +6,7 @@ import ConfirmationBoxModal from "../../ConfirmationBoxModal";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom";
 import { getOneList, updateList } from "../../../store/list.js";
+import Loading from "../../Loading";
 import "./List.css";
 
 const List = () => {
@@ -17,6 +18,7 @@ const List = () => {
   const history = useHistory();
 
   const [show, setShow] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
   useEffect(() => {
     if (userId) {
       const payload = { listId, userId };
@@ -27,12 +29,17 @@ const List = () => {
   const updateInfo = async () => {
     const payload = {
       character: list[0].character,
-      id: listId,
+      id: Number(listId),
     };
+
+    await setShowLoading(true);
     await dispatch(updateList(payload));
+    await setShowLoading(false);
   };
 
-  return (
+  return showLoading ? (
+    <Loading />
+  ) : (
     <div className="list-container">
       <div>
         <button

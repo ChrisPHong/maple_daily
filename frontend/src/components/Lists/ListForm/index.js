@@ -3,7 +3,6 @@ import { createListForm } from "../../../store/list.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
-import Categories from "../categories/index.js";
 import "./ListForm.css";
 import Loading from "../../Loading/index.js";
 
