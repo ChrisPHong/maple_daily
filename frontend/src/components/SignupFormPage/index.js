@@ -32,7 +32,7 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="top-container">
+    <div className="Submit-container">
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (

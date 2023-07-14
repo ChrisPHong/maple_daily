@@ -27,7 +27,6 @@ const ListForm = () => {
   const [btnPressed, setBtnPressed] = useState(false);
   const [error, setError] = useState([]);
   const [showLoading, setShowLoading] = useState(false);
-  const keys = Object.keys(payload).reverse();
 
   const userId = useSelector((state) => state.session.user?.id);
   const names = useSelector((state) => state.listReducer.lists);
@@ -557,21 +556,6 @@ const ListForm = () => {
                 </>
               ) : null}
             </div>
-          </div>
-          <div className="right-container">
-            {/* <div className="title-ul-div"> */}
-            <span className="container-title-right">Added Tasks:</span>
-            <div className="ul-container">
-              {keys &&
-                keys.map((key) => {
-                  return (
-                    <div key={key} className="li-listForm">
-                      {key}
-                    </div>
-                  );
-                })}
-            </div>
-            {/* </div> */}
           </div>
         </div>
       </form>
