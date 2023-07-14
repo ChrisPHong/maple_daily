@@ -14,6 +14,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import ChangeOrder from "./components/ChangeOrder";
 import { storingChangeList } from "./store/list";
 import MapleNews from "./components/MapleNews";
+import LoginFormPage from "./components/LoginFormPage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -70,6 +71,9 @@ function App() {
         </Route>
         <Route exact path="/signup">
           <SignupFormPage />
+        </Route>
+        <Route exact path="/login">
+          <LoginFormPage />
         </Route>
       </Switch>
       <Footer />

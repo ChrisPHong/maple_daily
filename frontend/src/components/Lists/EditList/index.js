@@ -26,7 +26,6 @@ const EditFormList = () => {
   const [btnPressed, setBtnPressed] = useState(false);
   const [error, setError] = useState([]);
   const [showLoading, setShowLoading] = useState(false);
-  const keys = Object.keys(payload).reverse();
   const { listId } = useParams();
 
   const userId = useSelector((state) => state?.session?.user?.id);
@@ -557,22 +556,6 @@ const EditFormList = () => {
                   </div>
                 </>
               ) : null}
-            </div>
-            {/* Old Submit Button */}
-          </div>
-          <div className="right-container">
-            <div className="title-ul-div">
-              <span className="container-title-right">Tasks:</span>
-              <ul className="ul-container">
-                {keys &&
-                  keys.map((key, idx) => {
-                    return (
-                      <li key={key} className="li-listForm">
-                        {key}
-                      </li>
-                    );
-                  })}
-              </ul>
             </div>
           </div>
         </div>
