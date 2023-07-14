@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const { Op } = require("sequelize");
 
 const { List, Task, sequelize } = require("../../db/models");
 const axios = require("axios");
@@ -116,10 +117,13 @@ router.post(
   requireAuth,
   asyncHandler(async (req, res) => {
     const { character, userId } = req.body;
+
     const foundOne = await List.findOne({
       where: {
         userId,
-        character,
+        character: {
+          [Op.iLike]: character,
+        },
       },
     });
 
@@ -157,108 +161,113 @@ router.post(
   "/",
   validateSignup,
   asyncHandler(async (req, res) => {
-    const { userId, name, character, payload } = req.body;
+    const {
+      userId,
+      apiContent,
+      characterClass,
+      server,
+      level,
+      name,
+      character,
+      payload,
+    } = req.body;
 
-    let apiContent;
     let list;
-    let characterClass;
-    let server;
-    let level;
 
     // Checks to make sure that only one list exists for each character
-    const foundOne = await List.findOne({
-      where: {
-        userId,
-        character,
-      },
+    // const foundOne = await List.findOne({
+    //   where: {
+    //     userId,
+    //     character,
+    //   },
+    // });
+
+    // if (foundOne) {
+    //   return res.status(400).json({
+    //     message:
+    //       "This character already exists in your lists. Please choose a different character",
+    //   });
+    // }
+
+    // try {
+    //   // Wrap the axios request in a Promise and await it
+    //   const axiosResponse = await new Promise((resolve, reject) => {
+    //     axios
+    //       .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
+    //       .then((response) => {
+    //         resolve(response);
+    //       })
+    //       .catch((error) => {
+    //         reject(error);
+    //         return error;
+    //       });
+    //   });
+
+    // Handle the axios response
+    // apiContent = axiosResponse.data.CharacterData.CharacterImageURL;
+    // characterClass = axiosResponse.data.CharacterData.Class;
+    // server = axiosResponse.data.CharacterData.Server;
+    // level = axiosResponse.data.CharacterData.Level;
+
+    // Create the list
+    list = await List.create({
+      userId,
+      name,
+      character,
+      apiContent,
+      characterClass,
+      server,
+      level,
     });
 
-    if (foundOne) {
-      return res.status(400).json({
-        message:
-          "This character already exists in your lists. Please choose a different character",
-      });
-    }
+    const listId = list.dataValues.id;
 
-    try {
-      // Wrap the axios request in a Promise and await it
-      const axiosResponse = await new Promise((resolve, reject) => {
-        axios
-          .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-            return error;
-          });
-      });
-
-      // Handle the axios response
-      apiContent = axiosResponse.data.CharacterData.CharacterImageURL;
-      characterClass = axiosResponse.data.CharacterData.Class;
-      server = axiosResponse.data.CharacterData.Server;
-      level = axiosResponse.data.CharacterData.Level;
-
-      // Create the list
-      list = await List.create({
-        userId,
-        name,
-        character,
-        apiContent,
-        characterClass,
-        server,
-        level,
-      });
-
-      const listId = list.dataValues.id;
-
-      // Create an array of promises for task creation
-      const bossesNames = Object.keys(payload);
-      if (bossesNames.length > 0) {
-        const taskCreationPromises = bossesNames.map(async (bossName) => {
-          const { resetTime, category } = payload[bossName];
-          return Task.create({
-            userId,
-            listId,
-            resetTime,
-            category,
-            objective: bossName,
-          });
+    // Create an array of promises for task creation
+    const bossesNames = Object.keys(payload);
+    if (bossesNames.length > 0) {
+      const taskCreationPromises = bossesNames.map(async (bossName) => {
+        const { resetTime, category } = payload[bossName];
+        return Task.create({
+          userId,
+          listId,
+          resetTime,
+          category,
+          objective: bossName,
         });
-
-        // Wait for the list creation and all task creation promises to resolve
-        await Promise.all([list, ...taskCreationPromises]);
-
-        // Fetch the list with associated tasks after creation
-        const oneList = await List.findOne({
-          where: { id: list.id },
-          include: { model: Task },
-        });
-        // organizes the tasks into weeklies and dailies
-        const updatedList = sortingTasks(oneList);
-
-        return res.json(updatedList);
-      } else {
-        let updatedTasks = {
-          Weekly: {
-            Boss: { incomplete: {}, complete: {} },
-            Quest: { incomplete: {}, complete: {} },
-          },
-          Daily: {
-            Boss: { incomplete: {}, complete: {} },
-            Quest: { incomplete: {}, complete: {} },
-          },
-        };
-        list.Tasks = updatedTasks;
-        return res.json(list);
-      }
-    } catch (error) {
-      return res.status(500).json({
-        message:
-          "This character does not exist. Please input a character that already exists in MapleStory.",
       });
+
+      // Wait for the list creation and all task creation promises to resolve
+      await Promise.all([list, ...taskCreationPromises]);
+
+      // Fetch the list with associated tasks after creation
+      const oneList = await List.findOne({
+        where: { id: list.id },
+        include: { model: Task },
+      });
+      // organizes the tasks into weeklies and dailies
+      const updatedList = sortingTasks(oneList);
+
+      return res.json(updatedList);
+    } else {
+      let updatedTasks = {
+        Weekly: {
+          Boss: { incomplete: {}, complete: {} },
+          Quest: { incomplete: {}, complete: {} },
+        },
+        Daily: {
+          Boss: { incomplete: {}, complete: {} },
+          Quest: { incomplete: {}, complete: {} },
+        },
+      };
+      list.Tasks = updatedTasks;
+      return res.json(list);
     }
+    //   } catch (error) {
+    //     return res.status(500).json({
+    //       message:
+    //         "This character does not exist. Please input a character that already exists in MapleStory.",
+    //     });
+    //   }
   })
 );
 

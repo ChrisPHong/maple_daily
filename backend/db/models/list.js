@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   List.init(
     {
       userId: DataTypes.INTEGER,
-      name: DataTypes.STRING,
       character: DataTypes.STRING,
       apiContent: DataTypes.STRING,
       completed: DataTypes.BOOLEAN,

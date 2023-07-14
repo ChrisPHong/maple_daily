@@ -1,0 +1,46 @@
+.CheckingForm-Container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 30px 40px;
+  margin: 100px 80px 0px 80px;
+}
+
+.loading-label-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.load-character-btn {
+  width: fit-content;
+}
+
+.LoadingList-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.load-character-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  color: white;
+  /* ?  background-color: green; */
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.load-character-btn:hover {
+  background: linear-gradient(to bottom, #5cc2d4, #0176b9);
+  cursor: pointer;
+}
+.load-character-btn:active {
+  background: linear-gradient(to bottom, #4ea6b6, #005688);
+  cursor: grab;
+}

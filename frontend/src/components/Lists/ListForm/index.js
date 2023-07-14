@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createListForm } from "../../../store/list.js";
+import { checkingCharacter, createListForm } from "../../../store/list.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
@@ -29,8 +29,10 @@ const ListForm = () => {
   const [showLoading, setShowLoading] = useState(false);
 
   const userId = useSelector((state) => state.session.user?.id);
-  const names = useSelector((state) => state.listReducer.lists);
-
+  const loadingCharacter = useSelector(
+    (state) => state.listReducer?.characterCheck
+  );
+  console.log(loadingCharacter, "<<<<<<<<<<<<<< loading");
   const weeklybosses = useSelector(
     (state) => state?.bossReducer?.boss?.Weekly?.Boss
   );
@@ -187,7 +189,22 @@ const ListForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = { name, character, userId, payload };
+    const apiContent = loadingCharacter.CharacterImageURL;
+    const characterClass = loadingCharacter.Class;
+    const server = loadingCharacter.Server;
+    const level = loadingCharacter.Level;
+    const character = loadingCharacter.Name;
+    const testing = "hello";
+    const data = {
+      character,
+      apiContent,
+      characterClass,
+      server,
+      level,
+      userId,
+      payload,
+      name: testing,
+    };
 
     try {
       await setShowLoading(true);
@@ -224,52 +241,35 @@ const ListForm = () => {
     dispatch(getBosses());
   }, []);
 
+  useEffect(() => {
+    if (loadingCharacter.CharacterImageURL === undefined) {
+      const storedValue = localStorage.getItem("key");
+      const data = JSON.parse(storedValue);
+      if (!data) {
+        history.push("/LoadCharacter");
+        return;
+      }
+    }
+  }, []);
+
   return (
     <div className="top-list-container">
       {showLoading ? <Loading /> : null}
       <form>
-        <div className="character-label-container">
-          <div className="errors-container"></div>
-          <div className="all-input-container">
-            <div className="input-div">
-              <label className="input-div">
-                List Name
-                <input
-                  className="input"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                ></input>
-              </label>
-            </div>
-            <div className="input-div">
-              <label className="input-div">
-                Character
-                <input
-                  className="input"
-                  onChange={(e) => {
-                    setCharacter(e.target.value);
-                  }}
-                ></input>
-              </label>
-            </div>
-          </div>
-          {error ? (
-            <div>
-              {error.map((show, idx) => {
-                return (
-                  <div key={idx} className="error-container">
-                    {show}
-                  </div>
-                );
-              })}
-            </div>
-          ) : null}
-        </div>
+        <div className="character-label-container"></div>
 
         {/* Start of the div */}
         <div className="three-part-container">
           <div className="left-container">
+            <div className="OneCharacter-Container">
+              <div className="LoadingCharacter-backdrop">
+                <img
+                  className="loadingCharacter-img"
+                  alt="loading_character_img"
+                  src={loadingCharacter?.CharacterImageURL}
+                />
+              </div>
+            </div>
             <button
               className="tite-btn"
               onClick={(e) => {
@@ -332,6 +332,12 @@ const ListForm = () => {
           </div>
 
           <div className="all-boss-quests-container">
+            <h3 className="instructions-title">Instructions</h3>
+            <div className="instruction-div">
+              Go through each tabs to add tasks to your list! One you have all
+              the tasks you want to add, then click submit!
+            </div>
+
             {showWB ? (
               <div>
                 <button
