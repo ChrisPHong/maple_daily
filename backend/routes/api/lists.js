@@ -112,6 +112,48 @@ router.get(
 );
 
 router.post(
+  "/checkingCharacter",
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const { character, userId } = req.body;
+    const foundOne = await List.findOne({
+      where: {
+        userId,
+        character,
+      },
+    });
+
+    if (foundOne) {
+      return res.status(400).json({
+        message:
+          "This character already exists in your lists. Please choose a different character",
+      });
+    }
+
+    try {
+      // Wrap the axios request in a Promise and await it
+      const axiosResponse = await new Promise((resolve, reject) => {
+        axios
+          .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+            return error;
+          });
+      });
+      return res.json(axiosResponse.data.CharacterData);
+    } catch (error) {
+      return res.status(500).json({
+        message:
+          "This character does not exist. Please input a character that already exists in MapleStory.",
+      });
+    }
+  })
+);
+
+router.post(
   "/",
   validateSignup,
   asyncHandler(async (req, res) => {
@@ -162,7 +204,7 @@ router.post(
       list = await List.create({
         userId,
         name,
-        character: character.toLowerCase(),
+        character,
         apiContent,
         characterClass,
         server,

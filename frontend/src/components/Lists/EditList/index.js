@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { getBosses } from "../../../store/boss.js";
 import { getEditLists } from "../../../store/list.js";
 import Loading from "../../Loading/index.js";
+import "./EditList.css";
 
 const EditFormList = () => {
   const editList = useSelector((state) => state?.listReducer?.editingList);
@@ -248,7 +249,7 @@ const EditFormList = () => {
           <div className="all-input-container">
             <div className="input-div">
               <label className="input-div">
-                Change List Name
+                Edit List Name
                 <input
                   className="input"
                   value={characterName}
@@ -335,10 +336,12 @@ const EditFormList = () => {
             {showWB ? (
               <div>
                 <button
-                  className="check-btn"
+                  className={weeklyMarked ? "clicked-btn" : "check-btn"}
                   style={{
-                    backgroundColor: showWB ? "#3bcc64" : "white",
-                    color: showWB ? "white" : "black",
+                    background: weeklyMarked
+                      ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                      : "none",
+                    color: "white",
                   }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -357,10 +360,13 @@ const EditFormList = () => {
                           className="boss-btn"
                           key={boss.bossNames}
                           style={{
-                            backgroundColor: payload[boss.bossNames]
-                              ? "#3bcc64"
-                              : "transparent",
-                            color: payload[boss.bossNames] ? "white" : "black",
+                            // backgroundColor: payload[boss.bossNames]
+                            //   ? "#3bcc64"
+                            //   : "transparent",
+                            background: payload[boss.bossNames]
+                              ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                              : "none",
+                            color: "white",
                           }}
                           onClick={(e) => {
                             e.preventDefault();
@@ -399,9 +405,7 @@ const EditFormList = () => {
                                 backgroundColor: payload[boss.bossNames]
                                   ? "#3bcc64"
                                   : "transparent",
-                                color: payload[boss.bossNames]
-                                  ? "white"
-                                  : "black",
+                                color: "white",
                               }}
                               onClick={(e) => {
                                 e.preventDefault();
@@ -424,7 +428,7 @@ const EditFormList = () => {
                     className="check-btn"
                     style={{
                       backgroundColor: showRD ? "#3bcc64" : "white",
-                      color: showRD ? "white" : "black",
+                      color: "white",
                     }}
                     onClick={(e) => {
                       e.preventDefault();
@@ -445,9 +449,7 @@ const EditFormList = () => {
                               backgroundColor: payload[task.bossNames]
                                 ? "#3bcc64"
                                 : "transparent",
-                              color: payload[task.bossNames]
-                                ? "white"
-                                : "black",
+                              color: "white",
                             }}
                             onClick={(e) => {
                               e.preventDefault();
@@ -470,7 +472,7 @@ const EditFormList = () => {
                     className="check-btn"
                     style={{
                       backgroundColor: showDQ ? "#3bcc64" : "white",
-                      color: showDQ ? "white" : "black",
+                      color: "white",
                     }}
                     onClick={(e) => {
                       e.preventDefault();
@@ -492,9 +494,7 @@ const EditFormList = () => {
                                 backgroundColor: payload[task.bossNames]
                                   ? "#3bcc64"
                                   : "transparent",
-                                color: payload[task.bossNames]
-                                  ? "white"
-                                  : "black",
+                                color: "white",
                               }}
                               onClick={(e) => {
                                 e.preventDefault();
@@ -517,7 +517,7 @@ const EditFormList = () => {
                     className="check-btn"
                     style={{
                       backgroundColor: showWQ ? "#3bcc64" : "white",
-                      color: showWQ ? "white" : "black",
+                      color: "white",
                     }}
                     onClick={(e) => {
                       e.preventDefault();
@@ -539,9 +539,7 @@ const EditFormList = () => {
                                 backgroundColor: payload[quest.bossNames]
                                   ? "#3bcc64"
                                   : "transparent",
-                                color: payload[quest.bossNames]
-                                  ? "white"
-                                  : "black",
+                                color: "white",
                               }}
                               onClick={(e) => {
                                 e.preventDefault();

@@ -42,25 +42,17 @@ const List = () => {
   ) : (
     <div className="list-container">
       <div>
-        <button
-          onClick={() => {
-            setShow(!show);
-          }}
-        >
-          Create Task
-        </button>
-        <div>{list?.id}</div>
         {show ? <TaskForm props={{ listId: list[0]?.id, userId }} /> : <> </>}
       </div>
       {list.map((list) => {
         return (
-          <div className="OneList-container">
-            <div className="ListTitle">{list?.name?.toUpperCase()}</div>
+          <div className="OneProfile-Container">
             <div className="OneCharacter-Container">
               <div className="image-backdrop">
                 <img className="image-character" src={list?.apiContent} />
               </div>
               <div className="characterInfo-container">
+                <div className="ListTitle">{list?.name?.toUpperCase()}</div>
                 <span className="character-info-data">
                   Character Name: {list?.character}
                 </span>
@@ -83,6 +75,14 @@ const List = () => {
                   }}
                 >
                   Edit List
+                </button>
+                <button
+                  className="update-btn"
+                  onClick={() => {
+                    setShow(!show);
+                  }}
+                >
+                  Create Task
                 </button>
                 <button
                   className="update-btn"

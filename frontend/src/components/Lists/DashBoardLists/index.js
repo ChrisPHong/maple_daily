@@ -62,6 +62,16 @@ const DashBoardLists = () => {
   return (
     <div className="Dashboard-page">
       <div className="All-lists-Container">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+
+            indexChanger("-");
+          }}
+          className="displayButton left-btn"
+        >
+          {`<`}
+        </button>
         <div
           className="character-select-div"
           style={{
@@ -97,40 +107,30 @@ const DashBoardLists = () => {
             );
           })}
         </div>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            indexChanger("+");
+          }}
+          className="displayButton right-btn"
+        >
+          {`>`}
+        </button>
       </div>
       <div></div>
       <div className="character-button-div">
         <button
           onClick={(e) => {
             e.preventDefault();
-
-            indexChanger("-");
-          }}
-          className="displayButton"
-        >
-          {`<`}
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            history.push("/createlist");
+            history.push("/loadCharacter");
           }}
           className="character-list-btn"
         >
           <span className="plus-sign">+</span>
           <div className="CC-btn-div">
-            <span className="">Create</span>
-            <span className="">Character List</span>
+            <span className="">Add</span>
+            <span className="">Character</span>
           </div>
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            indexChanger("+");
-          }}
-          className="displayButton"
-        >
-          {`>`}
         </button>
       </div>
     </div>

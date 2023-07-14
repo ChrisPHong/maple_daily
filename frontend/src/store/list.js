@@ -10,6 +10,7 @@ const EDIT_LIST = "lists/EDIT_LIST";
 const SORT_LIST = "lists/SORTING_LIST";
 const SORT_UPDATE_LIST = "lists/SORT_UPDATE_LIST";
 const STORE_CHANGE_LIST = "lists/STORE_CHANGE_LIST";
+const CHECK_CHARACTER = "lists/CHECK_CHARACTER";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -84,6 +85,12 @@ export const storingChangeList = (lists) => {
   return {
     type: STORE_CHANGE_LIST,
     lists,
+  };
+};
+export const checkCharacter = (character) => {
+  return {
+    type: CHECK_CHARACTER,
+    character,
   };
 };
 
@@ -163,6 +170,19 @@ export const editingList = (data) => async (dispatch) => {
     const list = await response.json();
     dispatch(editList(list));
     return list;
+  }
+};
+
+export const checkingCharacter = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/lists/checkingCharacter`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const character = await response.json();
+    dispatch(checkCharacter(character));
+    return character;
   }
 };
 
@@ -298,6 +318,7 @@ const initialState = {
   list: {},
   editingList: {},
   errors: {},
+  characterCheck: {},
   changeList: [],
   storeChangeList: [],
   isLoading: true,
@@ -398,6 +419,11 @@ const listReducer = (state = initialState, action) => {
       } else {
         newState.changeList = newState.storeChangeList;
       }
+      return newState;
+    case CHECK_CHARACTER:
+      newState = { ...state };
+      console.log(action, "<<<<<<<<<<< action");
+      newState.characterCheck = action.character;
       return newState;
     case EDIT_TASK:
       newState = { ...state };

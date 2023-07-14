@@ -15,6 +15,8 @@ import ChangeOrder from "./components/ChangeOrder";
 import { storingChangeList } from "./store/list";
 import MapleNews from "./components/MapleNews";
 import LoginFormPage from "./components/LoginFormPage";
+import LoadingList from "./components/Lists/LoadingList";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,12 +61,15 @@ function App() {
         </Route>
         <Route exact path="/lists/:listId">
           <div className="single-list-Div">
-            <List />
             <UsersLists />
+            <List />
           </div>
         </Route>
         <Route exact path="/lists/:listId/edit">
           <EditFormList />
+        </Route>
+        <Route exact path="/LoadCharacter">
+          <LoadingList />
         </Route>
         <Route exact path="/CreateList">
           <ListForm />

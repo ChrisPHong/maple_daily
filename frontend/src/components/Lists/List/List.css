@@ -1,15 +1,24 @@
 .list-container {
   margin-top: 80px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Creates four equal-width columns */
-  gap: 10px; /* Adds a gap of 10px between each column */
-  padding-bottom: 20px;
+  /* display: flex;
+  flex-direction: row; */
 }
 
+.OneProfile-Container {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #d62e62; */
+  /* background-color: rgba(0, 84, 153, 0.384); */
+
+  color: white;
+}
 .OneCharacter-Container {
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   min-width: 250px;
   background: rgba(158, 158, 158, 0.671);
   border-radius: 25px 25px;
