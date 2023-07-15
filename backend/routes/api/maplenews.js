@@ -27,7 +27,6 @@ router.get(
         });
     });
 
-    console.log(axiosResponse, "<<<<<<<<<<<<<<<< this is the response");
     return res.json(axiosResponse);
   })
 );

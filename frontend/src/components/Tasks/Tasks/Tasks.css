@@ -149,6 +149,7 @@ button {
   flex-grow: 1;
   background-color: #747474;
   box-shadow: 1px 1px 20px black;
+  border-radius: 0px 0px 5px 5px;
 }
 .content {
   padding: 20px;
@@ -176,4 +177,12 @@ button {
   font-weight: bold;
   font-family: sans-serif;
   margin-top: 30px;
+}
+
+.left-tab {
+  border-radius: 5px 0px 0px 0px;
+}
+
+.right-tab {
+  border-radius: 0px 5px 0px 0px;
 }

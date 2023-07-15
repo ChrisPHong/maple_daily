@@ -1,3 +1,20 @@
 .input-div {
   color: white;
 }
+
+.clicked-btn {
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  padding: 8px 10px;
+  color: white;
+  border-radius: 5px 5px;
+  border: 1px solid grey;
+  margin: 10px;
+  background-color: transparent;
+  transition: background-color 0.4s ease;
+  border-radius: 25px 25px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

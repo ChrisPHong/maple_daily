@@ -48,7 +48,6 @@ const EditFormList = () => {
 
   useEffect(() => {
     loadingPayload(editList);
-    setCharacterName(editList.name);
   }, [editList]);
 
   const weeklybosses = useSelector(
@@ -244,34 +243,7 @@ const EditFormList = () => {
     <div className="top-list-container">
       {showLoading ? <Loading /> : null}
       <form>
-        <div className="character-label-container">
-          <div className="errors-container"></div>
-          <div className="all-input-container">
-            <div className="input-div">
-              <label className="input-div">
-                Edit List Name
-                <input
-                  className="input"
-                  value={characterName}
-                  onChange={(e) => {
-                    setCharacterName(e.target.value);
-                  }}
-                ></input>
-              </label>
-            </div>
-          </div>
-          {error ? (
-            <div>
-              {error.map((show, idx) => {
-                return (
-                  <div key={show} className="error-container">
-                    {show}
-                  </div>
-                );
-              })}
-            </div>
-          ) : null}
-        </div>
+        <div className="character-label-container"></div>
 
         {/* Start of the div */}
         <div className="three-part-container">
@@ -341,7 +313,7 @@ const EditFormList = () => {
                     background: weeklyMarked
                       ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                       : "none",
-                    color: "white",
+                    color: "black",
                   }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -366,7 +338,7 @@ const EditFormList = () => {
                             background: payload[boss.bossNames]
                               ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                               : "none",
-                            color: "white",
+                            color: "black",
                           }}
                           onClick={(e) => {
                             e.preventDefault();

@@ -6,6 +6,8 @@ import OneList from "../OneList";
 import { imagePosition, flippedImage } from "./helper";
 import background from "./maplestory.png";
 import "./Lists.css";
+import ConfirmationBoxModal from "../../ConfirmationBoxModal";
+import ChangeOrderModal from "../../Modals/ChangeOrderModal";
 
 const DashBoardLists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
@@ -23,6 +25,7 @@ const DashBoardLists = () => {
 
   const [mainList, setMainList] = useState([]);
   const [index, setIndex] = useState(0);
+  const [listId, setListId] = useState(0);
 
   useEffect(() => {
     if (listCheck) {
@@ -62,16 +65,6 @@ const DashBoardLists = () => {
   return (
     <div className="Dashboard-page">
       <div className="All-lists-Container">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-
-            indexChanger("-");
-          }}
-          className="displayButton left-btn"
-        >
-          {`<`}
-        </button>
         <div
           className="character-select-div"
           style={{
@@ -92,6 +85,9 @@ const DashBoardLists = () => {
                 <div className="character-name-container">
                   <img
                     onClick={() => {
+                      setListId(list.id);
+                    }}
+                    onDoubleClick={() => {
                       history.push(`/lists/${list.id}`);
                     }}
                     alt="characterImage"
@@ -107,18 +103,19 @@ const DashBoardLists = () => {
             );
           })}
         </div>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            indexChanger("+");
-          }}
-          className="displayButton right-btn"
-        >
-          {`>`}
-        </button>
       </div>
       <div></div>
       <div className="character-button-div">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+
+            indexChanger("-");
+          }}
+          className="displayButton"
+        >
+          {`<`}
+        </button>
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -131,6 +128,16 @@ const DashBoardLists = () => {
             <span className="">Add</span>
             <span className="">Character</span>
           </div>
+        </button>
+        <ConfirmationBoxModal id={listId} />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            indexChanger("+");
+          }}
+          className="displayButton right-btn"
+        >
+          {`>`}
         </button>
       </div>
     </div>

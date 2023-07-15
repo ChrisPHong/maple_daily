@@ -19,7 +19,7 @@ const LoadingList = () => {
     try {
       const response = await dispatch(checkingCharacter(payload));
       const data = await JSON.stringify(response);
-      console.log(data, "<<<<<<<<<< what is the response");
+      
       await localStorage.setItem("character", data);
       await history.push("/createList");
     } catch (error) {
@@ -68,6 +68,7 @@ const LoadingList = () => {
       <button
         className="load-character-btn"
         onClick={(e) => {
+          e.preventDefault();
           onSubmit(e);
         }}
       >

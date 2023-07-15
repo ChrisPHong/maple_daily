@@ -7,7 +7,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   border: 1px solid rgba(136, 136, 136, 0.753);
-  border-radius: 10px 0px 0px 10px;
+  /* border-radius: 10px 0px 0px 10px; */
 }
 
 .list-character-div {

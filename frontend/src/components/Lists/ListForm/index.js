@@ -32,7 +32,6 @@ const ListForm = () => {
   const loadingCharacter = useSelector(
     (state) => state.listReducer?.characterCheck
   );
-  console.log(loadingCharacter, "<<<<<<<<<<<<<< loading");
   const weeklybosses = useSelector(
     (state) => state?.bossReducer?.boss?.Weekly?.Boss
   );
@@ -334,7 +333,7 @@ const ListForm = () => {
           <div className="all-boss-quests-container">
             <h3 className="instructions-title">Instructions</h3>
             <div className="instruction-div">
-              Go through each tabs to add tasks to your list! One you have all
+              Go through each tabs to add tasks to your list! Once you have all
               the tasks you want to add, then click submit!
             </div>
 

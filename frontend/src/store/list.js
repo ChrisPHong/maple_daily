@@ -330,7 +330,7 @@ const listReducer = (state = initialState, action) => {
     case CREATE_LIST:
       newState = {
         ...state,
-        lists: { ...state.lists, [action.list.id]: action.list },
+        lists: { ...state.lists, [action.list.orderBy]: action.list },
       };
       return newState;
     case UPDATE_LIST:
@@ -338,7 +338,7 @@ const listReducer = (state = initialState, action) => {
         ...state,
       };
       newState.list = [action.list];
-      newState.lists[action.list.id] = action.list;
+      newState.lists[action.list.orderBy] = action.list;
       return newState;
 
     case GET_LISTS:
@@ -348,17 +348,18 @@ const listReducer = (state = initialState, action) => {
       };
       const { lists } = action;
       lists.map((list) => {
-        return (newState.lists[list.id] = list);
+        return (newState.lists[list.orderBy] = list);
       });
       newState.changeList = lists;
       return newState;
 
     case DELETE_LIST:
       newState = { ...state };
-      delete newState.lists[action.list.id];
-      if (newState.list[0].id === action.list.id) {
-        delete newState.list[0];
-      }
+      delete newState.lists[action.list.orderBy];
+      console.log(newState, "<<<<<<<<<< newstate");
+      // if (newState.list[0].id === action.list.id) {
+      //   delete newState.list[0];
+      // }
       return newState;
 
     case ERROR_LIST:
@@ -392,9 +393,6 @@ const listReducer = (state = initialState, action) => {
       let ctgy = action.task.category;
       let cmplt = action.task.completed ? "complete" : "incomplete";
 
-      newState.lists[action.task.listId].Tasks[time][ctgy][cmplt][
-        action.task.id
-      ] = action.task;
       if (newState.list[0].id === action.task.listId) {
         newState.list[0].Tasks[time][ctgy][cmplt][action.task.id] = action.task;
       }
@@ -415,14 +413,16 @@ const listReducer = (state = initialState, action) => {
     case STORE_CHANGE_LIST:
       newState = { ...state };
       if (action.lists.type === "open") {
+        console.log(newState.storeChangeList, "Before");
         newState.storeChangeList = action.lists.lists;
+        console.log(newState.storeChangeList, "after");
       } else {
         newState.changeList = newState.storeChangeList;
+        console.log(newState.changeList, "changeList after");
       }
       return newState;
     case CHECK_CHARACTER:
       newState = { ...state };
-      console.log(action, "<<<<<<<<<<< action");
       newState.characterCheck = action.character;
       return newState;
     case EDIT_TASK:
@@ -432,24 +432,11 @@ const listReducer = (state = initialState, action) => {
       const z = action.task.completed ? "complete" : "incomplete";
       const opposite = !action.task.completed ? "complete" : "incomplete";
 
-      const taskExists =
-        newState.lists[action.task.listId].Tasks[x][y][opposite][
-          action.task.id
-        ];
-
-      newState.lists[action.task.listId].Tasks[x][y][z][action.task.id] =
-        action.task;
-
       if (newState.list[0].id === action.task.listId) {
         newState.list[0].Tasks[x][y][z][action.task.id] = action.task;
       }
 
-      if (taskExists) {
-        delete newState.lists[action.task.listId].Tasks[x][y][opposite][
-          action.task.id
-        ];
-        delete newState.list[0].Tasks[x][y][opposite][action.task.id];
-      }
+      delete newState.list[0].Tasks[x][y][opposite][action.task.id];
 
       return newState;
     case RESET_DAILY_TASKS:

@@ -108,7 +108,7 @@ router.get(
 
     const updatedLists = await sortingLists(lists);
 
-    return res.json(updatedLists);
+    return res.json(lists);
   })
 );
 
@@ -262,12 +262,6 @@ router.post(
       list.Tasks = updatedTasks;
       return res.json(list);
     }
-    //   } catch (error) {
-    //     return res.status(500).json({
-    //       message:
-    //         "This character does not exist. Please input a character that already exists in MapleStory.",
-    //     });
-    //   }
   })
 );
 
