@@ -1,10 +1,11 @@
 import { deletingList } from "../../store/list";
 import { useDispatch } from "react-redux";
-import './ConfirmationBox.css'
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./ConfirmationBox.css";
 
 const ConfirmationBox = ({ id, closeModal }) => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   return (
     <div className="Confirmation-container">
       <h2>Are you sure you want to delete this list?</h2>
@@ -19,9 +20,11 @@ const ConfirmationBox = ({ id, closeModal }) => {
           Cancel
         </button>
         <button
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            dispatch(deletingList({ id }));
+            await dispatch(deletingList({ id }));
+            await closeModal(false);
+            await history.push("/");
           }}
           className="delete-btn"
         >

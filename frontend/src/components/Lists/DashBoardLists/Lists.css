@@ -1,6 +1,8 @@
 .All-lists-Container {
   margin-top: 90px;
   position: relative;
+  display: flex;
+  flex-direction: row;
 }
 
 .character-select-div {
@@ -53,6 +55,7 @@
   color: rgb(70, 70, 70);
   font-family: sans-serif;
 }
+
 .displayButton:hover {
   cursor: pointer;
   color: rgb(78, 78, 78);

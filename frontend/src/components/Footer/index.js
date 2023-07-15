@@ -4,13 +4,10 @@ const Footer = () => {
   return (
     <div className="Footer-Container">
       <div className="Account-Div">
-        <h3 className="header-foot">Connect With Me</h3>
-        <a href="https://github.com/ChrisPHong" className="link-class">
-          Github
-        </a>
+        {/* <h3 className="header-foot">Connect With Me</h3>
         <Link to="/login" className="link-class">
           Login
-        </Link>
+        </Link> */}
       </div>
       <div className="Account-Div">
         <h3 className="header-foot">Account</h3>

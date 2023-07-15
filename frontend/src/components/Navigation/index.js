@@ -34,11 +34,11 @@ function Navigation({ isLoaded }) {
             </NavLink>
           </div>
           <div className="nav-Link-Div">
-            <NavLink className="navlink-span" exact to="/createlist">
-              Create List
+            <NavLink className="navlink-span" exact to="/loadCharacter">
+              Add Character
             </NavLink>
           </div>
-          <div className="nav-Link-Div farthest-right">
+          <div className="nav-Link-Div">
             <ProfileButton user={sessionUser} />
           </div>
         </div>

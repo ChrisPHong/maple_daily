@@ -4,7 +4,7 @@
   justify-content: space-evenly;
   align-items: center;
   margin-top: 20px;
-  background: linear-gradient(to bottom, #485461, #28313b);
+  /* background: linear-gradient(to bottom, #485461, #28313b); */
   border-top: solid 2px #28313b;
 }
 
@@ -29,7 +29,7 @@
 }
 .link-class:hover {
   padding-left: 10px;
-  color: white;
+  color: black;
   cursor: pointer;
 }
 .link-class:active {

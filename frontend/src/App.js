@@ -11,10 +11,11 @@ import DashBoardLists from "./components/Lists/DashBoardLists";
 import UsersLists from "./components/Lists/Lists";
 import EditFormList from "./components/Lists/EditList";
 import SignupFormPage from "./components/SignupFormPage";
-import ChangeOrder from "./components/ChangeOrder";
-import { storingChangeList } from "./store/list";
 import MapleNews from "./components/MapleNews";
 import LoginFormPage from "./components/LoginFormPage";
+import LoadingList from "./components/Lists/LoadingList";
+import ChangeOrderModal from "./components/Modals/ChangeOrderModal";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,7 +34,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <div className="dashboard-Container-app">
-            <button
+            {/* <button
               className="changeOrder-button"
               onClick={(e) => {
                 e.preventDefault();
@@ -46,25 +47,33 @@ function App() {
               }}
             >
               Change Order
-            </button>
-            {showChangeOrder ? (
+            </button> */}
+            {/* {showChangeOrder ? (
               <ChangeOrder
                 lists={lists}
                 setShowChangeOrder={setShowChangeOrder}
                 showChangeOrder={showChangeOrder}
               />
-            ) : null}
+            ) : null} */}
+            <ChangeOrderModal
+              lists={lists}
+              setShowChangeOrder={setShowChangeOrder}
+              showChangeOrder={showChangeOrder}
+            />
             <DashBoardLists />
           </div>
         </Route>
         <Route exact path="/lists/:listId">
           <div className="single-list-Div">
-            <List />
             <UsersLists />
+            <List />
           </div>
         </Route>
         <Route exact path="/lists/:listId/edit">
           <EditFormList />
+        </Route>
+        <Route exact path="/LoadCharacter">
+          <LoadingList />
         </Route>
         <Route exact path="/CreateList">
           <ListForm />

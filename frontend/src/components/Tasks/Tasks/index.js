@@ -126,7 +126,9 @@ const TasksList = ({ props }) => {
     <div className="container">
       <div className="bloc-tabs">
         <button
-          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+          className={
+            toggleState === 1 ? "tabs active-tabs left-tab" : "tabs left-tab"
+          }
           onClick={() => toggleTab(1)}
         >
           Daily Quests
@@ -144,7 +146,7 @@ const TasksList = ({ props }) => {
           Weekly Bosses
         </button>
         <button
-          className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+          className={toggleState === 4 ? "tabs active-tabs right-tab" : "tabs right-tab"}
           onClick={() => toggleTab(4)}
         >
           Weekly Quests

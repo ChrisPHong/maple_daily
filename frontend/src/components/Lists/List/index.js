@@ -11,7 +11,7 @@ import "./List.css";
 
 const List = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
-  const list = useSelector((state) => Object.values(state?.listReducer?.list));
+  const list = useSelector((state) => state?.listReducer?.list)[0];
   const params = useParams();
   const { listId } = params;
   const dispatch = useDispatch();
@@ -42,25 +42,17 @@ const List = () => {
   ) : (
     <div className="list-container">
       <div>
-        <button
-          onClick={() => {
-            setShow(!show);
-          }}
-        >
-          Create Task
-        </button>
-        <div>{list?.id}</div>
         {show ? <TaskForm props={{ listId: list[0]?.id, userId }} /> : <> </>}
       </div>
-      {list.map((list) => {
-        return (
-          <div className="OneList-container">
-            <div className="ListTitle">{list?.name?.toUpperCase()}</div>
-            <div className="OneCharacter-Container">
-              <div className="image-backdrop">
-                <img className="image-character" src={list?.apiContent} />
-              </div>
+      {list ? (
+        <div className="OneProfile-Container">
+          <div className="OneCharacter-Container">
+            <div className="image-backdrop">
+              <img className="image-character" src={list?.apiContent} />
+            </div>
+            <div className="overall-character-info-div">
               <div className="characterInfo-container">
+                <div className="ListTitle">{list?.name?.toUpperCase()}</div>
                 <span className="character-info-data">
                   Character Name: {list?.character}
                 </span>
@@ -75,31 +67,39 @@ const List = () => {
                 </span>
               </div>
               <div className="list-multi-purpose-container">
-                <ConfirmationBoxModal id={list?.id} />
-                <button
-                  className="edit-list-button"
-                  onClick={() => {
-                    history.push(`/lists/${list?.id}/edit`);
-                  }}
-                >
-                  Edit List
-                </button>
                 <button
                   className="update-btn"
                   onClick={() => {
                     updateInfo();
                   }}
                 >
-                  Update Your Character
+                  Update
                 </button>
+                <ConfirmationBoxModal id={list?.id} />
               </div>
             </div>
-            <div className="tasks-container">
-              {list?.Tasks ? <TasksList props={list?.Tasks} /> : <></>}
-            </div>
           </div>
-        );
-      })}
+          <button
+            className="update-btn"
+            onClick={() => {
+              setShow(!show);
+            }}
+          >
+            Add Unique Task
+          </button>
+          <div className="tasks-container">
+            {list?.Tasks ? <TasksList props={list?.Tasks} /> : <></>}
+          </div>
+          <button
+            className="edit-list-button"
+            onClick={() => {
+              history.push(`/lists/${list?.id}/edit`);
+            }}
+          >
+            Edit List
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };

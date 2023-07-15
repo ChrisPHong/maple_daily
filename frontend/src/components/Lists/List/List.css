@@ -1,11 +1,20 @@
 .list-container {
   margin-top: 80px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Creates four equal-width columns */
-  gap: 10px; /* Adds a gap of 10px between each column */
-  padding-bottom: 20px;
+  /* display: flex;
+  flex-direction: column; */
 }
 
+.OneProfile-Container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #d62e62; */
+  /* background-color: rgba(0, 84, 153, 0.384); */
+
+  color: white;
+}
 .OneCharacter-Container {
   display: flex;
   align-items: center;
@@ -20,6 +29,7 @@
 .image-character {
   position: relative;
   margin-bottom: -16px;
+  /* width: 100px; */
 }
 
 .update-btn {
@@ -31,7 +41,8 @@
   font-family: sans-serif;
   font-weight: bold;
   color: white;
-  padding: 5px 10px;
+  padding: 10px 15px;
+  margin-right: 10px;
 }
 .update-btn:active {
   background: linear-gradient(to bottom, #b9a14f, #976200);
@@ -42,10 +53,11 @@
 
 .list-multi-purpose-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: left;
+  align-items: normal;
   padding: 10px;
+  width: 100%;
 }
 
 .edit-list-button {
@@ -67,4 +79,11 @@
 }
 .edit-list-button:active {
   background: linear-gradient(to bottom, #4ea8b8, #015586);
+}
+
+.overall-character-info-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }

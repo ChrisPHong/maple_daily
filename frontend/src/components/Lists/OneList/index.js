@@ -8,46 +8,26 @@ import { useEffect } from "react";
 import "./OneList.css";
 
 const OneList = ({ props }) => {
-  const countingTasks = (obj) => {
-    const dqc = Object.values(obj["Daily"]["Quest"]["complete"]);
-    const dqIc = Object.values(obj["Daily"]["Quest"]["incomplete"]);
-    const wqc = Object.values(obj["Weekly"]["Quest"]["complete"]);
-    const wqIc = Object.values(obj["Weekly"]["Quest"]["incomplete"]);
-    const dbc = Object.values(obj["Daily"]["Boss"]["complete"]);
-    const dbIc = Object.values(obj["Daily"]["Boss"]["incomplete"]);
-    const wbc = Object.values(obj["Weekly"]["Boss"]["complete"]);
-    const wbIc = Object.values(obj["Weekly"]["Boss"]["incomplete"]);
+  const [completedTasks, setCompletedTasks] = useState(0);
+  const [incompleteTasks, setInCompleteTasks] = useState(0);
+  const countingTasks = (arr) => {
     let completed = 0;
     let needToDo = 0;
 
-    for (let ele of dqc) {
-      completed += 1;
+    for (let obj of arr) {
+      if (obj.completed === true) {
+        completed++;
+      } else {
+        needToDo++;
+      }
     }
-    for (let ele of dqIc) {
-      needToDo += 1;
-    }
-    for (let ele of dbc) {
-      completed += 1;
-    }
-    for (let ele of dbIc) {
-      needToDo += 1;
-    }
-    for (let ele of wqc) {
-      completed += 1;
-    }
-    for (let ele of wqIc) {
-      needToDo += 1;
-    }
-
-    for (let ele of wbc) {
-      completed += 1;
-    }
-    for (let ele of wbIc) {
-      needToDo += 1;
-    }
+    setCompletedTasks(completed);
+    setInCompleteTasks(needToDo);
     return [needToDo, completed];
   };
-  useEffect(() => {}, [props]);
+  useEffect(() => {
+    if (props) countingTasks(props.Tasks);
+  }, [props]);
   return (
     <div className="OneList-container">
       <div className="top-One-List-container">
@@ -74,10 +54,10 @@ const OneList = ({ props }) => {
           </span>
           <span className="character-info-data">Server: {props.server}</span>
           <span className="character-info-data">
-            {countingTasks(props.Tasks)[0]} Incomplete tasks
+            {incompleteTasks} Incomplete tasks
           </span>
           <span className="character-info-data">
-            {countingTasks(props.Tasks)[1]} Completed tasks
+            {completedTasks} Completed tasks
           </span>
         </div>
       </div>

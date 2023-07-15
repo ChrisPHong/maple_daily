@@ -9,7 +9,7 @@ import {
 
 import "./ChangeOrder.css";
 
-const ChangeOrder = ({ lists, setShowChangeOrder, showChangeOrder }) => {
+const ChangeOrder = ({ lists, closeModal }) => {
   // let lists = useSelector((state) =>
   //   Object.values(state?.listReducer?.changeList)
   // );
@@ -22,7 +22,6 @@ const ChangeOrder = ({ lists, setShowChangeOrder, showChangeOrder }) => {
     }
   }, [lists]);
   const dispatch = useDispatch();
-  const history = useHistory();
   const [names, setNames] = useState(lists);
 
   //save reference for dragItem and dragOverItem
@@ -53,11 +52,20 @@ const ChangeOrder = ({ lists, setShowChangeOrder, showChangeOrder }) => {
       lists: names,
     };
     await dispatch(sortUpdatingList(payload));
-    await dispatch(storingChangeList({ lists, type: "open" }));
-    await setShowChangeOrder(!showChangeOrder);
   };
   return (
     <form className="changeOrderForm">
+      
+      <button
+        className="cancel-drag-btn"
+        onClick={async (e) => {
+          e.preventDefault();
+          await dispatch(storingChangeList({ lists: lists, type: "close" }));
+          await closeModal(false);
+        }}
+      >
+        X
+      </button>
       <div className="change-order-container" droppable="true">
         {names?.map((list, idx) => {
           return (
@@ -79,7 +87,6 @@ const ChangeOrder = ({ lists, setShowChangeOrder, showChangeOrder }) => {
               <span className="drag-list-name">{list.character}</span>
               <div
                 style={{ backgroundImage: `url(${list.apiContent})` }}
-                // className="characterImageList-Container"
                 className="characterImage-drag"
               ></div>
             </div>
@@ -88,22 +95,13 @@ const ChangeOrder = ({ lists, setShowChangeOrder, showChangeOrder }) => {
       </div>
       <div className="changeOrder-btn-div">
         <button
-          className="cancel-drag-btn"
-          onClick={(e) => {
-            e.preventDefault();
-            setShowChangeOrder(!showChangeOrder);
-            dispatch(storingChangeList({ lists: lists, type: "close" }));
-          }}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={(e) => {
-            onSubmit(e);
+          onClick={async (e) => {
+            await onSubmit(e);
+            await closeModal(false);
           }}
           className="submit-drag-btn"
         >
-          Save
+          Confirm
         </button>
       </div>
     </form>

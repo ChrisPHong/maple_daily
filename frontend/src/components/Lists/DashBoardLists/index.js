@@ -6,6 +6,8 @@ import OneList from "../OneList";
 import { imagePosition, flippedImage } from "./helper";
 import background from "./maplestory.png";
 import "./Lists.css";
+import ConfirmationBoxModal from "../../ConfirmationBoxModal";
+import ChangeOrderModal from "../../Modals/ChangeOrderModal";
 
 const DashBoardLists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
@@ -23,6 +25,7 @@ const DashBoardLists = () => {
 
   const [mainList, setMainList] = useState([]);
   const [index, setIndex] = useState(0);
+  const [listId, setListId] = useState(0);
 
   useEffect(() => {
     if (listCheck) {
@@ -82,6 +85,9 @@ const DashBoardLists = () => {
                 <div className="character-name-container">
                   <img
                     onClick={() => {
+                      setListId(list.id);
+                    }}
+                    onDoubleClick={() => {
                       history.push(`/lists/${list.id}`);
                     }}
                     alt="characterImage"
@@ -113,22 +119,23 @@ const DashBoardLists = () => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            history.push("/createlist");
+            history.push("/loadCharacter");
           }}
           className="character-list-btn"
         >
           <span className="plus-sign">+</span>
           <div className="CC-btn-div">
-            <span className="">Create</span>
-            <span className="">Character List</span>
+            <span className="">Add</span>
+            <span className="">Character</span>
           </div>
         </button>
+        <ConfirmationBoxModal id={listId} />
         <button
           onClick={(e) => {
             e.preventDefault();
             indexChanger("+");
           }}
-          className="displayButton"
+          className="displayButton right-btn"
         >
           {`>`}
         </button>

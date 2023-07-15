@@ -7,9 +7,8 @@
   overflow-y: scroll;
   overflow-x: hidden;
   border: 1px solid rgba(136, 136, 136, 0.753);
-  border-radius: 10px;
+  /* border-radius: 10px 0px 0px 10px; */
 }
-
 
 .list-character-div {
   margin: 0px;
@@ -18,7 +17,6 @@
 .listName-button-container {
   display: flex;
   flex-direction: row;
-  /* border-radius: 5px; */
   border: 1px solid black;
   justify-content: space-between;
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
@@ -49,4 +47,5 @@
 .list-Button-div {
   display: flex;
   flex-direction: column;
+  padding-left: 10px;
 }

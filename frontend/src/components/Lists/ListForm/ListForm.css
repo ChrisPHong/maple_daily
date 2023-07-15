@@ -1,6 +1,6 @@
 .boss-btn {
   padding: 8px 10px;
-  color: black;
+  color: white;
   border-radius: 5px 5px;
   border: 1px solid grey;
   margin: 5px;
@@ -25,7 +25,7 @@
   border-radius: 5px 5px;
   border: 1px solid grey;
   margin: 10px;
-  background-color: #3bcc64;
+  background-color: transparent;
   transition: background-color 0.4s ease;
   border-radius: 25px 25px;
   font-weight: bold;
@@ -33,6 +33,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.clicked-btn {
 }
 
 .boss-btn:hover {
@@ -43,7 +46,7 @@
 
 .tite-btn {
   display: inline-block;
-  width: 200px;
+  width: auto;
   color: white;
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
   padding: 15px 20px;
@@ -51,13 +54,13 @@
   border: none;
   font-weight: bold;
   font-family: sans-serif;
-  transition-duration: 0.6s;
+  transition-duration: 0.3s;
   font-size: 15px;
   margin: 5px;
 }
 .tite-btn:hover {
   cursor: pointer;
-  box-shadow: 1px 1px 10px black;
+  box-shadow: 0px 0px 5px black;
 }
 
 .submit-btn {
@@ -70,6 +73,7 @@
   border: none;
   background: linear-gradient(to bottom, #ff6a93, #d62e62);
   transition: background-color 0.5s ease, color 0.3s linear;
+  margin: 5px;
 }
 .submit-btn:hover {
   cursor: pointer;
@@ -151,8 +155,13 @@
 
 .three-part-container {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr; /* Adjust the column sizes as needed */
-  gap: 20px; /* Adds a gap of 20px between each column */
+  grid-template-columns: 1fr 3fr;
+  justify-content: center;
+  align-items: flex-start;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  margin: 0rem 5rem;
 }
 
 .li-listForm {
@@ -207,7 +216,9 @@
 .left-container {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  justify-content: center;
+  align-content: center;
+  /* width: fit-content; */
 }
 
 .error-container {
@@ -219,4 +230,36 @@
   font-family: sans-serif;
   color: white;
   font-weight: bold;
+}
+
+.loadingCharacter-img {
+  margin-top: 11px;
+}
+
+.LoadingCharacter-backdrop {
+  background-image: url("../OneList/images/Character-Select-V2.jpg");
+  background-size: cover;
+
+  background-position: center;
+
+  width: 250px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 25px;
+}
+
+.instruction-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructions-title {
+  text-decoration: underline;
+}
+.tasks-container- {
+  border: 1px solid black;
 }
