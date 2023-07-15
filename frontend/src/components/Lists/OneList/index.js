@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import "./OneList.css";
 
 const OneList = ({ props }) => {
+  const [completedTasks, setCompletedTasks] = useState(0);
+  const [incompleteTasks, setInCompleteTasks] = useState(0);
   const countingTasks = (arr) => {
     let completed = 0;
     let needToDo = 0;
@@ -19,9 +21,13 @@ const OneList = ({ props }) => {
         needToDo++;
       }
     }
+    setCompletedTasks(completed);
+    setInCompleteTasks(needToDo);
     return [needToDo, completed];
   };
-  useEffect(() => {}, [props]);
+  useEffect(() => {
+    if (props) countingTasks(props.Tasks);
+  }, [props]);
   return (
     <div className="OneList-container">
       <div className="top-One-List-container">
@@ -48,10 +54,10 @@ const OneList = ({ props }) => {
           </span>
           <span className="character-info-data">Server: {props.server}</span>
           <span className="character-info-data">
-            {countingTasks(props.Tasks)[0]} Incomplete tasks
+            {incompleteTasks} Incomplete tasks
           </span>
           <span className="character-info-data">
-            {countingTasks(props.Tasks)[1]} Completed tasks
+            {completedTasks} Completed tasks
           </span>
         </div>
       </div>

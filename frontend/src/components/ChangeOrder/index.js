@@ -55,6 +55,17 @@ const ChangeOrder = ({ lists, closeModal }) => {
   };
   return (
     <form className="changeOrderForm">
+      
+      <button
+        className="cancel-drag-btn"
+        onClick={async (e) => {
+          e.preventDefault();
+          await dispatch(storingChangeList({ lists: lists, type: "close" }));
+          await closeModal(false);
+        }}
+      >
+        X
+      </button>
       <div className="change-order-container" droppable="true">
         {names?.map((list, idx) => {
           return (
@@ -84,23 +95,13 @@ const ChangeOrder = ({ lists, closeModal }) => {
       </div>
       <div className="changeOrder-btn-div">
         <button
-          className="cancel-drag-btn"
-          onClick={async (e) => {
-            e.preventDefault();
-            await dispatch(storingChangeList({ lists: lists, type: "close" }));
-            await closeModal(false);
-          }}
-        >
-          Cancel
-        </button>
-        <button
           onClick={async (e) => {
             await onSubmit(e);
             await closeModal(false);
           }}
           className="submit-drag-btn"
         >
-          Save
+          Confirm
         </button>
       </div>
     </form>

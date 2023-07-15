@@ -11,7 +11,7 @@ const ChangeOrderModal = ({ lists, setShowChangeOrder, showChangeOrder }) => {
   return (
     <div>
       <button
-        className="confirmationBoxModal-btn"
+        className="changeOrder-modal-btn"
         onClick={async () => {
           await dispatch(storingChangeList({ lists: lists, type: "open" }));
           await setShowModal(true);
