@@ -150,6 +150,20 @@ button {
   background-color: #747474;
   box-shadow: 1px 1px 20px black;
   border-radius: 0px 0px 5px 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.content-tabs::-webkit-scrollbar {
+  width: 0.5em;
+}
+.content-tabs::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.content-tabs::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 .content {
   padding: 20px;
@@ -167,6 +181,7 @@ button {
   flex-direction: column;
   justify-content: flex-start;
   align-content: center;
+  height: 250px;
 }
 
 .No-tasks-div {
