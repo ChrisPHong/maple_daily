@@ -301,6 +301,7 @@ router.put(
     for (let i = 0; i < lists.length; i++) {
       const list = lists[i];
       const oldList = await List.findByPk(list.id);
+      list.orderBy = i + 1;
       oldList.orderBy = i + 1;
       oldList.save();
     }

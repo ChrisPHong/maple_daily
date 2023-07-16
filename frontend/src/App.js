@@ -14,7 +14,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import MapleNews from "./components/MapleNews";
 import LoginFormPage from "./components/LoginFormPage";
 import LoadingList from "./components/Lists/LoadingList";
-import ChangeOrderModal from "./components/Modals/ChangeOrderModal";
+import ChangeOrderModal from "./components/Modals/ChangeOrderModal/ChangeOrderModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,27 +34,6 @@ function App() {
       <Switch>
         <Route exact path="/">
           <div className="dashboard-Container-app">
-            {/* <button
-              className="changeOrder-button"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowChangeOrder(!showChangeOrder);
-                if (!showChangeOrder) {
-                  dispatch(storingChangeList({ lists, type: "open" }));
-                } else {
-                  dispatch(storingChangeList({ lists, type: "close" }));
-                }
-              }}
-            >
-              Change Order
-            </button> */}
-            {/* {showChangeOrder ? (
-              <ChangeOrder
-                lists={lists}
-                setShowChangeOrder={setShowChangeOrder}
-                showChangeOrder={showChangeOrder}
-              />
-            ) : null} */}
             <ChangeOrderModal
               lists={lists}
               setShowChangeOrder={setShowChangeOrder}

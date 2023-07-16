@@ -11,6 +11,7 @@ const SORT_LIST = "lists/SORTING_LIST";
 const SORT_UPDATE_LIST = "lists/SORT_UPDATE_LIST";
 const STORE_CHANGE_LIST = "lists/STORE_CHANGE_LIST";
 const CHECK_CHARACTER = "lists/CHECK_CHARACTER";
+const DELETE_DASHBOARD_LIST = "lists/DELETE_DASHBOARD_LIST";
 
 const { csrfFetch } = require("../store/csrf");
 
@@ -91,6 +92,13 @@ export const checkCharacter = (character) => {
   return {
     type: CHECK_CHARACTER,
     character,
+  };
+};
+
+export const removeDashboardList = (list) => {
+  return {
+    type: DELETE_DASHBOARD_LIST,
+    list,
   };
 };
 
@@ -199,6 +207,18 @@ export const getEditLists = (data) => async (dispatch) => {
   if (res.ok) {
     const list = await res.json();
     dispatch(getEditList(list));
+    return list;
+  }
+};
+
+export const deletingDashboardList = (data) => async (dispatch) => {
+  const res = await csrfFetch(`/api/lists/${data.id}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    const list = await res.json();
+    dispatch(removeDashboardList(list));
     return list;
   }
 };
@@ -355,13 +375,22 @@ const listReducer = (state = initialState, action) => {
 
     case DELETE_LIST:
       newState = { ...state };
-      delete newState.lists[action.list.orderBy];
-      console.log(newState, "<<<<<<<<<< newstate");
-      // if (newState.list[0].id === action.list.id) {
-      //   delete newState.list[0];
-      // }
-      return newState;
 
+      delete newState.lists[action.list.orderBy];
+
+      newState.changeList.splice(action.list.orderBy, 1);
+      console.log(newState.changeList, "after");
+      if (newState.list) {
+        delete newState.list[0];
+      }
+      return newState;
+    case DELETE_DASHBOARD_LIST:
+      newState = { ...state };
+      const newChangeList = newState.changeList.filter((list) => {
+        return list.id !== action.list.id;
+      });
+      newState.changeList = newChangeList;
+      return newState;
     case ERROR_LIST:
       newState = { ...state };
       return newState;
@@ -400,6 +429,7 @@ const listReducer = (state = initialState, action) => {
     case EDIT_LIST:
       newState = { ...state };
       newState.editingList = action.list;
+      newState.list = [action.list];
 
       return newState;
     case SORT_LIST:
@@ -409,16 +439,17 @@ const listReducer = (state = initialState, action) => {
     case SORT_UPDATE_LIST:
       newState = { ...state };
       newState.lists = action.lists;
+      newState.changeList = action.lists;
       return newState;
     case STORE_CHANGE_LIST:
       newState = { ...state };
       if (action.lists.type === "open") {
-        console.log(newState.storeChangeList, "Before");
+        // console.log(newState.storeChangeList, "Before");
         newState.storeChangeList = action.lists.lists;
-        console.log(newState.storeChangeList, "after");
+        // console.log(newState.storeChangeList, "after");
       } else {
         newState.changeList = newState.storeChangeList;
-        console.log(newState.changeList, "changeList after");
+        // console.log(newState.changeList, "changeList after");
       }
       return newState;
     case CHECK_CHARACTER:

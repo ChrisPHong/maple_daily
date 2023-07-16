@@ -6,13 +6,12 @@ import OneList from "../OneList";
 import { imagePosition, flippedImage } from "./helper";
 import background from "./maplestory.png";
 import "./Lists.css";
-import ConfirmationBoxModal from "../../ConfirmationBoxModal";
-import ChangeOrderModal from "../../Modals/ChangeOrderModal";
+import DeleteCharacterModal from "../../Modals/DeleteCharacterModal/DeleteCharacterModal";
 
 const DashBoardLists = () => {
   const userId = useSelector((state) => state?.session?.user?.id);
   const lists = useSelector((state) => state?.listReducer?.changeList);
-  const listCheck = useSelector((state) => state?.listReducer?.lists);
+  const listCheck = useSelector((state) => state?.listReducer?.changeList);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -31,7 +30,7 @@ const DashBoardLists = () => {
     if (listCheck) {
       whichList(lists, index);
     }
-  }, [listCheck, index]);
+  }, [listCheck, index, lists]);
 
   const whichList = (arr, idx) => {
     let result = [];
@@ -129,7 +128,8 @@ const DashBoardLists = () => {
             <span className="">Character</span>
           </div>
         </button>
-        <ConfirmationBoxModal id={listId} />
+        <DeleteCharacterModal lists={lists} />
+        {/* <ConfirmationBoxModal id={listId} /> */}
         <button
           onClick={(e) => {
             e.preventDefault();

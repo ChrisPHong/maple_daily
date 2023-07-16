@@ -23,7 +23,6 @@ const ConfirmationBox = ({ id, closeModal }) => {
           onClick={async (e) => {
             e.preventDefault();
             await dispatch(deletingList({ id }));
-            await closeModal(false);
             await history.push("/");
           }}
           className="delete-btn"

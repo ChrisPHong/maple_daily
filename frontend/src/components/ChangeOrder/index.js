@@ -10,12 +10,8 @@ import {
 import "./ChangeOrder.css";
 
 const ChangeOrder = ({ lists, closeModal }) => {
-  // let lists = useSelector((state) =>
-  //   Object.values(state?.listReducer?.changeList)
-  // );
-
   const userId = useSelector((state) => state?.session?.user?.id);
-
+  console.log(lists, "<<<<<<<<<< lists");
   useEffect(() => {
     if (lists) {
       setNames(lists);
@@ -55,7 +51,6 @@ const ChangeOrder = ({ lists, closeModal }) => {
   };
   return (
     <form className="changeOrderForm">
-      
       <button
         className="cancel-drag-btn"
         onClick={async (e) => {

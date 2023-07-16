@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Modal } from "../../context/Modal";
-import ChangeOrder from "../ChangeOrder";
+import { Modal } from "../../../context/Modal";
+import ChangeOrder from "../../ChangeOrder";
 import { useDispatch } from "react-redux";
 import "./ChangeOrderModal.css";
-import { storingChangeList } from "../../store/list";
+import { storingChangeList } from "../../../store/list";
 
 const ChangeOrderModal = ({ lists, setShowChangeOrder, showChangeOrder }) => {
   const [showModal, setShowModal] = useState(false);
