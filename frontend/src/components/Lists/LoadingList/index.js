@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { checkingCharacter } from "../../../store/list";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./LoadingList.css";
+import Loading from "../../Loading/index";
 
 const LoadingList = () => {
   const [character, setCharacter] = useState("");
   const [error, setError] = useState([]);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const userId = useSelector((state) => state.session.user?.id);
 
   const dispatch = useDispatch();
@@ -17,16 +19,17 @@ const LoadingList = () => {
     e.preventDefault();
     const payload = { userId, character };
     try {
+      setLoading(true);
       const response = await dispatch(checkingCharacter(payload));
       const data = await JSON.stringify(response);
-      
+
       await localStorage.setItem("character", data);
+      setLoading(false);
       await history.push("/createList");
     } catch (error) {
       const { message } = await error.json();
       setError([message]);
-    } finally {
-      console.log("done with this sequence . . . ");
+      setLoading(false);
     }
   };
 
@@ -37,8 +40,9 @@ const LoadingList = () => {
     setShow(true);
   }, [character]);
   return (
-    <div className="LoadingList-Container">
-      <form className="CheckingForm-Container">
+    <div className="mt-32 flex flex-col justify-center items-center">
+      {loading ? <Loading /> : null}
+      <form className="border-black flex-row rounded-md border p-6 ">
         {show ? (
           <>
             {error ? (
@@ -54,14 +58,15 @@ const LoadingList = () => {
             ) : null}
           </>
         ) : null}
-        <label className="loading-label-div">
-          <div>Character Name: </div>
+        <label className="flex flex-row justify-center items-center">
+          <div className="mr-4 font-bold">Character Name: </div>
           <input
             placeholder="Type Here ..."
             onChange={(e) => {
               e.preventDefault();
               setCharacter(e.target.value);
             }}
+            className="border rounded-md p-2"
           />
         </label>
       </form>

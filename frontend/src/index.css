@@ -3,10 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
+body {
   margin: 0px;
   font-family: sans-serif;
-} */
+}
 /* background: linear-gradient(to bottom, #28313b, #485461); */
 /* background: linear-gradient(to bottom, #e0d2c7, #44b09e); */
 

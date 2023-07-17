@@ -40,7 +40,6 @@ function App() {
               setShowChangeOrder={setShowChangeOrder}
               showChangeOrder={showChangeOrder}
             />
-            <h3 className="bg-red-900">Testing! Hello from Tailwind CSS</h3>
             <DashBoardLists />
           </div>
         </Route>
