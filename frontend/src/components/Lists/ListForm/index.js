@@ -273,7 +273,6 @@ const ListForm = () => {
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                // setShowWB(!showWB);
                 changeTab("showWB");
               }}
             >
@@ -283,7 +282,7 @@ const ListForm = () => {
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                // setShowDB(!showDB);
+
                 changeTab("showDB");
               }}
             >
@@ -293,7 +292,6 @@ const ListForm = () => {
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                // setShowRD(!showRD);
                 changeTab("showRD");
               }}
             >
@@ -303,7 +301,6 @@ const ListForm = () => {
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                // setShowDQ(!showDQ);
                 changeTab("showDQ");
               }}
             >
@@ -313,7 +310,6 @@ const ListForm = () => {
               className="tite-btn"
               onClick={(e) => {
                 e.preventDefault();
-                // setShowWQ(!showWQ);
                 changeTab("showWQ");
               }}
             >
@@ -330,11 +326,11 @@ const ListForm = () => {
             </button>
           </div>
 
-          <div className="all-boss-quests-container">
-            <h3 className="instructions-title">Instructions</h3>
-            <div className="instruction-div">
-              Go through each tabs to add tasks to your list! Once you have all
-              the tasks you want to add, then click submit!
+          <div className="all-boss-quests-container ml-5">
+            <h3 className="font-bold text-3xl underline">Instructions</h3>
+            <div className="instruction-div font-bold py-4">
+              Go through each tab to add quests/bosses to your character! Once
+              you have all the tasks you want to add, then click submit!
             </div>
 
             {showWB ? (
@@ -342,7 +338,10 @@ const ListForm = () => {
                 <button
                   className="check-btn"
                   style={{
-                    backgroundColor: showWB ? "#3bcc64" : "white",
+                    // backgroundColor: showWB ? "#0087d7" : "white",
+                    background: showWB
+                      ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                      : "white",
                     color: showWB ? "white" : "black",
                   }}
                   onClick={(e) => {
@@ -361,8 +360,8 @@ const ListForm = () => {
                         <div
                           className="boss-btn"
                           style={{
-                            backgroundColor: payload[boss.bossNames]
-                              ? "#3bcc64"
+                            background: payload[boss.bossNames]
+                              ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                               : "transparent",
                             color: payload[boss.bossNames] ? "white" : "black",
                           }}
@@ -387,6 +386,13 @@ const ListForm = () => {
                       e.preventDefault();
                       addAllDailyBosses();
                     }}
+                    style={{
+                      // backgroundColor: showWB ? "#0087d7" : "white",
+                      background: showDB
+                        ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                        : "white",
+                      color: showDB ? "white" : "black",
+                    }}
                   >
                     {dailyMarked
                       ? "UnCheck All Daily Bosses"
@@ -400,8 +406,8 @@ const ListForm = () => {
                             <button
                               className="boss-btn"
                               style={{
-                                backgroundColor: payload[boss.bossNames]
-                                  ? "#3bcc64"
+                                background: payload[boss.bossNames]
+                                  ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                                   : "transparent",
                                 color: payload[boss.bossNames]
                                   ? "white"
@@ -427,7 +433,10 @@ const ListForm = () => {
                   <button
                     className="check-btn"
                     style={{
-                      backgroundColor: showRD ? "#3bcc64" : "white",
+                      // backgroundColor: showWB ? "#0087d7" : "white",
+                      background: showRD
+                        ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                        : "white",
                       color: showRD ? "white" : "black",
                     }}
                     onClick={(e) => {
@@ -446,8 +455,8 @@ const ListForm = () => {
                           <button
                             className="boss-btn"
                             style={{
-                              backgroundColor: payload[task.bossNames]
-                                ? "#3bcc64"
+                              background: payload[task.bossNames]
+                                ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                                 : "transparent",
                               color: payload[task.bossNames]
                                 ? "white"
@@ -473,7 +482,9 @@ const ListForm = () => {
                   <button
                     className="check-btn"
                     style={{
-                      backgroundColor: showDQ ? "#3bcc64" : "white",
+                      background: showDQ
+                        ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                        : "white",
                       color: showDQ ? "white" : "black",
                     }}
                     onClick={(e) => {
@@ -493,8 +504,8 @@ const ListForm = () => {
                             <button
                               className="boss-btn"
                               style={{
-                                backgroundColor: payload[task.bossNames]
-                                  ? "#3bcc64"
+                                background: payload[task.bossNames]
+                                  ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                                   : "transparent",
                                 color: payload[task.bossNames]
                                   ? "white"
@@ -520,7 +531,9 @@ const ListForm = () => {
                   <button
                     className="check-btn"
                     style={{
-                      backgroundColor: showWQ ? "#3bcc64" : "white",
+                      background: showWQ
+                        ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
+                        : "white",
                       color: showWQ ? "white" : "black",
                     }}
                     onClick={(e) => {
@@ -538,10 +551,10 @@ const ListForm = () => {
                         return (
                           <>
                             <button
-                              className="boss-btn"
+                              className="boss-btn "
                               style={{
-                                backgroundColor: payload[quest.bossNames]
-                                  ? "#3bcc64"
+                                background: payload[quest.bossNames]
+                                  ? "linear-gradient(to bottom, #67d9ee, #0087d7)"
                                   : "transparent",
                                 color: payload[quest.bossNames]
                                   ? "white"
