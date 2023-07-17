@@ -15,6 +15,7 @@ import MapleNews from "./components/MapleNews";
 import LoginFormPage from "./components/LoginFormPage";
 import LoadingList from "./components/Lists/LoadingList";
 import ChangeOrderModal from "./components/Modals/ChangeOrderModal/ChangeOrderModal";
+import "./index.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,12 +34,13 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       <Switch>
         <Route exact path="/">
-          <div className="dashboard-Container-app">
+          <div className="dashboard-Container-app ">
             <ChangeOrderModal
               lists={lists}
               setShowChangeOrder={setShowChangeOrder}
               showChangeOrder={showChangeOrder}
             />
+            <h3 className="bg-red-900">Testing! Hello from Tailwind CSS</h3>
             <DashBoardLists />
           </div>
         </Route>
