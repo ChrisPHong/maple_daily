@@ -1,11 +1,14 @@
 /* TODO Add site wide styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
+/* body {
   margin: 0px;
-  /* background: linear-gradient(to bottom, #28313b, #485461); */
-  /* background: linear-gradient(to bottom, #e0d2c7, #44b09e); */
   font-family: sans-serif;
-}
+} */
+/* background: linear-gradient(to bottom, #28313b, #485461); */
+/* background: linear-gradient(to bottom, #e0d2c7, #44b09e); */
 
 .dashboard-Container-app {
   display: flex;
@@ -59,3 +62,7 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
