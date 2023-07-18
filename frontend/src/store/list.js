@@ -379,7 +379,6 @@ const listReducer = (state = initialState, action) => {
       delete newState.lists[action.list.orderBy];
 
       newState.changeList.splice(action.list.orderBy, 1);
-      console.log(newState.changeList, "after");
       if (newState.list) {
         delete newState.list[0];
       }
@@ -444,12 +443,9 @@ const listReducer = (state = initialState, action) => {
     case STORE_CHANGE_LIST:
       newState = { ...state };
       if (action.lists.type === "open") {
-        // console.log(newState.storeChangeList, "Before");
         newState.storeChangeList = action.lists.lists;
-        // console.log(newState.storeChangeList, "after");
       } else {
         newState.changeList = newState.storeChangeList;
-        // console.log(newState.changeList, "changeList after");
       }
       return newState;
     case CHECK_CHARACTER:

@@ -19,6 +19,13 @@
   margin-top: 100px;
 }
 
+.top-picture-Container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 25px 25px;
+}
+
 .check-btn {
   padding: 8px 10px;
   color: white;
@@ -40,8 +47,6 @@
 
 .boss-btn:hover {
   cursor: pointer;
-  background-color: #3bcc64;
-  color: white;
 }
 
 .tite-btn {
@@ -232,7 +237,8 @@
 }
 
 .loadingCharacter-img {
-  margin-top: 11px;
+  margin-top: 18px;
+  width: 96px;
 }
 
 .LoadingCharacter-backdrop {
@@ -241,8 +247,8 @@
 
   background-position: center;
 
-  width: 250px;
-  height: 150px;
+  min-width: 250px;
+  min-height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;

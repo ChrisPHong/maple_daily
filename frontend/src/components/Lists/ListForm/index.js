@@ -260,13 +260,15 @@ const ListForm = () => {
         {/* Start of the div */}
         <div className="three-part-container">
           <div className="left-container">
-            <div className="OneCharacter-Container">
-              <div className="LoadingCharacter-backdrop">
-                <img
-                  className="loadingCharacter-img"
-                  alt="loading_character_img"
-                  src={loadingCharacter?.CharacterImageURL}
-                />
+            <div className="flex justify-center items-center">
+              <div className="top-picture-Container">
+                <div className="LoadingCharacter-backdrop">
+                  <img
+                    className="loadingCharacter-img"
+                    alt="loading_character_img"
+                    src={loadingCharacter?.CharacterImageURL}
+                  />
+                </div>
               </div>
             </div>
             <button
@@ -295,7 +297,7 @@ const ListForm = () => {
                 changeTab("showRD");
               }}
             >
-              {showRD ? "Redemption Tasks" : "Show Redemption Tasks"}
+              {showRD ? "Redemption Quests" : "Show Redemption Quests"}
             </button>
             <button
               className="tite-btn"
@@ -445,8 +447,8 @@ const ListForm = () => {
                     }}
                   >
                     {redemptionTask
-                      ? "UnCheck All Redemption Tasks"
-                      : "Check All Redemption Tasks"}
+                      ? "UnCheck All Redemption Quests"
+                      : "Check All Redemption Quests"}
                   </button>
                   <div className="create-three-tasks-container">
                     {redemptionArr.map((task, idx) => {

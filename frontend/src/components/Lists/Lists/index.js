@@ -32,18 +32,20 @@ const UsersLists = () => {
             }}
             className="listName-button-container"
           >
-            <div className="list-Button-div">
-              <h2 className="list-character-div">
-                {list.character.toUpperCase()}
-              </h2>
-              <h6 className="list-characterclass-div">{list.characterClass}</h6>
-            </div>
             <div
-              className="characterImageList-Container"
+              className="characterImageList-Container transform -scale-x-100"
               style={{
                 backgroundImage: `url(${list.apiContent})`,
               }}
             ></div>
+            <div className="list-Button-div mr-3">
+              <h2 className="font-bold font-sans">
+                {list.character.toUpperCase()}
+              </h2>
+              <span className="text-xxs mt-2 font-bold">
+                {list.characterClass}
+              </span>
+            </div>
           </div>
         );
       })}

@@ -27,7 +27,6 @@ const List = () => {
   }, [dispatch, userId]);
 
   const updateInfo = async () => {
-    console.log(list, "<<<<<<<<<<<<<< what is the list");
     const payload = {
       character: list.character,
       id: Number(listId),

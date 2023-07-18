@@ -2,13 +2,13 @@
   color: white;
 }
 
-.clicked-btn {
+/* .clicked-btn {
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
   padding: 8px 10px;
   color: white;
   border-radius: 5px 5px;
   border: 1px solid grey;
-  margin: 10px;
+  margin: 10px 0px;
   background-color: transparent;
   transition: background-color 0.4s ease;
   border-radius: 25px 25px;
@@ -17,4 +17,60 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+} */
+
+.boss-btn {
+  padding: 8px 10px;
+  color: white;
+  border-radius: 5px 5px;
+  border: 1px solid grey;
+  margin: 5px;
+  transition: background-color 0.4s ease;
+  border-radius: 25px 25px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
+  width: -webkit-fill-available;
+}
+.boss-btn:hover {
+  cursor: pointer;
+}
+.check-btn {
+  padding: 8px 10px;
+  color: white;
+  border-radius: 5px 5px;
+  border: 1px solid grey;
+  margin: 5px 0px;
+  background-color: transparent;
+  transition: background-color 0.4s ease;
+  border-radius: 25px 25px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-tasks-container {
+  display: grid;
+  grid-template-columns: repeat(4, 2fr);
+  padding-bottom: 20px;
+}
+.create-three-tasks-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding-bottom: 20px;
+}
+
+.all-boss-quests-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }

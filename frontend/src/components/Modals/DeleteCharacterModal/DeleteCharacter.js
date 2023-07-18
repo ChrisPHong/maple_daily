@@ -30,7 +30,6 @@ const DeleteCharacter = ({
             key={list.character}
             className="draggable character-drag-container"
             onClick={(e) => {
-              console.log(list, "<<<<<<<<<< what is this list");
               e.preventDefault();
               setChosen([list]);
             }}
