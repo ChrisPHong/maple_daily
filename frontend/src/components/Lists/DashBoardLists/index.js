@@ -129,7 +129,6 @@ const DashBoardLists = () => {
           </div>
         </button>
         <DeleteCharacterModal lists={lists} />
-        {/* <ConfirmationBoxModal id={listId} /> */}
         <button
           onClick={(e) => {
             e.preventDefault();

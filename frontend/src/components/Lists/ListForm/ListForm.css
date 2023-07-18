@@ -12,11 +12,18 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
   text-overflow: ellipsis;
 }
 .top-list-container {
   margin-top: 100px;
+}
+
+.top-picture-Container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 25px 25px;
 }
 
 .check-btn {
@@ -24,7 +31,7 @@
   color: white;
   border-radius: 5px 5px;
   border: 1px solid grey;
-  margin: 10px;
+  margin: 5px 0px;
   background-color: transparent;
   transition: background-color 0.4s ease;
   border-radius: 25px 25px;
@@ -40,8 +47,6 @@
 
 .boss-btn:hover {
   cursor: pointer;
-  background-color: #3bcc64;
-  color: white;
 }
 
 .tite-btn {
@@ -102,7 +107,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
 }
 
 .character-label-container {
@@ -233,7 +237,8 @@
 }
 
 .loadingCharacter-img {
-  margin-top: 11px;
+  margin-top: 18px;
+  width: 96px;
 }
 
 .LoadingCharacter-backdrop {
@@ -242,8 +247,8 @@
 
   background-position: center;
 
-  width: 250px;
-  height: 150px;
+  min-width: 250px;
+  min-height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;

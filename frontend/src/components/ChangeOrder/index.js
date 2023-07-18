@@ -11,7 +11,6 @@ import "./ChangeOrder.css";
 
 const ChangeOrder = ({ lists, closeModal }) => {
   const userId = useSelector((state) => state?.session?.user?.id);
-  console.log(lists, "<<<<<<<<<< lists");
   useEffect(() => {
     if (lists) {
       setNames(lists);
