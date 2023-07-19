@@ -12,9 +12,9 @@ body {
 
 .dashboard-Container-app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 100px;
 }
 
