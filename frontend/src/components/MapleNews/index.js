@@ -17,9 +17,16 @@ const MapleNews = () => {
         return (
           <div
             key={`item.link ${idx}`}
-            className="flex flex-row justify-content items-align border-black border-2 m-4 max-w-m min-w-l"
+            className="flex flex-row justify-center items-align border-black border-2 m-4 "
           >
-            <img className="w-100px min-w-{100px}" src={item.photoLink} />
+            <img
+              onClick={() => {
+                window.location.href = item.link;
+              }}
+              className="max-w-540 max-h-304 hover:cursor-pointer"
+              alt="news_image"
+              src={item.photoLink}
+            />
             <div className="flex flex-col justify-between m-4">
               <div className="">
                 <h1 className="font-bold text-l hover:text-red-600">
