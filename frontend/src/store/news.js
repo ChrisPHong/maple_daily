@@ -16,15 +16,16 @@ export const fetchNews = () => async (dispatch) => {
     dispatch(getNews(news));
   }
 };
-const initialState = { entries: {}, news: {}, isLoading: true };
+const initialState = { entries: {}, news: [], isLoading: true };
 
 const newsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case GET_NEWS:
       newState = { ...state };
-      const { news } = action.news;
-
+      const { news } = action;
+      console.log(newState, "<<<<<<<<<<<<<< news");
+      newState.news = news;
       return newState;
     default:
       return state;

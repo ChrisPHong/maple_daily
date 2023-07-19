@@ -42,6 +42,7 @@ function App() {
             />
             <DashBoardLists />
           </div>
+          <MapleNews />
         </Route>
         <Route exact path="/lists/:listId">
           <div className="single-list-Div">
