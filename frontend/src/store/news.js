@@ -24,7 +24,6 @@ const newsReducer = (state = initialState, action) => {
     case GET_NEWS:
       newState = { ...state };
       const { news } = action;
-      console.log(newState, "<<<<<<<<<<<<<< news");
       newState.news = news;
       return newState;
     default:

@@ -11,23 +11,30 @@ const MapleNews = () => {
     dispatch(fetchNews());
   }, []);
   return (
-    <div>
-      <h1>Maple News</h1>
+    <div className="max-w-5xl flex flex-col justify-center items-center">
+      <h1 className="text-xl font-bold border-gray-50">Maple News</h1>
       {news?.map((item, idx) => {
         return (
           <div
             key={`item.link ${idx}`}
-            className="flex flex-row justify-content items-align"
+            className="flex flex-row justify-content items-align border-black border-2 m-4 max-w-m min-w-l"
           >
-            <img src={item.photoLink} />
-            <div>
-              <h1>
-                <a href={item.link}>{item?.header}</a>
-              </h1>
-              <p>{item.title}</p>
-              <p>
-                <a href={item.link}>Read More</a>
-              </p>
+            <img className="w-100px min-w-{100px}" src={item.photoLink} />
+            <div className="flex flex-col justify-between m-4">
+              <div className="">
+                <h1 className="font-bold text-l hover:text-red-600">
+                  <a href={item.link}>{item?.header}</a>
+                </h1>
+                <div className="mt-5">
+                  <p className="m-0">{item.title}</p>
+                </div>
+              </div>
+              <div className="flex justify-between mt-5">
+                <p>{item.timestamp}</p>
+                <p className="hover:text-red-600">
+                  <a href={item.link}>READ MORE</a>
+                </p>
+              </div>
             </div>
           </div>
         );

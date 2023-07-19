@@ -43,6 +43,10 @@ router.get(
           !description.innerText.includes("AGO")
         );
       });
+      const timestamps = Array.from(
+        document.querySelectorAll(".news-item div.text p.timestamp")
+      );
+
       let test = [];
       const pictures = document.querySelectorAll(
         'div[style*="background-image"]'
@@ -65,8 +69,9 @@ router.get(
         const header = linkItem.innerText;
         const link = linkItem.href;
         const title = description.innerText;
+        const timestamp = timestamps[i].innerText;
 
-        const hash = { header, link, title, photoLink };
+        const hash = { header, link, title, photoLink, timestamp };
         test.push(hash);
       }
 

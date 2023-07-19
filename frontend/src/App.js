@@ -41,8 +41,8 @@ function App() {
               showChangeOrder={showChangeOrder}
             />
             <DashBoardLists />
+            <MapleNews />
           </div>
-          <MapleNews />
         </Route>
         <Route exact path="/lists/:listId">
           <div className="single-list-Div">
