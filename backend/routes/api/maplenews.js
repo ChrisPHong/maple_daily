@@ -17,7 +17,7 @@ const validateSignup = [];
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch(`headless: "new"`);
     const page = await browser.newPage();
     await page.goto("https://maplestory.nexon.net/news");
 

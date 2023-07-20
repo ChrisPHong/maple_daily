@@ -46,6 +46,10 @@
 .characterImage-Dashboard:hover {
   cursor: pointer;
 }
+.characterImage-Dashboard {
+  width: 96px;
+  height: 96px;
+}
 
 .displayButton {
   border: none;
@@ -77,7 +81,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  z-index: 1;
   box-shadow: 0px 0px 5px black;
 }
 .character-list-btn:hover {

@@ -84,9 +84,6 @@ const DashBoardLists = () => {
                 <div className="character-name-container">
                   <img
                     onClick={() => {
-                      setListId(list.id);
-                    }}
-                    onDoubleClick={() => {
                       history.push(`/lists/${list.id}`);
                     }}
                     alt="characterImage"

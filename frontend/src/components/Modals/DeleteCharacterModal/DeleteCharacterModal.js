@@ -14,7 +14,7 @@ const DeleteCharacterModal = ({
   return (
     <div>
       <button
-        className="p-5 rounded-2xl bg-gray-600 text-white font-bold bg-gradient-to-b"
+        className="p-5 rounded-2xl text-white font-bold delete-bg"
         onClick={async () => {
           await setShowModal(true);
         }}

@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 
 const { List, Task, sequelize } = require("../../db/models");
 const axios = require("axios");
@@ -106,7 +106,28 @@ router.get(
       order: sequelize.col("orderBy"),
     });
 
-    const updatedLists = await sortingLists(lists);
+    // try {
+    //   const test = await List.findAll({
+    //     where: { userId: userId },
+
+    //     include: [
+    //       {
+    //         model: Task,
+    //         attributes: [
+    //           "completed",
+    //           [
+    //             sequelize.literal('(SELECT COUNT(*) FROM "TASKS"."listId" = "List"."id" AND "Tasks"."completed" = true)')
+    //           ],
+    //         ],
+    //       },
+    //     ],
+
+    //     order: sequelize.col("orderBy"),
+    //   });
+    //   console.log(test, "<<<<<<<<<<<< test");
+    // } catch (err) {
+    //   console.log(err, "<<<<<<<<<<<<<<<<<<< err");
+    // }
 
     return res.json(lists);
   })

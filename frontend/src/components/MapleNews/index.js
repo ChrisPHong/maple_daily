@@ -6,7 +6,6 @@ import { fetchNews } from "../../store/news";
 const MapleNews = () => {
   const dispatch = useDispatch();
   const news = useSelector((state) => state?.newsReducer?.news);
-  console.log(news, "<<<<");
   useEffect(() => {
     dispatch(fetchNews());
   }, []);
@@ -23,7 +22,7 @@ const MapleNews = () => {
               onClick={() => {
                 window.location.href = item.link;
               }}
-              className="max-w-540 max-h-304 hover:cursor-pointer"
+              className="hover:cursor-pointer max-w-lg"
               alt="news_image"
               src={item.photoLink}
             />

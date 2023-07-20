@@ -18,6 +18,14 @@ body {
   margin-top: 100px;
 }
 
+.delete-bg {
+  background: linear-gradient(to bottom, #ff6a93, #d62e62);
+}
+.delete-bg:hover {
+  box-shadow: 0px 0px 5px black;
+  cursor: pointer;
+}
+
 .changeOrder-button {
   background: linear-gradient(to bottom, #ffdd6e, #ffa600);
   font-weight: bold;

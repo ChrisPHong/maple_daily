@@ -45,10 +45,6 @@ const OneList = ({ props }) => {
       </div>
       <div className="Top-OneList-Container">
         <div className="characterInfo-container">
-          <span className="character-info-data">
-            LIST NAME: {props.name ? props.name.toUpperCase() : "None"}
-          </span>
-
           <span className="level-size-container">
             <h1 className="level-size-container">{props.level} </h1> Level
           </span>
