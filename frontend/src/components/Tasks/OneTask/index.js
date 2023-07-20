@@ -45,13 +45,10 @@ const OneTask = ({ task, completed }) => {
     task.completed = !complete;
     await dispatch(editTask(task));
   };
-  console.log(completed, "<<<<<<<<< what is this");
+
   return (
     <div className="task-container">
       <input
-        // className={`${
-        //   completed === "completed" ? "line-through" : ""
-        // }ml-2 text-white`}
         onClick={() => {
           handleCompleted();
         }}
