@@ -400,9 +400,6 @@ const listReducer = (state = initialState, action) => {
       let category = action.task.category;
       let completed = action.task.completed ? "complete" : "incomplete";
 
-      delete newState.lists[action.task.listId].Tasks[resetTime][category][
-        completed
-      ][action.task.id];
       if (newState.list[0].id === action.task.listId) {
         delete newState.list[0].Tasks[resetTime][category][completed][
           action.task.id

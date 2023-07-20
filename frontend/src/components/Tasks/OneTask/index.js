@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, editTask } from "../../../store/list";
 import "./OneTask.css";
 
-const OneTask = ({ task }) => {
+const OneTask = ({ task, completed }) => {
   const dispatch = useDispatch();
 
   const onDelete = async (taskId) => {
@@ -45,16 +45,19 @@ const OneTask = ({ task }) => {
     task.completed = !complete;
     await dispatch(editTask(task));
   };
-
+  console.log(completed, "<<<<<<<<< what is this");
   return (
     <div className="task-container">
       <input
+        // className={`${
+        //   completed === "completed" ? "line-through" : ""
+        // }ml-2 text-white`}
         onClick={() => {
           handleCompleted();
         }}
         type="checkbox"
         checked={complete}
-        className="custom-checkbox"
+        className="custom-checkbox "
         onChange={handleCheckboxChange}
       />
 
@@ -67,7 +70,14 @@ const OneTask = ({ task }) => {
           autoFocus
         ></input>
       ) : (
-        <span onClick={handleClick}>{task.objective}</span>
+        <span
+          className={`${
+            completed === "completed" ? "line-through" : ""
+          } ml-2 text-white`}
+          onClick={handleClick}
+        >
+          {task.objective}
+        </span>
       )}
 
       <button

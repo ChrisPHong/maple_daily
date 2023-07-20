@@ -100,7 +100,7 @@
 }
 
 .tabs {
-  padding: 15px;
+  padding: 10px 20px;
   text-align: center;
   width: 50%;
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
@@ -110,13 +110,11 @@
   box-sizing: content-box;
   position: relative;
   outline: none;
-
   color: white;
   padding: 13px;
   font-weight: bold;
-  /* font-family: sans-serif; */
   transition-duration: 0.6s;
-  /* font-size: 25px; */
+  white-space: nowrap;
 }
 .tabs:not(:last-child) {
   border-right: 1px solid rgba(0, 0, 0, 0.274);
@@ -138,8 +136,6 @@
   transform: translateX(-50%);
   width: calc(100% + 2px);
   height: 5px;
-  /* background: rgb(88, 147, 241); */
-  /* background: rgb(214, 12, 255); */
 }
 
 button {
@@ -147,7 +143,8 @@ button {
 }
 .content-tabs {
   flex-grow: 1;
-  background-color: #747474;
+  background: linear-gradient(to bottom, #0087d7, #0087d7, #67d9ee);
+
   box-shadow: 1px 1px 20px black;
   border-radius: 0px 0px 5px 5px;
   overflow-y: scroll;

@@ -49,7 +49,7 @@ const ChangeOrder = ({ lists, closeModal }) => {
     await dispatch(sortUpdatingList(payload));
   };
   return (
-    <form className="changeOrderForm">
+    <form className="changeOrderForm bg-white p-4 rounded-md">
       <button
         className="cancel-drag-btn"
         onClick={async (e) => {

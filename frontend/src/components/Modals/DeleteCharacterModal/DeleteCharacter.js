@@ -27,7 +27,7 @@ const DeleteCharacter = ({
     setChosenId(chosenId);
   }, [chosenId]);
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center bg-white p-4 rounded-md">
       <div className="max-h-96 overflow-y-scroll border-black border-2 rounded-lg">
         {lists?.map((list, idx) => {
           return (
