@@ -18,13 +18,12 @@
   height: 18px;
   border-radius: 50%;
   border: 2px solid #ccc;
-  outline: none;
   cursor: pointer;
   transition: border-color 0.2s;
 }
 
 .custom-checkbox:checked {
-  border-color: #007bff;
+  border-color: #00e0fd;
   background-color: #007bff;
 }
 

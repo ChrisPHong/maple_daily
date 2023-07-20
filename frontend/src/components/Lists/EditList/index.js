@@ -246,7 +246,7 @@ const EditFormList = () => {
         <div className="character-label-container"></div>
 
         {/* Start of the div */}
-        <div className="three-part-container">
+        <div className="three-part-container mt-5">
           <div className="left-container">
             <div className="flex justify-center items-center">
               <div className="top-picture-Container">
@@ -319,8 +319,8 @@ const EditFormList = () => {
             <h3 className="font-bold text-3xl underline">Instructions</h3>
             <div className="instruction-div font-bold py-4">
               Go through each tab to add and remove quests/bosses to your
-              character! Once you have all the tasks you want to edit, then
-              click submit!
+              character! Once you have all the quests/bosses you wanted to edit,
+              then click submit!
             </div>
             {showWB ? (
               <div>

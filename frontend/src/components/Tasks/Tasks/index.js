@@ -35,11 +35,11 @@ const TasksList = ({ props }) => {
   );
   const DailyBossComplete = Object.values(props?.Daily?.Boss?.complete ?? {});
 
-  const taskDisplay = (arr) => {
+  const taskDisplay = (arr, completed) => {
     const tasks = arr.map((task) => {
       return (
         <div key={task.id}>
-          <OneTask task={task} />
+          <OneTask task={task} completed={completed}/>
         </div>
       );
     });
@@ -54,75 +54,6 @@ const TasksList = ({ props }) => {
   useEffect(() => {}, [props]);
 
   return (
-    // <div className="All-Quests-Container">
-    //   <div className="List-Tasks-Container">
-    //     <div className="top-list-div">
-    //       <div className="tasks-title">Daily Quests</div>
-    //       <DailyCountDown props={{ length: 1 }} />
-    //     </div>
-    //     <div className="quests-container">
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">TO DO</div>
-    //         {taskDisplay(DailyQuestsInComplete)}
-    //       </div>
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">FINISHED</div>
-    //         {taskDisplay(DailyQuestsComplete)}
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className="List-Tasks-Container">
-    //     <div className="top-list-div">
-    //       <div className="tasks-title">Daily Bosses</div>
-    //       <DailyCountDown props={{ length: 1 }} />
-    //     </div>
-    //     <div className="quests-container">
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">TO DO</div>
-    //         {taskDisplay(DailyBossInComplete)}
-    //       </div>
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">FINISHED</div>
-    //         {taskDisplay(DailyBossComplete)}
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className="List-Tasks-Container">
-    //     <div className="top-list-div">
-    //       <div className="tasks-title">Weekly Bosses</div>
-    //       <WeeklyCountDown props={{ day: 4, length: 7 }} />
-    //     </div>
-    //     <div className="quests-container">
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">Incomplete</div>
-    //         {taskDisplay(WeeklyBossesInComplete)}
-    //       </div>
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">Complete</div>
-    //         {taskDisplay(WeeklyBossesComplete)}
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className="List-Tasks-Container">
-    //     <div className="top-list-div">
-    //       <div className="tasks-title">Weekly Quests</div>
-    //       <WeeklyCountDown props={{ day: 0 }} />
-    //     </div>
-    //     <div className="quests-container">
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">InComplete</div>
-    //         {taskDisplay(WeeklyQuestsInComplete)}
-    //       </div>
-    //       <div className="mini-tasks-container">
-    //         <div className="title-mini-tasks">Complete</div>
-    //         {taskDisplay(WeeklyQuestsComplete)}
-    //       </div>
-    //     </div>
-    //   </div>
-
     <div className="container">
       <div className="bloc-tabs">
         <button
@@ -140,13 +71,17 @@ const TasksList = ({ props }) => {
           Daily Bosses
         </button>
         <button
-          className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+          className={
+            toggleState === 3 ? "tabs active-tabs" : "tabs flex-nowrap"
+          }
           onClick={() => toggleTab(3)}
         >
           Weekly Bosses
         </button>
         <button
-          className={toggleState === 4 ? "tabs active-tabs right-tab" : "tabs right-tab"}
+          className={
+            toggleState === 4 ? "tabs active-tabs right-tab" : "tabs right-tab"
+          }
           onClick={() => toggleTab(4)}
         >
           Weekly Quests
@@ -168,11 +103,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">NEED TO DO</div>
-                  {taskDisplay(DailyQuestsInComplete)}
+                  {taskDisplay(DailyQuestsInComplete, 'incompleted')}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">FINISHED</div>
-                  {taskDisplay(DailyQuestsComplete)}
+                  {taskDisplay(DailyQuestsComplete, 'completed')}
                 </div>
               </>
             )}
@@ -194,11 +129,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">TO DO</div>
-                  {taskDisplay(DailyBossInComplete)}
+                  {taskDisplay(DailyBossInComplete, 'incompleted')}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">FINISHED</div>
-                  {taskDisplay(DailyBossComplete)}
+                  {taskDisplay(DailyBossComplete, 'completed')}
                 </div>
               </>
             )}
@@ -220,11 +155,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">Incomplete</div>
-                  {taskDisplay(WeeklyBossesInComplete)}
+                  {taskDisplay(WeeklyBossesInComplete, 'incompleted')}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">Complete</div>
-                  {taskDisplay(WeeklyBossesComplete)}
+                  {taskDisplay(WeeklyBossesComplete, 'completed')}
                 </div>
               </>
             )}
@@ -245,11 +180,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">InComplete</div>
-                  {taskDisplay(WeeklyQuestsInComplete)}
+                  {taskDisplay(WeeklyQuestsInComplete, 'incompleted')}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">Complete</div>
-                  {taskDisplay(WeeklyQuestsComplete)}
+                  {taskDisplay(WeeklyQuestsComplete, 'completed')}
                 </div>
               </>
             )}

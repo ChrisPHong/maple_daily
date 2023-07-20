@@ -258,7 +258,7 @@ const ListForm = () => {
         <div className="character-label-container"></div>
 
         {/* Start of the div */}
-        <div className="three-part-container">
+        <div className="three-part-container mt-5">
           <div className="left-container">
             <div className="flex justify-center items-center">
               <div className="top-picture-Container">

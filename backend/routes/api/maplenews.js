@@ -17,7 +17,7 @@ const validateSignup = [];
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch(`headless: "new"`);
     const page = await browser.newPage();
     await page.goto("https://maplestory.nexon.net/news");
 
@@ -27,7 +27,7 @@ router.get(
 
     // const htmlContent = await page.content();
     // await fs.writeFile("html.txt", htmlContent);
-    // console.log(htmlContent, "<<<<<<<<<<< html contennt");
+
 
     const news = await page.evaluate(() => {
       // const articles = document.querySelectorAll(".news-item div.photo a");
@@ -60,7 +60,7 @@ router.get(
       });
 
       const articles = document.querySelectorAll(".news-item");
-      console.log(articles, "<<<<<<<<< articles");
+    
 
       for (let i = 0; i < links.length; i++) {
         const linkItem = links[i];

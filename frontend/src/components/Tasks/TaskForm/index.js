@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { createTask } from "../../../store/list";
 import "./TaskForm.css";
 
-const TaskForm = ({ props }) => {
+const TaskForm = ({ listId, userId, setShowModal }) => {
   const [obj, setObj] = useState("");
   const [category, setCatgeory] = useState("Quest");
   const [resetTime, setResetTime] = useState("Daily");
@@ -27,13 +27,16 @@ const TaskForm = ({ props }) => {
       setShow(true);
       return;
     }
+
     const payload = {
-      ...props,
+      listId,
+      userId,
       objective: obj,
       resetTime: resetTime,
       category: category,
     };
     await dispatch(createTask(payload));
+    await setShowModal(false);
   };
   return (
     <div>
@@ -54,10 +57,10 @@ const TaskForm = ({ props }) => {
                 );
               })
             : null}
-          <label className="label-task-form">
+          <label className="font-bold text-white">
             Objective:
             <input
-              className="input-task-form"
+              className="p-4 rounded-md m-2 text-black"
               placeholder="Write Your Daily Tasks"
               onChange={(e) => {
                 setObj(e.target.value);
@@ -65,9 +68,10 @@ const TaskForm = ({ props }) => {
             ></input>
           </label>
           <div className="select-div-task">
-            <label className="label-task-form">
+            <label className="label-task-form my-2 text-white text-s">
               Frequency:
               <select
+                className="text-black ml-2"
                 value={resetTime}
                 onChange={(e) => {
                   setResetTime(e.target.value);
@@ -77,9 +81,10 @@ const TaskForm = ({ props }) => {
                 <option value="Weekly">Weekly</option>
               </select>
             </label>
-            <label className="label-task-form">
+            <label className="label-task-form ml-5 mr-2 my-2 text-white text-s">
               Type:
               <select
+                className="text-black ml-2"
                 value={category}
                 onChange={(e) => {
                   setCatgeory(e.target.value);
@@ -91,8 +96,8 @@ const TaskForm = ({ props }) => {
             </label>
           </div>
         </div>
-        <button className="task-submit-btn" onClick={onSubmit}>
-          Submit Task
+        <button className="submit-btn mt-5" onClick={onSubmit}>
+          Submit
         </button>
       </form>
     </div>

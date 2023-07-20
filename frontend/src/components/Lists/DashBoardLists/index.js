@@ -84,9 +84,6 @@ const DashBoardLists = () => {
                 <div className="character-name-container">
                   <img
                     onClick={() => {
-                      setListId(list.id);
-                    }}
-                    onDoubleClick={() => {
                       history.push(`/lists/${list.id}`);
                     }}
                     alt="characterImage"
@@ -111,7 +108,7 @@ const DashBoardLists = () => {
 
             indexChanger("-");
           }}
-          className="displayButton"
+          className="displayButton mr-5"
         >
           {`<`}
         </button>
@@ -120,7 +117,7 @@ const DashBoardLists = () => {
             e.preventDefault();
             history.push("/loadCharacter");
           }}
-          className="character-list-btn"
+          className="character-list-btn mr-5"
         >
           <span className="plus-sign">+</span>
           <div className="CC-btn-div">
@@ -134,7 +131,7 @@ const DashBoardLists = () => {
             e.preventDefault();
             indexChanger("+");
           }}
-          className="displayButton right-btn"
+          className="displayButton right-btn ml-5"
         >
           {`>`}
         </button>

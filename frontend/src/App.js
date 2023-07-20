@@ -45,7 +45,7 @@ function App() {
           </div>
         </Route>
         <Route exact path="/lists/:listId">
-          <div className="single-list-Div">
+          <div className="single-list-Div mt-5">
             <UsersLists />
             <List />
           </div>

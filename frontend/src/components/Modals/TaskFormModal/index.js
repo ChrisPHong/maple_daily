@@ -1,25 +1,19 @@
 import { useState } from "react";
 import { Modal } from "../../../context/Modal";
-import DeleteCharacter from "./DeleteCharacter";
-import { useDispatch } from "react-redux";
+import TaskForm from "../../Tasks/TaskForm";
 
-const DeleteCharacterModal = ({
-  lists,
-  setShowChangeOrder,
-  showChangeOrder,
-}) => {
+const TaskFormModal = ({ listId, userId }) => {
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
 
   return (
     <div>
       <button
-        className="p-5 rounded-2xl text-white font-bold delete-bg"
+        className="update-btn"
         onClick={async () => {
           await setShowModal(true);
         }}
       >
-        Delete
+        Add Unique Task
       </button>
       {showModal && (
         <Modal
@@ -27,10 +21,11 @@ const DeleteCharacterModal = ({
             await setShowModal(false);
           }}
         >
-          <DeleteCharacter
-            lists={lists}
+          <TaskForm
             setShowModal={setShowModal}
             showModal={showModal}
+            listId={listId}
+            userId={userId}
           />
         </Modal>
       )}
@@ -38,4 +33,4 @@ const DeleteCharacterModal = ({
   );
 };
 
-export default DeleteCharacterModal;
+export default TaskFormModal;

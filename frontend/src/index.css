@@ -18,6 +18,14 @@ body {
   margin-top: 100px;
 }
 
+.delete-bg {
+  background: linear-gradient(to bottom, #ff6a93, #d62e62);
+}
+.delete-bg:hover {
+  box-shadow: 0px 0px 5px black;
+  cursor: pointer;
+}
+
 .changeOrder-button {
   background: linear-gradient(to bottom, #ffdd6e, #ffa600);
   font-weight: bold;
@@ -61,7 +69,26 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-/* @import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
+.submit-btn {
+  color: white;
+  padding: 10px 40px;
+  border-radius: 25px 25px;
+  font-family: sans-serif;
+  font-weight: 550;
+  font-size: 20px;
+  border: none;
+  background: linear-gradient(to bottom, #6affa8, #2ed6b2);
+  margin: 5px;
+  width: 250px;
+  transition-duration: 0.3s;
+}
+.submit-btn:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 4px black;
+}
+.submit-btn.pressed {
+  background-color: #333;
+  border-color: #333;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
