@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import OneTask from "../OneTask";
 import DailyCountDown from "../../Timers/DayTimer";
-import WeeklyCountDown from "../../Timers/WeeklyTimer";
+// import WeeklyCountDown from "../../Timers/WeeklyTimer";
+import ThursdayTimer from "../../Timers/ThursdayTimer";
 import "./Tasks.css";
 import { useState } from "react";
+import SundayTimer from "../../Timers/SundayTimer";
 
 const TasksList = ({ props }) => {
   // Weekly Bosses
@@ -39,7 +41,7 @@ const TasksList = ({ props }) => {
     const tasks = arr.map((task) => {
       return (
         <div key={task.id}>
-          <OneTask task={task} completed={completed}/>
+          <OneTask task={task} completed={completed} />
         </div>
       );
     });
@@ -103,11 +105,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">NEED TO DO</div>
-                  {taskDisplay(DailyQuestsInComplete, 'incompleted')}
+                  {taskDisplay(DailyQuestsInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">FINISHED</div>
-                  {taskDisplay(DailyQuestsComplete, 'completed')}
+                  {taskDisplay(DailyQuestsComplete, "completed")}
                 </div>
               </>
             )}
@@ -129,11 +131,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">TO DO</div>
-                  {taskDisplay(DailyBossInComplete, 'incompleted')}
+                  {taskDisplay(DailyBossInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">FINISHED</div>
-                  {taskDisplay(DailyBossComplete, 'completed')}
+                  {taskDisplay(DailyBossComplete, "completed")}
                 </div>
               </>
             )}
@@ -144,7 +146,7 @@ const TasksList = ({ props }) => {
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
           <h2>
-            <WeeklyCountDown props={{ day: 4, length: 7 }} />
+            <ThursdayTimer />
           </h2>
 
           <div className="quests-container">
@@ -155,11 +157,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">Incomplete</div>
-                  {taskDisplay(WeeklyBossesInComplete, 'incompleted')}
+                  {taskDisplay(WeeklyBossesInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">Complete</div>
-                  {taskDisplay(WeeklyBossesComplete, 'completed')}
+                  {taskDisplay(WeeklyBossesComplete, "completed")}
                 </div>
               </>
             )}
@@ -169,7 +171,7 @@ const TasksList = ({ props }) => {
           className={toggleState === 4 ? "content  active-content" : "content"}
         >
           <h2>
-            <WeeklyCountDown props={{ day: 0 }} />
+            <SundayTimer />
           </h2>
 
           <div className="quests-container">
@@ -180,11 +182,11 @@ const TasksList = ({ props }) => {
               <>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">InComplete</div>
-                  {taskDisplay(WeeklyQuestsInComplete, 'incompleted')}
+                  {taskDisplay(WeeklyQuestsInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
                   <div className="title-mini-tasks">Complete</div>
-                  {taskDisplay(WeeklyQuestsComplete, 'completed')}
+                  {taskDisplay(WeeklyQuestsComplete, "completed")}
                 </div>
               </>
             )}

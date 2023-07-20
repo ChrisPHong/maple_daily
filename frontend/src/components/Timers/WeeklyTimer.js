@@ -13,7 +13,7 @@ const WeeklyCountDown = ({ props }) => {
       const nextReset = getNextResetTime().getTime();
       let remainingTime = nextReset - now;
 
-      if (remainingTime < 0) {
+      if (remainingTime <= 0) {
         remainingTime = getNextResetTime().getTime() - now;
         setRestartTimer(true);
       }
