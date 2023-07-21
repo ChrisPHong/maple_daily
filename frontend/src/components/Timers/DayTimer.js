@@ -68,7 +68,7 @@ const DailyCountDown = ({ props }) => {
       return (
         <span
           style={{
-            color: "black ",
+            color: "white",
             fontWeight: "bold",
           }}
         >
