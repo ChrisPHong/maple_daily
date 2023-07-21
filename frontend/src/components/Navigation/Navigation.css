@@ -4,11 +4,10 @@
 
 .full-nav-container {
   position: absolute;
-  /* justify-content: space-between; */
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   background: linear-gradient(to bottom, #67d9ee, #0087d7);
-  /* width: 100px; */
   border-bottom: solid 1px rgba(90, 89, 89, 0.671);
   position: fixed;
   width: 100%;

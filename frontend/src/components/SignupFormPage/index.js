@@ -32,50 +32,85 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="Submit-container">
-      <form onSubmit={handleSubmit}>
+    <div className="Submit-container flex flex-row justify-center items-center border border-black border-1 rounded max-w-4xl">
+      <div>MAPLE IMAGE HERE</div>
+      <span>
+        Lorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
+        IpsumLorem
+      </span>
+      <form
+        className="flex flex-col justify-center items-center border-l border-black border-1"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="text-l font-bold mb-2">Create Account</h1>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+        <div className="flex flex-row justify-center items-start">
+          {/* <label className=" mr-2 font-bold ">Email</label> */}
           <input
+            className="border-black border rounded p-1 mb-2 font-sans"
             type="text"
             value={email}
+            placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Username
+        </div>
+        <div className="flex flex-row justify-center items-start">
+          {/* <label className="mr-2 font-bold ">Username</label> */}
           <input
+            className="border-black border rounded p-1 mb-2 font-sans"
             type="text"
             value={username}
+            placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+        <div className="flex flex-row justify-center items-start">
+          {/* <label className=" mr-2 font-bold ">Password</label> */}
           <input
+            className="border-black border rounded p-1 mb-2 font-sans"
             type="password"
             value={password}
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Confirm Password
+        </div>
+        <div className="flex flex-row justify-center ">
+          {/* <label className="mr-2 font-bold ">
+            Confirm Password
+          </label> */}
           <input
+            className="border-black border rounded p-1 mb-2 font-sans"
             type="password"
             value={confirmPassword}
+            placeholder="Confirm Password"
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Sign Up</button>
+        </div>
+        <div className="flex flex-row justify-center items-start"> </div>
+
+        <button className="submit-btn" type="submit">
+          Sign Up
+        </button>
       </form>
     </div>
   );

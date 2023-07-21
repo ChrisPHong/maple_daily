@@ -15,6 +15,7 @@ import MapleNews from "./components/MapleNews";
 import LoginFormPage from "./components/LoginFormPage";
 import LoadingList from "./components/Lists/LoadingList";
 import ChangeOrderModal from "./components/Modals/ChangeOrderModal/ChangeOrderModal";
+import SplashPage from "./components/SplashPage";
 import "./index.css";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
   const lists = useSelector((state) =>
     Object.values(state?.listReducer?.changeList)
   );
+  const user = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -34,15 +36,19 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       <Switch>
         <Route exact path="/">
-          <div className="dashboard-Container-app ">
-            <ChangeOrderModal
-              lists={lists}
-              setShowChangeOrder={setShowChangeOrder}
-              showChangeOrder={showChangeOrder}
-            />
-            <DashBoardLists />
-            <MapleNews />
-          </div>
+          {user ? (
+            <div className="dashboard-Container-app ">
+              <ChangeOrderModal
+                lists={lists}
+                setShowChangeOrder={setShowChangeOrder}
+                showChangeOrder={showChangeOrder}
+              />
+              <DashBoardLists />
+              <MapleNews />
+            </div>
+          ) : (
+            <SplashPage />
+          )}
         </Route>
         <Route exact path="/lists/:listId">
           <div className="single-list-Div mt-5">
@@ -60,7 +66,9 @@ function App() {
           <ListForm />
         </Route>
         <Route exact path="/signup">
-          <SignupFormPage />
+          <div className="flex justify-center ">
+            <SignupFormPage />
+          </div>
         </Route>
         <Route exact path="/login">
           <LoginFormPage />
