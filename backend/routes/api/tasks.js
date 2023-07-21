@@ -55,18 +55,49 @@ router.put(
   })
 );
 
-router.put('/:userId/daily',
-asyncHandler(async (req, res) =>{
-  const userId = parseInt(req.params.userId);
+router.put(
+  "/:userId/daily",
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.userId);
 
-  const tasks = await Task.findAll({where:{userId}});
+    const tasks = await Task.findAll({ where: { userId, resetTime: "Daily" } });
+    for (let i = 0; i < tasks.length; i++) {
+      let task = tasks[i];
+      task.completed = false;
+      await task.save();
+    }
 
-  for(let i = 0; i < tasks.length; i++){
-    let task = tasks[i];
-    task.completed = false
-    await task.save();
-  }
+    return res.json(tasks);
+  })
+);
+router.put(
+  "/:userId/weekly",
+  asyncHandler(async (req, res) => {
+    const { type } = req.body;
 
-  return res.json(tasks)
-}))
+    const userId = parseInt(req.params.userId);
+    let tasks;
+    if (type === "Bosses") {
+      tasks = await Task.findAll({
+        where: { userId, resetTime: "Weekly", category: "Boss" },
+      });
+      for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        task.completed = false;
+        await task.save();
+      }
+    } else {
+      tasks = await Task.findAll({
+        where: { userId, resetTime: "Weekly", category: "Quest" },
+      });
+      for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        task.completed = false;
+        await task.save();
+      }
+    }
+
+    return res.json(tasks);
+  })
+);
 module.exports = router;
