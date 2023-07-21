@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { resetWeeklyBosses } from "../../store/list";
 
 const ThursdayTimer = () => {
   const [timer, setTimer] = useState(0);
+  const userId = useSelector((state) => state?.session?.user?.id);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       const now = new Date().getTime();
       const nextReset = getNextThursday5PM().getTime();
       let remainingTime = nextReset - now;
 
       if (remainingTime <= 0) {
         // If the remaining time is less than zero, set it to zero to prevent negative values
+        await dispatch(resetWeeklyBosses({ userId, type: "Bosses" }));
         remainingTime = 0;
       }
       setTimer(remainingTime);

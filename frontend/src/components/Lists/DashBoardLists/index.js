@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import { getUserLists } from "../../../store/list";
 import OneList from "../OneList";
 import { imagePosition, flippedImage } from "./helper";
-import background from "./maplestory.png";
+// import background from "./maplestory.png";
+import background from "./Character-Select.jpg";
 import "./Lists.css";
 import DeleteCharacterModal from "../../Modals/DeleteCharacterModal/DeleteCharacterModal";
 
@@ -71,7 +72,7 @@ const DashBoardLists = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             width: "1100px",
-            height: "80vh",
+            height: "100vh",
           }}
         >
           {mainList?.map((list, idx) => {

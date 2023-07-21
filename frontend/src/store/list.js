@@ -228,6 +228,8 @@ const CREATE_TASK = "task/create";
 const DELETE_TASK = "task/delete";
 const EDIT_TASK = "task/edit";
 const RESET_DAILY_TASKS = "task/daily/reset";
+const RESET_WEEKLY_BOSSES = "task/weekly/bosses/reset";
+const RESET_WEEKLY_TASKS = "task/weekly/tasks/reset";
 
 const removeTask = (task) => {
   return {
@@ -251,6 +253,18 @@ const putTask = (task) => {
 const resetEveryDayTasks = (tasks) => {
   return {
     type: RESET_DAILY_TASKS,
+    tasks,
+  };
+};
+const resetWeeklyBoss = (tasks) => {
+  return {
+    type: RESET_WEEKLY_BOSSES,
+    tasks,
+  };
+};
+const resetWeeklyTASKS = (tasks) => {
+  return {
+    type: RESET_WEEKLY_TASKS,
     tasks,
   };
 };
@@ -301,12 +315,34 @@ export const resetDailyTasks = (data) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  if (!response.ok) {
-    return "Please provide the correct inputs";
-  }
+
   if (response.ok) {
     const tasks = await response.json();
     dispatch(resetEveryDayTasks(tasks));
+  }
+};
+export const resetWeeklyBosses = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/tasks/${data.userId}/weekly`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const tasks = await response.json();
+    dispatch(resetWeeklyBoss(tasks));
+  }
+};
+export const resetWeeklyQuests = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/tasks/${data.userId}/weekly`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const tasks = await response.json();
+    dispatch(resetWeeklyTASKS(tasks));
   }
 };
 
@@ -466,14 +502,78 @@ const listReducer = (state = initialState, action) => {
     case RESET_DAILY_TASKS:
       newState = { ...state };
       const taskArr = action.tasks;
+      const listId = newState.list[0].id;
 
       for (let i = 0; i < taskArr.length; i++) {
         let task = taskArr[i];
-        let completeReset = task.completed ? "complete" : "incomplete";
 
-        newState.lists[task.listId].Tasks[task.resetTime][task.category][
-          completeReset
-        ][task.id] = task;
+        if (
+          newState.list[0].Tasks[task.resetTime][task.category]["complete"][
+            task.id
+          ] &&
+          task.listId === listId
+        ) {
+          delete newState.list[0].Tasks[task.resetTime][task.category][
+            "complete"
+          ][task.id];
+        }
+        if (listId === task.listId) {
+          newState.list[0].Tasks[task.resetTime][task.category]["incomplete"][
+            task.id
+          ] = task;
+        }
+      }
+
+      return newState;
+    case RESET_WEEKLY_BOSSES:
+      newState = { ...state };
+      const tasksArr = action.tasks;
+      const list_id = newState.list[0].id;
+
+      for (let i = 0; i < tasksArr.length; i++) {
+        let task = tasksArr[i];
+
+        if (
+          newState.list[0].Tasks[task.resetTime][task.category]["complete"][
+            task.id
+          ] &&
+          task.listId === list_id
+        ) {
+          delete newState.list[0].Tasks[task.resetTime][task.category][
+            "complete"
+          ][task.id];
+        }
+        if (list_id === task.listId) {
+          newState.list[0].Tasks[task.resetTime][task.category]["incomplete"][
+            task.id
+          ] = task;
+        }
+      }
+
+      return newState;
+    case RESET_WEEKLY_TASKS:
+      newState = { ...state };
+      const task_Array = action.tasks;
+      const list_Id = newState.list[0].id;
+
+      for (let i = 0; i < task_Array.length; i++) {
+        let task = task_Array[i];
+
+        if (
+          newState.list[0].Tasks[task.resetTime][task.category]["complete"][
+            task.id
+          ] &&
+          task.listId === list_Id
+        ) {
+          delete newState.list[0].Tasks[task.resetTime][task.category][
+            "complete"
+          ][task.id];
+        }
+        if (list_Id === task.listId) {
+          newState.list[0].Tasks[task.resetTime][task.category]["incomplete"][
+            task.id
+          ] = task;
+        }
       }
 
       return newState;

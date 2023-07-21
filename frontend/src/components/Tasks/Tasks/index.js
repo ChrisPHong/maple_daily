@@ -104,7 +104,7 @@ const TasksList = ({ props }) => {
             ) : (
               <>
                 <div className="mini-tasks-container">
-                  <div className="title-mini-tasks">NEED TO DO</div>
+                  <div className="title-mini-tasks">INCOMPLETE</div>
                   {taskDisplay(DailyQuestsInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
@@ -130,7 +130,7 @@ const TasksList = ({ props }) => {
             ) : (
               <>
                 <div className="mini-tasks-container">
-                  <div className="title-mini-tasks">TO DO</div>
+                  <div className="title-mini-tasks">INCOMPLETE</div>
                   {taskDisplay(DailyBossInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
@@ -156,11 +156,11 @@ const TasksList = ({ props }) => {
             ) : (
               <>
                 <div className="mini-tasks-container">
-                  <div className="title-mini-tasks">Incomplete</div>
+                  <div className="title-mini-tasks">INCOMPLETE</div>
                   {taskDisplay(WeeklyBossesInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
-                  <div className="title-mini-tasks">Complete</div>
+                  <div className="title-mini-tasks">FINISHED</div>
                   {taskDisplay(WeeklyBossesComplete, "completed")}
                 </div>
               </>
@@ -181,11 +181,11 @@ const TasksList = ({ props }) => {
             ) : (
               <>
                 <div className="mini-tasks-container">
-                  <div className="title-mini-tasks">InComplete</div>
+                  <div className="title-mini-tasks">INCOMPLETE</div>
                   {taskDisplay(WeeklyQuestsInComplete, "incompleted")}
                 </div>
                 <div className="mini-tasks-container">
-                  <div className="title-mini-tasks">Complete</div>
+                  <div className="title-mini-tasks">FINISHED</div>
                   {taskDisplay(WeeklyQuestsComplete, "completed")}
                 </div>
               </>

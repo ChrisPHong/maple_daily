@@ -75,18 +75,20 @@ const List = () => {
               </div>
             </div>
           </div>
-          <TaskFormModal listId={list.id} userId={userId} />
           <div className="tasks-container">
             {list?.Tasks ? <TasksList props={list?.Tasks} /> : <></>}
           </div>
-          <button
-            className="edit-list-button"
-            onClick={() => {
-              history.push(`/lists/${list?.id}/edit`);
-            }}
-          >
-            Edit List
-          </button>
+          <div className="flex flex-row mt-5 justify-center items-center">
+            <TaskFormModal listId={list.id} userId={userId} />
+            <button
+              className="edit-list-button mt-2"
+              onClick={() => {
+                history.push(`/lists/${list?.id}/edit`);
+              }}
+            >
+              Edit List
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

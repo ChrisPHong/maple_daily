@@ -9,14 +9,14 @@ const DailyCountDown = ({ props }) => {
   const { length } = props;
   const dispatch = useDispatch();
   const userId = useSelector((state) => state?.session?.user?.id);
-
+  // const length = 0;
   useEffect(() => {
     const interval = setInterval(async () => {
       const now = new Date().getTime();
       const nextReset = getNextResetTime().getTime();
       let remainingTime = nextReset - now;
 
-      if (remainingTime < 0) {
+      if (remainingTime <= 0) {
         await dispatch(resetDailyTasks({ userId }));
         remainingTime = getNextResetTime().getTime() - now;
 
