@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import LoginFormModal from "../LoginFormModal";
 import "./Navigation.css";
 import logo from "./images/DailyMapler_Logo.png";
 
@@ -15,7 +14,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = (
       <div className="full-nav-container">
         <div
-          className="logo-container flex justify-content items-align m-0"
+          className="logo-container flex justify-content items-center"
           onClick={() => {
             history.push("/");
           }}
@@ -55,7 +54,7 @@ function Navigation({ isLoaded }) {
               history.push("/");
             }}
           >
-            LOGO
+            <img src={logo} alt="logo" className="w-40" />
           </div>
 
           <div className="Nav-right-container">

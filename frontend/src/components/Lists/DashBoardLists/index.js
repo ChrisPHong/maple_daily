@@ -27,6 +27,7 @@ const DashBoardLists = () => {
   const [index, setIndex] = useState(0);
   const [listId, setListId] = useState(0);
 
+
   useEffect(() => {
     if (listCheck) {
       whichList(lists, index);
@@ -103,39 +104,44 @@ const DashBoardLists = () => {
       </div>
       <div></div>
       <div className="character-button-div">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
+        <div className="text-white font-bold mb-2 flex justify-evenly shadow">
+          {index + 1} / {Math.ceil(lists.length / 12)}
+        </div>
+        <div className="flex flex-row justify-center items-center">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
 
-            indexChanger("-");
-          }}
-          className="displayButton mr-5"
-        >
-          {`<`}
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            history.push("/loadCharacter");
-          }}
-          className="character-list-btn mr-5"
-        >
-          <span className="plus-sign">+</span>
-          <div className="CC-btn-div">
-            <span className="">Add</span>
-            <span className="">Character</span>
-          </div>
-        </button>
-        <DeleteCharacterModal lists={lists} />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            indexChanger("+");
-          }}
-          className="displayButton right-btn ml-5"
-        >
-          {`>`}
-        </button>
+              indexChanger("-");
+            }}
+            className="displayButton mr-5 text-white"
+          >
+            {`<`}
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              history.push("/loadCharacter");
+            }}
+            className="character-list-btn mr-5"
+          >
+            <span className="plus-sign">+</span>
+            <div className="CC-btn-div">
+              <span className="">Add</span>
+              <span className="">Character</span>
+            </div>
+          </button>
+          <DeleteCharacterModal lists={lists} />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              indexChanger("+");
+            }}
+            className="displayButton right-btn ml-5 text-white"
+          >
+            {`>`}
+          </button>
+        </div>
       </div>
     </div>
   );

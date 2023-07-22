@@ -2,84 +2,84 @@ const imagePosition = (num) => {
   if (num === 0) {
     return {
       position: "relative",
-      top: "66%",
-      left: "49%",
+      top: "72.5%",
+      left: "75%",
     };
   }
   if (num === 1)
     return {
       position: "relative",
-      top: "66%",
-      left: "24%",
+      top: "72.5%",
+      left: "41%",
     };
   if (num === 2) {
     return {
       position: "relative",
-      top: "66%",
-      left: "-3%",
+      top: "72.5%",
+      left: "14%",
     };
   }
   if (num === 3) {
     return {
       position: "relative",
-      top: "66%",
-      left: "-20%",
+      top: "72.5%",
+      left: "-6%",
     };
   }
   if (num === 4) {
     return {
       position: "relative",
-      top: "66%",
-      left: "-45%",
+      top: "72.5%",
+      left: "-23%",
     };
   }
   if (num === 5) {
     return {
       position: "relative",
-      top: "66%",
-      left: "-70%",
+      top: "72.5%",
+      left: "-30%",
     };
   }
   if (num === 6) {
     return {
       position: "relative",
       top: "34%",
-      left: "49%",
+      left: "75%",
     };
   }
   if (num === 7) {
     return {
       position: "relative",
       top: "34%",
-      left: "24%",
+      left: "41%",
     };
   }
   if (num === 8) {
     return {
       position: "relative",
       top: "34%",
-      left: "-3%",
+      left: "14%",
     };
   }
   if (num === 9) {
     return {
       position: "relative",
       top: "34%",
-      left: "-20%",
+      left: "-6%",
     };
   }
   if (num === 10) {
     return {
       position: "relative",
       top: "34%",
-      left: "-45%",
+      left: "-23%",
     };
   }
   if (num === 11) {
     return {
       position: "relative",
       top: "34%",
-      left: "-70%",
+      left: "-30%",
     };
   }
 };

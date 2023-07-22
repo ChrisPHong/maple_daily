@@ -25,32 +25,42 @@ function LoginFormPage() {
   };
 
   return (
-    <div className="top-container">
-      <form onSubmit={handleSubmit}>
+    <div className="top-container flex flex-col justify-center items-center">
+      <form
+        className="flex flex-col justify-center items-center border border-black border-1 rounded p-5"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="text-l font-bold mb-2">Log In</h1>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="text-red-500 font-bold" key={idx}>
+              {error}
+            </li>
           ))}
         </ul>
-        <label>
-          Username or Email
+        <div className="flex flex-row justify-center items-start">
           <input
+            className="border-black border rounded p-1 mb-2 font-sans"
             type="text"
             value={credential}
+            placeholder="Username or Email"
             onChange={(e) => setCredential(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+        <div className="flex flex-row justify-center items-start">
           <input
+            className="border-black border rounded p-1 mb-2 font-sans"
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Log In</button>
+        </div>
+        <button className="submit-btn" type="submit">
+          Log In
+        </button>
       </form>
     </div>
   );

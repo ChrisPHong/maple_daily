@@ -9,7 +9,7 @@ import Loading from "../../Loading";
 import TaskFormModal from "../../Modals/TaskFormModal";
 import "./List.css";
 
-const List = () => {
+const List = ({ setShow }) => {
   const userId = useSelector((state) => state?.session?.user?.id);
   const list = useSelector((state) => state?.listReducer?.list)[0];
   const params = useParams();
@@ -17,7 +17,6 @@ const List = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [showLoading, setShowLoading] = useState(false);
   useEffect(() => {
     if (userId) {
       const payload = { listId, userId };
@@ -30,15 +29,13 @@ const List = () => {
       character: list.character,
       id: Number(listId),
     };
+    await setShow(true);
 
-    await setShowLoading(true);
     await dispatch(updateList(payload));
-    await setShowLoading(false);
+    await setShow(false);
   };
 
-  return showLoading ? (
-    <Loading />
-  ) : (
+  return (
     <div className="list-container">
       {list ? (
         <div className="OneProfile-Container">

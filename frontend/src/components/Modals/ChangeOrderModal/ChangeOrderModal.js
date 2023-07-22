@@ -11,7 +11,9 @@ const ChangeOrderModal = ({ lists, setShowChangeOrder, showChangeOrder }) => {
   return (
     <div>
       <button
-        className="changeOrder-modal-btn absolute left-24 top-60"
+        className={` ${
+          showModal ? "" : "changeOrder-modal-btn absolute left-1/4 top-60"
+        }`}
         onClick={async () => {
           await dispatch(storingChangeList({ lists: lists, type: "open" }));
           await setShowModal(true);
