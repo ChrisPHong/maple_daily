@@ -16,12 +16,15 @@ import LoginFormPage from "./components/LoginFormPage";
 import LoadingList from "./components/Lists/LoadingList";
 import ChangeOrderModal from "./components/Modals/ChangeOrderModal/ChangeOrderModal";
 import SplashPage from "./components/SplashPage";
+import Loading from "./components/Loading";
+import About from "./components/About";
 import "./index.css";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [showChangeOrder, setShowChangeOrder] = useState(false);
+  const [show, setShow] = useState(false);
 
   const lists = useSelector((state) =>
     Object.values(state?.listReducer?.changeList)
@@ -32,50 +35,59 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="App">
       <Navigation isLoaded={isLoaded} />
-      <Switch>
-        <Route exact path="/">
-          {user ? (
-            <div className="dashboard-Container-app ">
-              <ChangeOrderModal
-                lists={lists}
-                setShowChangeOrder={setShowChangeOrder}
-                showChangeOrder={showChangeOrder}
-              />
-              <DashBoardLists />
-              <MapleNews />
+      <div className="content-container">
+        <Switch>
+          <Route exact path="/">
+            {user ? (
+              <div className="dashboard-Container-app ">
+                <ChangeOrderModal
+                  lists={lists}
+                  setShowChangeOrder={setShowChangeOrder}
+                  showChangeOrder={showChangeOrder}
+                />
+                <DashBoardLists />
+                <MapleNews />
+              </div>
+            ) : (
+              <SplashPage />
+            )}
+          </Route>
+          <Route exact path="/lists/:listId">
+            {show ? (
+              Loading
+            ) : (
+              <div className="single-list-Div mt-5">
+                <UsersLists />
+                <List setShow={setShow} />
+              </div>
+            )}
+          </Route>
+          <Route exact path="/About">
+            <About />
+          </Route>
+          <Route exact path="/lists/:listId/edit">
+            <EditFormList />
+          </Route>
+          <Route exact path="/LoadCharacter">
+            <LoadingList />
+          </Route>
+          <Route exact path="/CreateList">
+            <ListForm />
+          </Route>
+          <Route exact path="/signup">
+            <div className="flex justify-center ">
+              <SignupFormPage />
             </div>
-          ) : (
-            <SplashPage />
-          )}
-        </Route>
-        <Route exact path="/lists/:listId">
-          <div className="single-list-Div mt-5">
-            <UsersLists />
-            <List />
-          </div>
-        </Route>
-        <Route exact path="/lists/:listId/edit">
-          <EditFormList />
-        </Route>
-        <Route exact path="/LoadCharacter">
-          <LoadingList />
-        </Route>
-        <Route exact path="/CreateList">
-          <ListForm />
-        </Route>
-        <Route exact path="/signup">
-          <div className="flex justify-center ">
-            <SignupFormPage />
-          </div>
-        </Route>
-        <Route exact path="/login">
-          <LoginFormPage />
-        </Route>
-      </Switch>
+          </Route>
+          <Route exact path="/login">
+            <LoginFormPage />
+          </Route>
+        </Switch>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

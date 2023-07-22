@@ -33,25 +33,13 @@ function SignupFormPage() {
 
   return (
     <div className="Submit-container flex flex-row justify-center items-center border border-black border-1 rounded max-w-4xl">
-      <div>MAPLE IMAGE HERE</div>
-      <span>
-        Lorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem IpsumLoremLorem
-        IpsumLorem
-      </span>
+      <img
+        alt="maple_pic"
+        className="w-96"
+        src="https://www.pngitem.com/pimgs/m/435-4351583_maplestory-logo-maple-story-logo-hd-png-download.png"
+      />
       <form
-        className="flex flex-col justify-center items-center border-l border-black border-1"
+        className="flex flex-col justify-center items-center border-l border-black border-1 m-2 py-8 px-1"
         onSubmit={handleSubmit}
       >
         <h1 className="text-l font-bold mb-2">Create Account</h1>
@@ -61,7 +49,6 @@ function SignupFormPage() {
           ))}
         </ul>
         <div className="flex flex-row justify-center items-start">
-          {/* <label className=" mr-2 font-bold ">Email</label> */}
           <input
             className="border-black border rounded p-1 mb-2 font-sans"
             type="text"
@@ -72,7 +59,6 @@ function SignupFormPage() {
           />
         </div>
         <div className="flex flex-row justify-center items-start">
-          {/* <label className="mr-2 font-bold ">Username</label> */}
           <input
             className="border-black border rounded p-1 mb-2 font-sans"
             type="text"
@@ -83,7 +69,6 @@ function SignupFormPage() {
           />
         </div>
         <div className="flex flex-row justify-center items-start">
-          {/* <label className=" mr-2 font-bold ">Password</label> */}
           <input
             className="border-black border rounded p-1 mb-2 font-sans"
             type="password"
@@ -94,9 +79,6 @@ function SignupFormPage() {
           />
         </div>
         <div className="flex flex-row justify-center ">
-          {/* <label className="mr-2 font-bold ">
-            Confirm Password
-          </label> */}
           <input
             className="border-black border rounded p-1 mb-2 font-sans"
             type="password"

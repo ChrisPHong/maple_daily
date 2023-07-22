@@ -54,7 +54,7 @@ function Navigation({ isLoaded }) {
               history.push("/");
             }}
           >
-            LOGO
+            <img src={logo} alt="logo" className="w-40" />
           </div>
 
           <div className="Nav-right-container">

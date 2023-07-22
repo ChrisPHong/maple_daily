@@ -1,11 +1,12 @@
-.loader-container {
+/* .loader-container {
   width: 100%;
   height: 100vh;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-  background: rgb(112, 112, 112, 0.5);
+
   z-index: 10;
 }
 
@@ -24,5 +25,43 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+} */
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: black;
+  margin: 0 6px;
+  animation: loadingAnimation 0.8s linear infinite;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s; /* Delay the animation for the second dot by 0.5 seconds */
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.5s; /* Delay the animation for the third dot by 1 second */
+}
+
+@keyframes loadingAnimation {
+  0%,
+  100% {
+    transform: translateY(
+      0
+    ); /* Start and end positions (no vertical movement) */
+  }
+  50% {
+    transform: translateY(
+      -10px
+    ); /* Move the dot up by 10 pixels at 50% of the animation */
   }
 }

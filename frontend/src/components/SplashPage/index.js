@@ -1,74 +1,39 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import About from "../About";
 const SplashPage = () => {
   const history = useHistory();
   return (
-    <div className="mt-16 flex flex-col justify-center items-center">
-      <div className="Introduction flex flex-col justify-center items-center max-w-md">
-        <h1>WELCOME</h1>
-        <h1>Daily Mapler</h1>
-        <span>
-          Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum
-        </span>
-        <button
-          className="submit-btn
-          bg-yellow-400"
-          onClick={(e) => {
-            e.preventDefault();
-            history.push("/signup");
-          }}
-        >
-          Get Started
-        </button>
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <h2>Other Relevant information</h2>
-        <div className="bg-gray-600 flex flex-row justify-center items-center">
-          <div>GIF</div>
-          Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum
-        </div>
-        <h2>Loading a character</h2>
-        <div className="bg-blue-600 flex flex-row justify-center items-center">
-          Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum
-          <div>GIF</div>
-        </div>
-        <h2>Choosing a task</h2>
-        <div className="bg-gray-600 flex flex-row justify-center items-center">
-          <div>GIF</div>
-          Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem
-          IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum
+    <div className="mt-20 flex flex-col justify-center items-center">
+      <div
+        className="Introduction flex flex-col justify-center items-center h-screen"
+        style={{
+          backgroundImage:
+            "url(https://external-preview.redd.it/rhuCRVXQnIQWzI_fqi46lepYqVpwSe5O-uKHNsGSzvs.jpg?width=1080&crop=smart&auto=webp&s=48c9644a51ce793b2fd6b5a375b59abb0b35f121)",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="mx-52 flex flex-col items-center bg-gray-500 bg-opacity-40 rounded p-3">
+          <h1 className="text-xxl font-bold text-white">WELCOME</h1>
+          <h1 className="text-xl font-bold text-white">Daily Mapler!</h1>
+          <span className="text-white font-bold mt-2">
+            Track all of your bossing and quests with Daily Mapler! You'll be
+            able to load in your character and check off daily/weekly quests and
+            bosses so that you don't have to remember everything you did for
+            each character! Click on the button below to get started!
+          </span>
+          <button
+            className="submit-btn mt-10 margin-14"
+            onClick={(e) => {
+              e.preventDefault();
+              history.push("/signup");
+            }}
+          >
+            Get Started
+          </button>
         </div>
       </div>
+      <About />
     </div>
   );
 };
