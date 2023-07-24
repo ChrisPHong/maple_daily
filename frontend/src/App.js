@@ -42,11 +42,15 @@ function App() {
           <Route exact path="/">
             {user ? (
               <div className="dashboard-Container-app ">
-                <ChangeOrderModal
-                  lists={lists}
-                  setShowChangeOrder={setShowChangeOrder}
-                  showChangeOrder={showChangeOrder}
-                />
+                {lists.length <= 1 ? (
+                  ""
+                ) : (
+                  <ChangeOrderModal
+                    lists={lists}
+                    setShowChangeOrder={setShowChangeOrder}
+                    showChangeOrder={showChangeOrder}
+                  />
+                )}
                 <DashBoardLists />
                 <MapleNews />
               </div>

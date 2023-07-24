@@ -29,33 +29,30 @@ const OneList = ({ props }) => {
     if (props) countingTasks(props.Tasks);
   }, [props]);
   return (
-    <div className="OneList-container">
-      <div className="top-One-List-container">
-        <div className="prop-character-div">
-          <span className="prop-character-info">
+    <div className="flex flex-col text-white p-2 bg-black bg-opacity-70 rounded">
+      <div className="flex flex-col bg-gray-500 bg-opacity-70 pt-3 pb-3 rounded">
+        <div className="ml-2">
+          <span className="font-bold ml-2">
             {props.character.toUpperCase()}
           </span>
         </div>
-
-        <div className="props-characterClass-div">
-          <span className="props-characterClass-info">
+        <div className="flex items-end justify-end mr-2">
+          <span className="text-xxs mr-2 font-bold">
             {props.characterClass}
           </span>
         </div>
       </div>
-      <div className="Top-OneList-Container">
-        <div className="characterInfo-container">
-          <span className="level-size-container">
-            <h1 className="level-size-container">{props.level} </h1> Level
-          </span>
-          <span className="character-info-data">Server: {props.server}</span>
-          <span className="character-info-data">
-            {incompleteTasks} Incomplete tasks
-          </span>
-          <span className="character-info-data">
-            {completedTasks} Completed tasks
-          </span>
-        </div>
+
+      <div className="flex flex-col justify-center items-start w-full">
+        {/* <div className="bg-black bg-opacity-70 flex flex-col justify-center items-start"> */}
+        <span className="ml-2 mt-2 font-bold text-xxs">
+          Level {props.level}{" "}
+        </span>
+        <span className="ml-2  text-xxs">Server: {props.server}</span>
+        <span className="ml-2  text-xxs">
+          {incompleteTasks} Incomplete tasks
+        </span>
+        <span className="ml-2  text-xxs">{completedTasks} Completed tasks</span>
       </div>
     </div>
   );

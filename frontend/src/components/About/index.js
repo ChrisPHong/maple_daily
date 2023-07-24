@@ -1,4 +1,7 @@
 import maplestory from "./assets/maplestory.mp4";
+import ChangingOrder from "./assets/Changing_Order.mp4";
+import CreatingTask from "./assets/Create_Task.mp4";
+import LoadingCharacter from "./assets/Loading_Character.mp4";
 const About = () => {
   return (
     <div
@@ -10,6 +13,10 @@ const About = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      {/* <div
+      className="flex flex-col justify-center items-center mt-28"
+
+    > */}
       <div className="flex justify-center flex-col items-center max-w-4xl">
         <div
           className="flex flex-row justify-center items-center bg-opacity-40 bg-black"
@@ -22,7 +29,7 @@ const About = () => {
           //   }}
         >
           <video
-            src={maplestory}
+            src={LoadingCharacter}
             playsInline
             autoPlay
             loop
@@ -66,7 +73,7 @@ const About = () => {
             </span>
           </div>
           <video
-            src={maplestory}
+            src={CreatingTask}
             playsInline
             autoPlay
             loop
@@ -89,7 +96,7 @@ const About = () => {
       >
         <div className="flex flex-row justify-center items-center">
           <video
-            src={maplestory}
+            src={ChangingOrder}
             playsInline
             autoPlay
             loop
