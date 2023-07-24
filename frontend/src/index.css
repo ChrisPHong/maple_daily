@@ -108,3 +108,12 @@ video {
   width: 50%;
   object-fit: contain;
 }
+
+.blue-bg {
+  color: white;
+  background: linear-gradient(to bottom, #67d9ee, #0087d7);
+  padding: 5px 10px;
+  border: 1px solid rgb(78, 78, 78);
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+}
