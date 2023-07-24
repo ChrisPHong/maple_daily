@@ -27,7 +27,6 @@ const DashBoardLists = () => {
   const [index, setIndex] = useState(0);
   const [listId, setListId] = useState(0);
 
-
   useEffect(() => {
     if (listCheck) {
       whichList(lists, index);
@@ -66,6 +65,28 @@ const DashBoardLists = () => {
   return (
     <div className="Dashboard-page">
       <div className="All-lists-Container">
+        {lists.length === 0 ? (
+          <div
+            className="flex items-center justify-center h-screen absolute left-1/2 right-1/2
+            "
+          >
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                history.push("/loadCharacter");
+              }}
+              className="character-list-btn"
+            >
+              <span className="plus-sign">+</span>
+              <div className="CC-btn-div">
+                <span className="">Add</span>
+                <span className="">Character</span>
+              </div>
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
         <div
           className="character-select-div"
           style={{
@@ -103,46 +124,50 @@ const DashBoardLists = () => {
         </div>
       </div>
       <div></div>
-      <div className="character-button-div">
-        <div className="text-white font-bold mb-2 flex justify-evenly shadow">
-          {index + 1} / {Math.ceil(lists.length / 12)}
-        </div>
-        <div className="flex flex-row justify-center items-center">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
+      {lists.length === 0 ? (
+        ""
+      ) : (
+        <div className="character-button-div">
+          <div className="text-white font-bold mb-2 flex justify-evenly shadow">
+            {index + 1} / {Math.ceil(lists.length / 12)}
+          </div>
+          <div className="flex flex-row justify-center items-center">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
 
-              indexChanger("-");
-            }}
-            className="displayButton mr-5 text-white"
-          >
-            {`<`}
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              history.push("/loadCharacter");
-            }}
-            className="character-list-btn mr-5"
-          >
-            <span className="plus-sign">+</span>
-            <div className="CC-btn-div">
-              <span className="">Add</span>
-              <span className="">Character</span>
-            </div>
-          </button>
-          <DeleteCharacterModal lists={lists} />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              indexChanger("+");
-            }}
-            className="displayButton right-btn ml-5 text-white"
-          >
-            {`>`}
-          </button>
+                indexChanger("-");
+              }}
+              className="displayButton mr-5 text-white"
+            >
+              {`<`}
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                history.push("/loadCharacter");
+              }}
+              className="character-list-btn mr-5"
+            >
+              <span className="plus-sign">+</span>
+              <div className="CC-btn-div">
+                <span className="">Add</span>
+                <span className="">Character</span>
+              </div>
+            </button>
+            <DeleteCharacterModal lists={lists} />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                indexChanger("+");
+              }}
+              className="displayButton right-btn ml-5 text-white"
+            >
+              {`>`}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
