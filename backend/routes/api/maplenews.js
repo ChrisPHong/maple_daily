@@ -28,7 +28,6 @@ router.get(
     // const htmlContent = await page.content();
     // await fs.writeFile("html.txt", htmlContent);
 
-
     const news = await page.evaluate(() => {
       // const articles = document.querySelectorAll(".news-item div.photo a");
       const links = document.querySelectorAll(".news-item div.text h3 a");
@@ -47,7 +46,7 @@ router.get(
         document.querySelectorAll(".news-item div.text p.timestamp")
       );
 
-      let test = [];
+      let mapleNews = [];
       const pictures = document.querySelectorAll(
         'div[style*="background-image"]'
       );
@@ -60,7 +59,6 @@ router.get(
       });
 
       const articles = document.querySelectorAll(".news-item");
-    
 
       for (let i = 0; i < links.length; i++) {
         const linkItem = links[i];
@@ -72,10 +70,11 @@ router.get(
         const timestamp = timestamps[i].innerText;
 
         const hash = { header, link, title, photoLink, timestamp };
-        test.push(hash);
+        mapleNews.push(hash);
       }
+      console.log(mapleNews, "<<<<<<<<<<<<<<<< mapleNews");
 
-      return test;
+      return mapleNews;
     });
 
     await browser.close();

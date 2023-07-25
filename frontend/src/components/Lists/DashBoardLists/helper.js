@@ -23,14 +23,14 @@ const imagePosition = (num) => {
     return {
       position: "relative",
       top: "72.5%",
-      left: "-6%",
+      left: "14%",
     };
   }
   if (num === 4) {
     return {
       position: "relative",
       top: "72.5%",
-      left: "-23%",
+      left: "-10%",
     };
   }
   if (num === 5) {
@@ -65,14 +65,14 @@ const imagePosition = (num) => {
     return {
       position: "relative",
       top: "34%",
-      left: "-6%",
+      left: "14%",
     };
   }
   if (num === 10) {
     return {
       position: "relative",
       top: "34%",
-      left: "-23%",
+      left: "-10%",
     };
   }
   if (num === 11) {
