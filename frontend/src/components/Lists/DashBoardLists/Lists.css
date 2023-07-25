@@ -31,7 +31,7 @@
   width: min-content;
   background-color: rgb(68, 39, 39, 0.5);
   color: white;
-  padding: 5px 10px;
+  padding: 5px 5px;
   border: 1px solid rgb(233, 233, 233);
   border-radius: 5px;
 }
@@ -39,9 +39,9 @@
 .character-name-container {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  /* width: fit-content; */
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 .characterImage-Dashboard:hover {
   cursor: pointer;
