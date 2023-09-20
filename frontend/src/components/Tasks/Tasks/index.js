@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import OneTask from "../OneTask";
 import DailyCountDown from "../../Timers/DayTimer";
-// import WeeklyCountDown from "../../Timers/WeeklyTimer";
 import ThursdayTimer from "../../Timers/ThursdayTimer";
 import "./Tasks.css";
 import { useState } from "react";
 import SundayTimer from "../../Timers/SundayTimer";
+import { resetDailyTasks } from '../../../store/list';
+import { useSelector, useDispatch } from "react-redux";
 
 const TasksList = ({ props }) => {
   // Weekly Bosses
@@ -48,12 +49,14 @@ const TasksList = ({ props }) => {
     return tasks;
   };
 
+  const userId = useSelector((state) => state?.session?.user?.id);
+  const dispatch = useDispatch();
   const [toggleState, setToggleState] = useState(1);
 
   const toggleTab = (idx) => {
     setToggleState(idx);
   };
-  useEffect(() => {}, [props]);
+  useEffect(() => { }, [props]);
 
   return (
     <div className="container">
@@ -95,11 +98,20 @@ const TasksList = ({ props }) => {
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
           <h2>
-            <DailyCountDown props={{ length: 1 }} />
+            <div className="flex justify-between items-center">
+
+              <DailyCountDown props={{ length: 1 }} />
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetDailyTasks({ userId }))
+              }}
+              >
+                Reset Dailies
+              </button>
+            </div>
           </h2>
           <div className="quests-container">
             {DailyQuestsInComplete.length === 0 &&
-            DailyQuestsComplete.length === 0 ? (
+              DailyQuestsComplete.length === 0 ? (
               <div className="No-tasks-div">No Tasks</div>
             ) : (
               <>
@@ -125,7 +137,7 @@ const TasksList = ({ props }) => {
 
           <div className="quests-container">
             {DailyBossInComplete.length === 0 &&
-            DailyBossComplete.length === 0 ? (
+              DailyBossComplete.length === 0 ? (
               <div className="No-tasks-div">No Tasks</div>
             ) : (
               <>
@@ -151,7 +163,7 @@ const TasksList = ({ props }) => {
 
           <div className="quests-container">
             {WeeklyBossesInComplete.length === 0 &&
-            WeeklyBossesComplete.length === 0 ? (
+              WeeklyBossesComplete.length === 0 ? (
               <div className="No-tasks-div">No Tasks</div>
             ) : (
               <>
@@ -176,7 +188,7 @@ const TasksList = ({ props }) => {
 
           <div className="quests-container">
             {WeeklyQuestsInComplete.length === 0 &&
-            WeeklyQuestsComplete.length === 0 ? (
+              WeeklyQuestsComplete.length === 0 ? (
               <div className="No-tasks-div">No Tasks</div>
             ) : (
               <>
