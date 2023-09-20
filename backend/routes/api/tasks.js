@@ -11,6 +11,26 @@ const axios = require("axios");
 const router = express.Router();
 
 const validateSignup = [];
+const dailyQuests = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, resetTime: "Daily", category: "Quest", listId } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
+const dailyBosses = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Boss" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
 
 router.post(
   "/",
@@ -59,15 +79,17 @@ router.put(
   "/:userId/daily",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.userId);
+    const { type, listId } = req.body
 
-    const tasks = await Task.findAll({ where: { userId, resetTime: "Daily" } });
-    for (let i = 0; i < tasks.length; i++) {
-      let task = tasks[i];
-      task.completed = false;
-      await task.save();
+    if (type === "Quests") {
+      const tasks = await dailyQuests(userId, listId);
+      return res.json(tasks);
+    } else if (type === "Boss") {
+      const tasks = await dailyBosses(userId, listId);
+
+      return res.json(tasks);
+
     }
-
-    return res.json(tasks);
   })
 );
 router.put(

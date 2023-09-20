@@ -509,7 +509,7 @@ const listReducer = (state = initialState, action) => {
 
         if (
           newState.list[0].Tasks[task.resetTime][task.category]["complete"][
-            task.id
+          task.id
           ] &&
           task.listId === listId
         ) {
@@ -535,7 +535,7 @@ const listReducer = (state = initialState, action) => {
 
         if (
           newState.list[0].Tasks[task.resetTime][task.category]["complete"][
-            task.id
+          task.id
           ] &&
           task.listId === list_id
         ) {
@@ -561,7 +561,7 @@ const listReducer = (state = initialState, action) => {
 
         if (
           newState.list[0].Tasks[task.resetTime][task.category]["complete"][
-            task.id
+          task.id
           ] &&
           task.listId === list_Id
         ) {

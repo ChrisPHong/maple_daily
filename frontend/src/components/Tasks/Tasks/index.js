@@ -50,6 +50,8 @@ const TasksList = ({ props }) => {
   };
 
   const userId = useSelector((state) => state?.session?.user?.id);
+  const listId = useSelector((state) => state?.listReducer?.list?.[0].id);
+  console.log(listId, "<<<<<<<<<<< what is this")
   const dispatch = useDispatch();
   const [toggleState, setToggleState] = useState(1);
 
@@ -102,10 +104,10 @@ const TasksList = ({ props }) => {
 
               <DailyCountDown props={{ length: 1 }} />
               <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetDailyTasks({ userId }))
+                dispatch(resetDailyTasks({ userId, type: "Quests", listId }))
               }}
               >
-                Reset Dailies
+                Reset Daily Quests
               </button>
             </div>
           </h2>
@@ -131,9 +133,16 @@ const TasksList = ({ props }) => {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <h2>
+          <div className="flex justify-between items-center">
+
             <DailyCountDown props={{ length: 1 }} />
-          </h2>
+            <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+              dispatch(resetDailyTasks({ userId, type: "Boss", listId }))
+            }}
+            >
+              Reset Daily Bosses
+            </button>
+          </div>
 
           <div className="quests-container">
             {DailyBossInComplete.length === 0 &&
