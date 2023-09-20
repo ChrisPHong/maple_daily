@@ -199,7 +199,17 @@ button {
   border-radius: 0px 5px 0px 0px;
 }
 
-.reset-btn{
+.reset-btn {
   background: linear-gradient(to bottom, #ff6a93, #d62e62);
+}
+.reset-btn:hover {
+  background: linear-gradient(to bottom, #e05e83, #b32653);
+}
 
+.complete-btn {
+  background: linear-gradient(to bottom, #6affa8, #2ed6b2);
+  box-shadow: 1px 1px 0px black;
+}
+.complete-btn:hover {
+  background: linear-gradient(to bottom, #5bdd91, #26b193);
 }

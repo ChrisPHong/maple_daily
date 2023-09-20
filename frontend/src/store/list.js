@@ -228,6 +228,8 @@ const CREATE_TASK = "task/create";
 const DELETE_TASK = "task/delete";
 const EDIT_TASK = "task/edit";
 const RESET_DAILY_TASKS = "task/daily/reset";
+const COMPLETE_DAILY_TASKS = "task/daily/complete";
+const COMPLETE_WEEKLY_TASKS = "task/weekly/complete";
 const RESET_WEEKLY_BOSSES = "task/weekly/bosses/reset";
 const RESET_WEEKLY_TASKS = "task/weekly/tasks/reset";
 
@@ -269,6 +271,20 @@ const resetWeeklyTASKS = (tasks) => {
   };
 };
 
+const completeEveryDayQuests = (tasks) => {
+  return {
+    type: COMPLETE_DAILY_TASKS,
+    tasks,
+  }
+}
+
+const completeEveryWeeklyQuests = (tasks) => {
+  return {
+    type: COMPLETE_WEEKLY_TASKS,
+    tasks,
+  }
+}
+
 export const createTask = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/tasks/`, {
     method: "POST",
@@ -309,7 +325,7 @@ export const deleteTask = (data) => async (dispatch) => {
   }
 };
 // Reset Tasks
-export const resetDailyTasks = (data) => async (dispatch) => {
+export const resetDailies = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/tasks/${data.userId}/daily`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -321,30 +337,41 @@ export const resetDailyTasks = (data) => async (dispatch) => {
     dispatch(resetEveryDayTasks(tasks));
   }
 };
-export const resetWeeklyBosses = (data) => async (dispatch) => {
-  const response = await csrfFetch(`/api/tasks/${data.userId}/weekly`, {
+export const completeDailies = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/tasks/${data.userId}/daily`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
+  if (response.ok) {
+    const tasks = await response.json();
+    dispatch(completeEveryDayQuests(tasks));
+  }
+};
+export const resetWeeklies = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/tasks/${data.userId}/weekly`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
   if (response.ok) {
     const tasks = await response.json();
     dispatch(resetWeeklyBoss(tasks));
   }
 };
-export const resetWeeklyQuests = (data) => async (dispatch) => {
+export const completeWeeklies = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/tasks/${data.userId}/weekly`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-
   if (response.ok) {
     const tasks = await response.json();
-    dispatch(resetWeeklyTASKS(tasks));
+    dispatch(completeEveryWeeklyQuests(tasks));
   }
 };
+
 
 // One List
 
@@ -503,13 +530,12 @@ const listReducer = (state = initialState, action) => {
       newState = { ...state };
       const taskArr = action.tasks;
       const listId = newState.list[0].id;
-
       for (let i = 0; i < taskArr.length; i++) {
         let task = taskArr[i];
 
         if (
           newState.list[0].Tasks[task.resetTime][task.category]["complete"][
-            task.id
+          task.id
           ] &&
           task.listId === listId
         ) {
@@ -525,6 +551,57 @@ const listReducer = (state = initialState, action) => {
       }
 
       return newState;
+    case COMPLETE_DAILY_TASKS:
+      newState = { ...state };
+      const arrTask = action.tasks;
+      const idList = newState.list[0].id;
+      for (let i = 0; i < arrTask.length; i++) {
+        let task = arrTask[i];
+
+        if (
+          newState.list[0].Tasks[task.resetTime][task.category]["incomplete"][
+          task.id
+          ] &&
+          task.listId === idList
+        ) {
+          delete newState.list[0].Tasks[task.resetTime][task.category][
+            "incomplete"
+          ][task.id];
+        }
+        if (idList === task.listId) {
+          newState.list[0].Tasks[task.resetTime][task.category]["complete"][
+            task.id
+          ] = task;
+        }
+      }
+
+      return newState;
+    case COMPLETE_WEEKLY_TASKS:
+      newState = { ...state };
+      const arrayTasks = action.tasks;
+      const listofId = newState.list[0].id;
+      for (let i = 0; i < arrayTasks.length; i++) {
+        let task = arrayTasks[i];
+
+        if (
+          newState.list[0].Tasks[task.resetTime][task.category]["incomplete"][
+          task.id
+          ] &&
+          task.listId === listofId
+        ) {
+          delete newState.list[0].Tasks[task.resetTime][task.category][
+            "incomplete"
+          ][task.id];
+        }
+        if (listofId === task.listId) {
+          newState.list[0].Tasks[task.resetTime][task.category]["complete"][
+            task.id
+          ] = task;
+        }
+      }
+
+      return newState;
+
     case RESET_WEEKLY_BOSSES:
       newState = { ...state };
       const tasksArr = action.tasks;
@@ -535,7 +612,7 @@ const listReducer = (state = initialState, action) => {
 
         if (
           newState.list[0].Tasks[task.resetTime][task.category]["complete"][
-            task.id
+          task.id
           ] &&
           task.listId === list_id
         ) {
@@ -561,7 +638,7 @@ const listReducer = (state = initialState, action) => {
 
         if (
           newState.list[0].Tasks[task.resetTime][task.category]["complete"][
-            task.id
+          task.id
           ] &&
           task.listId === list_Id
         ) {

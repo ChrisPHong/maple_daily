@@ -5,7 +5,7 @@ import ThursdayTimer from "../../Timers/ThursdayTimer";
 import "./Tasks.css";
 import { useState } from "react";
 import SundayTimer from "../../Timers/SundayTimer";
-import { resetDailyTasks } from '../../../store/list';
+import { resetDailies, resetWeeklies, completeDailies, completeWeeklies } from '../../../store/list';
 import { useSelector, useDispatch } from "react-redux";
 
 const TasksList = ({ props }) => {
@@ -50,9 +50,11 @@ const TasksList = ({ props }) => {
   };
 
   const userId = useSelector((state) => state?.session?.user?.id);
+  const listId = useSelector((state) => state?.listReducer?.list?.[0].id);
+
   const dispatch = useDispatch();
   const [toggleState, setToggleState] = useState(1);
-
+  const [resetdailyQuest, setResetDailyQuest] = useState(false);
   const toggleTab = (idx) => {
     setToggleState(idx);
   };
@@ -101,12 +103,20 @@ const TasksList = ({ props }) => {
             <div className="flex justify-between items-center">
 
               <DailyCountDown props={{ length: 1 }} />
-              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetDailyTasks({ userId }))
-              }}
-              >
-                Reset Dailies
-              </button>
+              <div className="justify-around ">
+                <button className="complete-btn rounded p-2 font-bold m-2"
+                  onClick={() => {
+                    dispatch(completeDailies({ userId, type: "Quests", listId, complete: true }))
+                  }}>
+                  Complete Quests
+                </button>
+                <button className="rounded p-2 font-bold reset-btn" onClick={() => {
+                  dispatch(resetDailies({ userId, type: "Quests", listId, complete: false }))
+                }}
+                >
+                  Reset Daily Quests
+                </button>
+              </div>
             </div>
           </h2>
           <div className="quests-container">
@@ -131,9 +141,24 @@ const TasksList = ({ props }) => {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <h2>
+          <div className="flex justify-between items-center">
+
             <DailyCountDown props={{ length: 1 }} />
-          </h2>
+            <div>
+              <button className="complete-btn rounded p-2 font-bold m-2"
+                onClick={() => {
+                  dispatch(completeDailies({ userId, type: "Boss", listId, complete: true }))
+                }}>
+                Complete Bosses
+              </button>
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetDailies({ userId, type: "Boss", listId, complete: false }))
+              }}
+              >
+                Reset Daily Bosses
+              </button>
+            </div>
+          </div>
 
           <div className="quests-container">
             {DailyBossInComplete.length === 0 &&
@@ -157,9 +182,25 @@ const TasksList = ({ props }) => {
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <h2>
+          <div className="flex justify-between items-center">
+
             <ThursdayTimer />
-          </h2>
+            <div>
+
+              <button className="complete-btn rounded p-2 font-bold m-2"
+                onClick={() => {
+                  dispatch(completeWeeklies({ userId, type: "Boss", listId, complete: true }))
+                }}>
+                Complete Bosses
+              </button>
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetWeeklies({ userId, type: "Boss", listId, complete: false }))
+              }}
+              >
+                Reset Weekly Bosses
+              </button>
+            </div>
+          </div>
 
           <div className="quests-container">
             {WeeklyBossesInComplete.length === 0 &&
@@ -182,9 +223,23 @@ const TasksList = ({ props }) => {
         <div
           className={toggleState === 4 ? "content  active-content" : "content"}
         >
-          <h2>
+          <div className="flex justify-between items-center">
             <SundayTimer />
-          </h2>
+            <div>
+              <button className="complete-btn rounded p-2 font-bold m-2"
+                onClick={() => {
+                  dispatch(completeWeeklies({ userId, type: "Quests", listId, complete: true }))
+                }}>
+                Complete Quests
+              </button>
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetWeeklies({ userId, type: "Quests", listId, complete: false }))
+              }}
+              >
+                Reset Weekly Quests
+              </button>
+            </div>
+          </div>
 
           <div className="quests-container">
             {WeeklyQuestsInComplete.length === 0 &&
