@@ -51,12 +51,11 @@ const DailyCountDown = ({ props }) => {
   };
 
   const formatTime = (time) => {
-    const days = Math.floor(time / (1000 * 60 * 60 * 24));
     const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
-    if (hours <= 3) {
+    if (hours <= 2) {
       return (
         <span className="font-bold text-pink-600 p-3 rounded bg-red-600 text-white">
           {`${hours.toString().padStart(2, "0")} H ${minutes
