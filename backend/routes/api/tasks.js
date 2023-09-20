@@ -11,7 +11,8 @@ const axios = require("axios");
 const router = express.Router();
 
 const validateSignup = [];
-const dailyQuests = async (userId, listId) => {
+
+const resetDailyQuests = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, resetTime: "Daily", category: "Quest", listId } });
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
@@ -21,7 +22,8 @@ const dailyQuests = async (userId, listId) => {
 
   return tasks
 }
-const dailyBosses = async (userId, listId) => {
+
+const resetDailyBosses = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Boss" } });
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
@@ -31,6 +33,7 @@ const dailyBosses = async (userId, listId) => {
 
   return tasks
 }
+
 const completeDailyQuests = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Quest" } });
   for (let i = 0; i < tasks.length; i++) {
@@ -41,6 +44,7 @@ const completeDailyQuests = async (userId, listId) => {
 
   return tasks
 }
+
 const completeDailyBosses = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Boss" } });
   for (let i = 0; i < tasks.length; i++) {
@@ -51,7 +55,8 @@ const completeDailyBosses = async (userId, listId) => {
 
   return tasks
 }
-const weeklyQuests = async (userId, listId) => {
+
+const resetWeeklyQuests = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Quest" } });
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
@@ -61,11 +66,32 @@ const weeklyQuests = async (userId, listId) => {
 
   return tasks
 }
-const weeklyBosses = async (userId, listId) => {
+
+const resetWeeklyBosses = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Boss" } });
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
     task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
+const completeWeeklyQuests = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Quest" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = true;
+    await task.save();
+  }
+
+  return tasks
+}
+const completeWeeklyBosses = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Boss" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = true;
     await task.save();
   }
 
@@ -122,10 +148,10 @@ router.put(
     const { type, listId, complete } = req.body
 
     if (type === "Quests" && complete === false) {
-      const tasks = await dailyQuests(userId, listId);
+      const tasks = await resetDailyQuests(userId, listId);
       return res.json(tasks);
     } else if (type === "Boss" && complete === false) {
-      const tasks = await dailyBosses(userId, listId);
+      const tasks = await resetDailyBosses(userId, listId);
 
       return res.json(tasks);
 
@@ -142,17 +168,21 @@ router.put(
 router.put(
   "/:userId/weekly",
   asyncHandler(async (req, res) => {
-    const { type, listId } = req.body;
+    const { type, listId, complete } = req.body;
 
 
     const userId = parseInt(req.params.userId);
-    if (type === "Quests") {
-      const tasks = await weeklyQuests(userId, listId)
+    if (type === "Quests" && complete === false) {
+      const tasks = await resetWeeklyQuests(userId, listId)
       return res.json(tasks);
-    } else if (type === "Boss") {
-
-      const tasks = await weeklyBosses(userId, listId)
-
+    } else if (type === "Boss" && complete === false) {
+      const tasks = await resetWeeklyBosses(userId, listId)
+      return res.json(tasks);
+    } else if (type === "Quests" && complete === true) {
+      const tasks = await completeWeeklyQuests(userId, listId)
+      return res.json(tasks);
+    } else if (type === "Boss" && complete === true) {
+      const tasks = await completeWeeklyBosses(userId, listId)
       return res.json(tasks);
     }
 

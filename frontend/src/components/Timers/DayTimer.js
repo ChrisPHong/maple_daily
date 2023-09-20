@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { resetDailyTasks, getUserLists } from "../../store/list";
+import { resetDailies } from "../../store/list";
 
 const DailyCountDown = ({ props }) => {
   const [timer, setTimer] = useState(0);
@@ -17,7 +17,7 @@ const DailyCountDown = ({ props }) => {
       let remainingTime = nextReset - now;
 
       if (remainingTime <= 0) {
-        await dispatch(resetDailyTasks({ userId }));
+        await dispatch(resetDailies({ userId }));
         remainingTime = getNextResetTime().getTime() - now;
 
         setRestartTimer(true);

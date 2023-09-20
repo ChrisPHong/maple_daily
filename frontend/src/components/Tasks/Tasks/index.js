@@ -5,7 +5,7 @@ import ThursdayTimer from "../../Timers/ThursdayTimer";
 import "./Tasks.css";
 import { useState } from "react";
 import SundayTimer from "../../Timers/SundayTimer";
-import { resetDailyTasks, resetWeeklyBosses, completeDailyQuests } from '../../../store/list';
+import { resetDailies, resetWeeklies, completeDailies, completeWeeklies } from '../../../store/list';
 import { useSelector, useDispatch } from "react-redux";
 
 const TasksList = ({ props }) => {
@@ -106,12 +106,12 @@ const TasksList = ({ props }) => {
               <div className="justify-around ">
                 <button className="complete-btn rounded p-2 font-bold m-2"
                   onClick={() => {
-                    dispatch(completeDailyQuests({ userId, type: "Quests", listId, complete: true }))
+                    dispatch(completeDailies({ userId, type: "Quests", listId, complete: true }))
                   }}>
                   Complete Quests
                 </button>
                 <button className="rounded p-2 font-bold reset-btn" onClick={() => {
-                  dispatch(resetDailyTasks({ userId, type: "Quests", listId, complete: false }))
+                  dispatch(resetDailies({ userId, type: "Quests", listId, complete: false }))
                 }}
                 >
                   Reset Daily Quests
@@ -147,12 +147,12 @@ const TasksList = ({ props }) => {
             <div>
               <button className="complete-btn rounded p-2 font-bold m-2"
                 onClick={() => {
-                  dispatch(completeDailyQuests({ userId, type: "Boss", listId, complete: true }))
+                  dispatch(completeDailies({ userId, type: "Boss", listId, complete: true }))
                 }}>
                 Complete Bosses
               </button>
               <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetDailyTasks({ userId, type: "Boss", listId, complete: false }))
+                dispatch(resetDailies({ userId, type: "Boss", listId, complete: false }))
               }}
               >
                 Reset Daily Bosses
@@ -185,13 +185,21 @@ const TasksList = ({ props }) => {
           <div className="flex justify-between items-center">
 
             <ThursdayTimer />
+            <div>
 
-            <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-              dispatch(resetWeeklyBosses({ userId, type: "Boss", listId }))
-            }}
-            >
-              Reset Weekly Bosses
-            </button>
+              <button className="complete-btn rounded p-2 font-bold m-2"
+                onClick={() => {
+                  dispatch(completeWeeklies({ userId, type: "Boss", listId, complete: true }))
+                }}>
+                Complete Bosses
+              </button>
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetWeeklies({ userId, type: "Boss", listId, complete: false }))
+              }}
+              >
+                Reset Weekly Bosses
+              </button>
+            </div>
           </div>
 
           <div className="quests-container">
@@ -217,12 +225,20 @@ const TasksList = ({ props }) => {
         >
           <div className="flex justify-between items-center">
             <SundayTimer />
-            <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-              dispatch(resetWeeklyBosses({ userId, type: "Quests", listId }))
-            }}
-            >
-              Reset Weekly Quests
-            </button>
+            <div>
+              <button className="complete-btn rounded p-2 font-bold m-2"
+                onClick={() => {
+                  dispatch(completeWeeklies({ userId, type: "Quests", listId, complete: true }))
+                }}>
+                Complete Quests
+              </button>
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetWeeklies({ userId, type: "Quests", listId, complete: false }))
+              }}
+              >
+                Reset Weekly Quests
+              </button>
+            </div>
           </div>
 
           <div className="quests-container">

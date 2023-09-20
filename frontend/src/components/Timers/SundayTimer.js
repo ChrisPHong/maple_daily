@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { resetWeeklyQuests } from "../../store/list";
+import { resetWeeklies } from "../../store/list";
 
 const SundayTimer = () => {
   const [timer, setTimer] = useState(0);
@@ -16,7 +16,7 @@ const SundayTimer = () => {
       if (remainingTime <= 0) {
         // If the remaining time is less than zero, set it to zero to prevent negative values
         remainingTime = 0;
-        await dispatch(resetWeeklyQuests({ userId, type: "Quests" }));
+        await dispatch(resetWeeklies({ userId, type: "Quests" }));
       }
       setTimer(remainingTime);
     }, 1000);
