@@ -44,24 +44,24 @@ const TaskForm = ({ listId, userId, setShowModal }) => {
         <div className="Task-Form-Container">
           {show
             ? error.map((error, idx) => {
-                return (
-                  <div
-                    style={{
-                      color: "red",
-                      fontWeight: "bold",
-                    }}
-                    key={idx}
-                  >
-                    {error}
-                  </div>
-                );
-              })
+              return (
+                <div
+                  style={{
+                    color: "red",
+                    fontWeight: "bold",
+                  }}
+                  key={idx}
+                >
+                  {error}
+                </div>
+              );
+            })
             : null}
           <label className="font-bold text-white">
             Objective:
             <input
               className="p-4 rounded-md m-2 text-black"
-              placeholder="Write Your Daily Tasks"
+              placeholder="Write Your Task"
               onChange={(e) => {
                 setObj(e.target.value);
               }}
