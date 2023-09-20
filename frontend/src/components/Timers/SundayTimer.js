@@ -58,7 +58,7 @@ const SundayTimer = () => {
 
     return (
       <span
-        className={`${days < 3 ? "text-pink-600 " : "font-bold"} font-bold`}
+        className={`${days < 3 ? "text-pink-600 p-3 rounded bg-red-600 text-white" : "font-bold"} font-bold`}
       >
         {`${days} D ${hours.toString().padStart(2, "0")} H ${minutes
           .toString()

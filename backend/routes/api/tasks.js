@@ -22,6 +22,36 @@ const resetDailyQuests = async (userId, listId) => {
 
   return tasks
 }
+const resetAllDailies = async (userId) => {
+  const tasks = await Task.findAll({ where: { userId, resetTime: "Daily" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
+const resetAllBossWeeklies = async (userId) => {
+  const tasks = await Task.findAll({ where: { userId, resetTime: "Weekly", category: "Boss" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
+const resetAllQuestWeeklies = async (userId) => {
+  const tasks = await Task.findAll({ where: { userId, resetTime: "Weekly", category: "Quest" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
 
 const resetDailyBosses = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Boss" } });
@@ -146,7 +176,11 @@ router.put(
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.userId);
     const { type, listId, complete } = req.body
-
+    if (listId === undefined) {
+      const tasks = await resetAllDailies(userId)
+      return res.json(tasks);
+    }
+    
     if (type === "Quests" && complete === false) {
       const tasks = await resetDailyQuests(userId, listId);
       return res.json(tasks);
@@ -170,8 +204,17 @@ router.put(
   asyncHandler(async (req, res) => {
     const { type, listId, complete } = req.body;
 
-
     const userId = parseInt(req.params.userId);
+
+    if (listId === undefined && type === "Boss") {
+      const tasks = await resetAllBossWeeklies(userId)
+      return res.json(tasks);
+    }
+    if (listId === undefined && type === "Quests") {
+      const tasks = await resetAllQuestWeeklies(userId)
+      return res.json(tasks);
+    }
+
     if (type === "Quests" && complete === false) {
       const tasks = await resetWeeklyQuests(userId, listId)
       return res.json(tasks);

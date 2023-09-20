@@ -12,10 +12,10 @@ const ThursdayTimer = () => {
       const now = new Date().getTime();
       const nextReset = getNextThursday5PM().getTime();
       let remainingTime = nextReset - now;
-
       if (remainingTime <= 0) {
+
         // If the remaining time is less than zero, set it to zero to prevent negative values
-        await dispatch(resetWeeklies({ userId, type: "Bosses" }));
+        await dispatch(resetWeeklies({ userId, type: "Boss" }));
         remainingTime = 0;
       }
       setTimer(remainingTime);
@@ -57,7 +57,7 @@ const ThursdayTimer = () => {
     const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
     return (
-      <span className={`${days < 3 ? "text-pink-600 " : " "} font-bold`}>
+      <span className={`${days < 3 ? "text-pink-600 p-3 rounded bg-red-600 text-white" : " "} font-bold`}>
         {`${days} D ${hours.toString().padStart(2, "0")} H ${minutes
           .toString()
           .padStart(2, "0")} M ${seconds.toString().padStart(2, "0")} S`}
@@ -67,7 +67,7 @@ const ThursdayTimer = () => {
 
   return (
     <div className="flex flex-row ">
-      <span className="mr-2">RESET: </span>
+      <span className="mr-2 ">RESET: </span>
       <span>{formatTime(timer)}</span>
     </div>
   );
