@@ -5,7 +5,7 @@ import ThursdayTimer from "../../Timers/ThursdayTimer";
 import "./Tasks.css";
 import { useState } from "react";
 import SundayTimer from "../../Timers/SundayTimer";
-import { resetDailyTasks, resetWeeklyBosses } from '../../../store/list';
+import { resetDailyTasks, resetWeeklyBosses, completeDailyQuests } from '../../../store/list';
 import { useSelector, useDispatch } from "react-redux";
 
 const TasksList = ({ props }) => {
@@ -54,7 +54,7 @@ const TasksList = ({ props }) => {
 
   const dispatch = useDispatch();
   const [toggleState, setToggleState] = useState(1);
-
+  const [resetdailyQuest, setResetDailyQuest] = useState(false);
   const toggleTab = (idx) => {
     setToggleState(idx);
   };
@@ -103,12 +103,20 @@ const TasksList = ({ props }) => {
             <div className="flex justify-between items-center">
 
               <DailyCountDown props={{ length: 1 }} />
-              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetDailyTasks({ userId, type: "Quests", listId }))
-              }}
-              >
-                Reset Daily Quests
-              </button>
+              <div className="justify-around ">
+                <button className="complete-btn rounded p-2 font-bold m-2"
+                  onClick={() => {
+                    dispatch(completeDailyQuests({ userId, type: "Quests", listId, complete: true }))
+                  }}>
+                  Complete Quests
+                </button>
+                <button className="rounded p-2 font-bold reset-btn" onClick={() => {
+                  dispatch(resetDailyTasks({ userId, type: "Quests", listId, complete: false }))
+                }}
+                >
+                  Reset Daily Quests
+                </button>
+              </div>
             </div>
           </h2>
           <div className="quests-container">
@@ -136,12 +144,20 @@ const TasksList = ({ props }) => {
           <div className="flex justify-between items-center">
 
             <DailyCountDown props={{ length: 1 }} />
-            <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-              dispatch(resetDailyTasks({ userId, type: "Boss", listId }))
-            }}
-            >
-              Reset Daily Bosses
-            </button>
+            <div>
+              <button className="complete-btn rounded p-2 font-bold m-2"
+                onClick={() => {
+                  dispatch(completeDailyQuests({ userId, type: "Boss", listId, complete: true }))
+                }}>
+                Complete Bosses
+              </button>
+              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                dispatch(resetDailyTasks({ userId, type: "Boss", listId, complete: false }))
+              }}
+              >
+                Reset Daily Bosses
+              </button>
+            </div>
           </div>
 
           <div className="quests-container">

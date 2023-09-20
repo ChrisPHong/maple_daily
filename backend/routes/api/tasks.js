@@ -31,6 +31,26 @@ const dailyBosses = async (userId, listId) => {
 
   return tasks
 }
+const completeDailyQuests = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Quest" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = true;
+    await task.save();
+  }
+
+  return tasks
+}
+const completeDailyBosses = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Daily", category: "Boss" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = true;
+    await task.save();
+  }
+
+  return tasks
+}
 const weeklyQuests = async (userId, listId) => {
   const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Quest" } });
   for (let i = 0; i < tasks.length; i++) {
@@ -99,16 +119,23 @@ router.put(
   "/:userId/daily",
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.userId);
-    const { type, listId } = req.body
+    const { type, listId, complete } = req.body
 
-    if (type === "Quests") {
+    if (type === "Quests" && complete === false) {
       const tasks = await dailyQuests(userId, listId);
       return res.json(tasks);
-    } else if (type === "Boss") {
+    } else if (type === "Boss" && complete === false) {
       const tasks = await dailyBosses(userId, listId);
 
       return res.json(tasks);
 
+    } else if (type === "Quests" && complete === true) {
+      const tasks = await completeDailyQuests(userId, listId);
+      return res.json(tasks);
+    } else if (type === "Boss" && complete === true) {
+
+      const tasks = await completeDailyBosses(userId, listId);
+      return res.json(tasks);
     }
   })
 );
