@@ -5,7 +5,7 @@ import ThursdayTimer from "../../Timers/ThursdayTimer";
 import "./Tasks.css";
 import { useState } from "react";
 import SundayTimer from "../../Timers/SundayTimer";
-import { resetDailyTasks } from '../../../store/list';
+import { resetDailyTasks, resetWeeklyBosses } from '../../../store/list';
 import { useSelector, useDispatch } from "react-redux";
 
 const TasksList = ({ props }) => {
@@ -51,7 +51,7 @@ const TasksList = ({ props }) => {
 
   const userId = useSelector((state) => state?.session?.user?.id);
   const listId = useSelector((state) => state?.listReducer?.list?.[0].id);
-  console.log(listId, "<<<<<<<<<<< what is this")
+
   const dispatch = useDispatch();
   const [toggleState, setToggleState] = useState(1);
 
@@ -166,9 +166,17 @@ const TasksList = ({ props }) => {
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <h2>
+          <div className="flex justify-between items-center">
+
             <ThursdayTimer />
-          </h2>
+
+            <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+              dispatch(resetWeeklyBosses({ userId, type: "Boss", listId }))
+            }}
+            >
+              Reset Weekly Bosses
+            </button>
+          </div>
 
           <div className="quests-container">
             {WeeklyBossesInComplete.length === 0 &&

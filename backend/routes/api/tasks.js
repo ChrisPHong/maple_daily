@@ -31,6 +31,26 @@ const dailyBosses = async (userId, listId) => {
 
   return tasks
 }
+const weeklyQuests = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Quest" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
+const weeklyBosses = async (userId, listId) => {
+  const tasks = await Task.findAll({ where: { userId, listId, resetTime: "Weekly", category: "Boss" } });
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+    task.completed = false;
+    await task.save();
+  }
+
+  return tasks
+}
 
 router.post(
   "/",
@@ -95,31 +115,20 @@ router.put(
 router.put(
   "/:userId/weekly",
   asyncHandler(async (req, res) => {
-    const { type } = req.body;
+    const { type, listId } = req.body;
+
 
     const userId = parseInt(req.params.userId);
-    let tasks;
-    if (type === "Bosses") {
-      tasks = await Task.findAll({
-        where: { userId, resetTime: "Weekly", category: "Boss" },
-      });
-      for (let i = 0; i < tasks.length; i++) {
-        let task = tasks[i];
-        task.completed = false;
-        await task.save();
-      }
-    } else {
-      tasks = await Task.findAll({
-        where: { userId, resetTime: "Weekly", category: "Quest" },
-      });
-      for (let i = 0; i < tasks.length; i++) {
-        let task = tasks[i];
-        task.completed = false;
-        await task.save();
-      }
+    if (type === "Quests") {
+      const tasks = await weeklyQuests(userId, listId)
+      return res.json(tasks);
+    } else if (type === "Boss") {
+
+      const tasks = await weeklyBosses(userId, listId)
+
+      return res.json(tasks);
     }
 
-    return res.json(tasks);
   })
 );
 module.exports = router;
