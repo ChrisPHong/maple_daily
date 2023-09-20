@@ -199,9 +199,15 @@ const TasksList = ({ props }) => {
         <div
           className={toggleState === 4 ? "content  active-content" : "content"}
         >
-          <h2>
+          <div className="flex justify-between items-center">
             <SundayTimer />
-          </h2>
+            <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+              dispatch(resetWeeklyBosses({ userId, type: "Quests", listId }))
+            }}
+            >
+              Reset Weekly Quests
+            </button>
+          </div>
 
           <div className="quests-container">
             {WeeklyQuestsInComplete.length === 0 &&
