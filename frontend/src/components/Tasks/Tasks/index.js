@@ -103,20 +103,23 @@ const TasksList = ({ props }) => {
             <div className="flex justify-between items-center">
 
               <DailyCountDown props={{ length: 1 }} />
-              <div className="justify-around ">
-                <button className="complete-btn rounded p-2 font-bold m-2"
-                  onClick={() => {
-                    dispatch(completeDailies({ userId, type: "Quests", listId, complete: true }))
-                  }}>
-                  Complete Quests
-                </button>
-                <button className="rounded p-2 font-bold reset-btn" onClick={() => {
-                  dispatch(resetDailies({ userId, type: "Quests", listId, complete: false }))
-                }}
-                >
-                  Reset Daily Quests
-                </button>
-              </div>
+              {DailyQuestsInComplete.length === 0 &&
+                DailyQuestsComplete.length === 0 ? '' :
+                <div className="justify-around ">
+                  <button className="complete-btn rounded p-2 font-bold m-2"
+                    onClick={() => {
+                      dispatch(completeDailies({ userId, type: "Quests", listId, complete: true }))
+                    }}>
+                    Complete Quests
+                  </button>
+                  <button className="rounded p-2 font-bold reset-btn" onClick={() => {
+                    dispatch(resetDailies({ userId, type: "Quests", listId, complete: false }))
+                  }}
+                  >
+                    Reset Daily Quests
+                  </button>
+                </div>
+              }
             </div>
           </h2>
           <div className="quests-container">
@@ -144,20 +147,24 @@ const TasksList = ({ props }) => {
           <div className="flex justify-between items-center">
 
             <DailyCountDown props={{ length: 1 }} />
-            <div>
-              <button className="complete-btn rounded p-2 font-bold m-2"
-                onClick={() => {
-                  dispatch(completeDailies({ userId, type: "Boss", listId, complete: true }))
-                }}>
-                Complete Bosses
-              </button>
-              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetDailies({ userId, type: "Boss", listId, complete: false }))
-              }}
-              >
-                Reset Daily Bosses
-              </button>
-            </div>
+            {DailyBossInComplete.length === 0 &&
+              DailyBossComplete.length === 0 ?
+              '' :
+              <div>
+                <button className="complete-btn rounded p-2 font-bold m-2"
+                  onClick={() => {
+                    dispatch(completeDailies({ userId, type: "Boss", listId, complete: true }))
+                  }}>
+                  Complete Bosses
+                </button>
+                <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                  dispatch(resetDailies({ userId, type: "Boss", listId, complete: false }))
+                }}
+                >
+                  Reset Daily Bosses
+                </button>
+              </div>
+            }
           </div>
 
           <div className="quests-container">
@@ -185,21 +192,24 @@ const TasksList = ({ props }) => {
           <div className="flex justify-between items-center">
 
             <ThursdayTimer />
-            <div>
+            {WeeklyBossesInComplete.length === 0 &&
+              WeeklyBossesComplete.length === 0 ? '' :
+              <div>
 
-              <button className="complete-btn rounded p-2 font-bold m-2"
-                onClick={() => {
-                  dispatch(completeWeeklies({ userId, type: "Boss", listId, complete: true }))
-                }}>
-                Complete Bosses
-              </button>
-              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetWeeklies({ userId, type: "Boss", listId, complete: false }))
-              }}
-              >
-                Reset Weekly Bosses
-              </button>
-            </div>
+                <button className="complete-btn rounded p-2 font-bold m-2"
+                  onClick={() => {
+                    dispatch(completeWeeklies({ userId, type: "Boss", listId, complete: true }))
+                  }}>
+                  Complete Bosses
+                </button>
+                <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                  dispatch(resetWeeklies({ userId, type: "Boss", listId, complete: false }))
+                }}
+                >
+                  Reset W. Bosses
+                </button>
+              </div>
+            }
           </div>
 
           <div className="quests-container">
@@ -225,20 +235,23 @@ const TasksList = ({ props }) => {
         >
           <div className="flex justify-between items-center">
             <SundayTimer />
-            <div>
-              <button className="complete-btn rounded p-2 font-bold m-2"
-                onClick={() => {
-                  dispatch(completeWeeklies({ userId, type: "Quests", listId, complete: true }))
-                }}>
-                Complete Quests
-              </button>
-              <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
-                dispatch(resetWeeklies({ userId, type: "Quests", listId, complete: false }))
-              }}
-              >
-                Reset Weekly Quests
-              </button>
-            </div>
+            {WeeklyQuestsInComplete.length === 0 &&
+              WeeklyQuestsComplete.length === 0 ? '' :
+              <div>
+                <button className="complete-btn rounded p-2 font-bold m-2"
+                  onClick={() => {
+                    dispatch(completeWeeklies({ userId, type: "Quests", listId, complete: true }))
+                  }}>
+                  Complete Quests
+                </button>
+                <button className="bg-red-200 rounded p-2 font-bold reset-btn" onClick={() => {
+                  dispatch(resetWeeklies({ userId, type: "Quests", listId, complete: false }))
+                }}
+                >
+                  Reset W. Quests
+                </button>
+              </div>
+            }
           </div>
 
           <div className="quests-container">
