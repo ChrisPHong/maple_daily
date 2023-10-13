@@ -15,7 +15,7 @@ const ConfirmationBox = ({ id, closeModal }) => {
             e.preventDefault();
             closeModal(false);
           }}
-          className="cancel-btn"
+          className="cancel-btn mt-4"
         >
           Cancel
         </button>
@@ -25,7 +25,7 @@ const ConfirmationBox = ({ id, closeModal }) => {
             await dispatch(deletingList({ id }));
             await history.push("/");
           }}
-          className="delete-btn"
+          className="delete-btn-modal mt-4"
         >
           Delete
         </button>

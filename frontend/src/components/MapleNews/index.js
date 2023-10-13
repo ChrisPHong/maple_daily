@@ -38,6 +38,7 @@ const MapleNews = () => {
               <div className="flex justify-between mt-5">
                 <p>{item.timestamp}</p>
                 <p className="hover:text-red-600">
+                  {/* When they click, create a new tab instead of sending them to the page */}
                   <a href={item.link}>READ MORE</a>
                 </p>
               </div>
