@@ -42,43 +42,46 @@ const LoadingList = () => {
   return (
     <div className="mt-32 flex flex-col justify-center items-center">
       {loading ? <Loading /> : null}
-      <form className="border-black flex-row rounded-md border p-6 ">
-        {show ? (
-          <>
-            {error ? (
-              <div>
-                {error.map((show, idx) => {
-                  return (
-                    <div key={idx} className="error-container">
-                      {show}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : null}
-          </>
-        ) : null}
-        <label className="flex flex-row justify-center items-center">
-          <div className="mr-4 font-bold">Character Name: </div>
-          <input
-            placeholder="Type Here ..."
-            onChange={(e) => {
-              e.preventDefault();
-              setCharacter(e.target.value);
-            }}
-            className="border rounded-md p-2"
-          />
-        </label>
+      <form className="flex flex-col justify-center items-center">
+        <div className="border-black flex-row rounded-md border p-6 ">
+
+          {show ? (
+            <>
+              {error ? (
+                <div>
+                  {error.map((show, idx) => {
+                    return (
+                      <div key={idx} className="error-container">
+                        {show}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </>
+          ) : null}
+          <label className="flex flex-row justify-center items-center">
+            <div className="mr-4 font-bold">Character Name: </div>
+            <input
+              placeholder="Type Here ..."
+              onChange={(e) => {
+                e.preventDefault();
+                setCharacter(e.target.value);
+              }}
+              className="border rounded-md p-2"
+            />
+          </label>
+        </div>
+        <button
+          className="load-character-btn"
+          onClick={(e) => {
+            e.preventDefault();
+            onSubmit(e);
+          }}
+        >
+          Load Character
+        </button>
       </form>
-      <button
-        className="load-character-btn"
-        onClick={(e) => {
-          e.preventDefault();
-          onSubmit(e);
-        }}
-      >
-        Load Character
-      </button>
     </div>
   );
 };
