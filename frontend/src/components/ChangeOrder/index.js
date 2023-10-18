@@ -49,56 +49,62 @@ const ChangeOrder = ({ lists, closeModal }) => {
     await dispatch(sortUpdatingList(payload));
   };
   return (
-    <form className="changeOrderForm bg-white p-4 rounded-md">
-      <button
-        className="cancel-drag-btn"
-        onClick={async (e) => {
-          e.preventDefault();
-          await dispatch(storingChangeList({ lists: lists, type: "close" }));
-          await closeModal(false);
-        }}
-      >
-        X
-      </button>
-      <div className="change-order-container" droppable="true">
-        {names?.map((list, idx) => {
-          return (
-            <div
-              key={list.character}
-              className="draggable character-drag-container"
-              draggable
-              onDragStart={(e) => {
-                dragItem.current = idx;
-              }}
-              onDragEnter={(e) => {
-                dragOverItem.current = idx;
-              }}
-              onDragEnd={handleSort}
-              onDragOver={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <span className="drag-list-name">{list.character}</span>
-              <div
-                style={{ backgroundImage: `url(${list.apiContent})` }}
-                className="characterImage-drag"
-              ></div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="changeOrder-btn-div">
+    <div className="mt-10">
+      <div className="flex">
+
         <button
+          className="cancel-drag-btn "
           onClick={async (e) => {
-            await onSubmit(e);
+            e.preventDefault();
+            await dispatch(storingChangeList({ lists: lists, type: "close" }));
             await closeModal(false);
           }}
-          className="submit-drag-btn"
         >
-          Confirm
+          X
         </button>
       </div>
-    </form>
+
+      <form className="changeOrderForm bg-white p-4 rounded-md">
+        <div className="change-order-container" droppable="true">
+          {names?.map((list, idx) => {
+            return (
+              <div
+                key={list.character}
+                className="draggable character-drag-container"
+                draggable
+                onDragStart={(e) => {
+                  dragItem.current = idx;
+                }}
+                onDragEnter={(e) => {
+                  dragOverItem.current = idx;
+                }}
+                onDragEnd={handleSort}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <span className="drag-list-name">{list.character}</span>
+                <div
+                  style={{ backgroundImage: `url(${list.apiContent})` }}
+                  className="characterImage-drag"
+                ></div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="changeOrder-btn-div">
+          <button
+            onClick={async (e) => {
+              await onSubmit(e);
+              await closeModal(false);
+            }}
+            className="submit-drag-btn"
+          >
+            Confirm
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
