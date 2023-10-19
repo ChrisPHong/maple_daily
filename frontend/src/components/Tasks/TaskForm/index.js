@@ -39,7 +39,9 @@ const TaskForm = ({ listId, userId, setShowModal }) => {
     await setShowModal(false);
   };
   return (
-    <div>
+    <div className="flex flex-col">
+      <button className="cancel-drag-btn"
+        onClick={async () => { await setShowModal(false) }}>X</button>
       <form className="Overall-Task-Form-Container">
         <div className="Task-Form-Container">
           {show
