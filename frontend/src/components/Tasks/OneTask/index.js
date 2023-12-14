@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useState } from "react";
+import { useDispatch, } from "react-redux";
 import { Trash2 } from 'lucide-react';
 import { deleteTask, editTask } from "../../../store/list";
 import "./OneTask.css";
@@ -15,12 +15,9 @@ const OneTask = ({ task, completed }) => {
   const [text, setText] = useState(task.objective);
   const [complete, setComplete] = useState(task.completed);
   const [showBtn, setShowBtn] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouse = () => {
     setShowBtn(!showBtn);
-    // setIsHovered(!isHovered);
-    setIsHovered(true);
 
   };
 
@@ -50,15 +47,8 @@ const OneTask = ({ task, completed }) => {
     await dispatch(editTask(task));
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-  const iconColor = showBtn ? 'white' : 'red'; // Change color based on hover state
-
+  const iconColor = showBtn ? 'white' : 'red'; 
 
   return (
     <div className="task-container">
