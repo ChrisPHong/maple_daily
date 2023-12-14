@@ -7,7 +7,7 @@ import Loading from '../Loading';
 const MapleNews = () => {
   const dispatch = useDispatch();
   const news = useSelector((state) => state?.newsReducer?.news);
-  console.log(news, "<<<<<<<<< what is news")
+
   useEffect(() => {
     dispatch(fetchNews());
   }, []);
@@ -26,7 +26,7 @@ const MapleNews = () => {
               >
                 <img
                   onClick={() => {
-                    window.location.href = item.link;
+                    window.open(item.link, '_blank');
                   }}
                   className="hover:cursor-pointer max-w-lg"
                   alt="news_image"
@@ -35,7 +35,7 @@ const MapleNews = () => {
                 <div className="flex flex-col justify-between m-4">
                   <div className="">
                     <h1 className="font-bold text-l hover:text-red-600">
-                      <a href={item.link}>{item?.header}</a>
+                      <a href={item.link} target="_blank" rel="noopener noreferrer">{item?.header}</a>
                     </h1>
                     <div className="mt-5">
                       <p className="m-0">{item.title}</p>
@@ -44,8 +44,7 @@ const MapleNews = () => {
                   <div className="flex justify-between mt-5">
                     <p>{item.timestamp}</p>
                     <p className="hover:text-red-600">
-                      {/* When they click, create a new tab instead of sending them to the page */}
-                      <a href={item.link}>READ MORE</a>
+                      <a href={item.link} target="_blank" rel="noopener noreferrer">READ MORE</a>
                     </p>
                   </div>
                 </div>
