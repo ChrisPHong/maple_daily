@@ -76,7 +76,6 @@ router.get(
         const hash = { header, link, title, photoLink, timestamp };
         mapleNews.push(hash);
       }
-      console.log(mapleNews, "<<<<<<<<<<<<<<<< mapleNews");
 
       return mapleNews;
     });
