@@ -50,6 +50,7 @@ const DashBoardLists = () => {
   const indexChanger = (symbol) => {
     if (symbol === "+") {
       if (!mainList) return;
+      if (lists.length === 12) return;
       if (mainList.length < 12) return;
       const num = index + 1;
       setIndex(num);

@@ -105,7 +105,7 @@ const TasksList = ({ props }) => {
               <DailyCountDown props={{ length: 1 }} />
               {DailyQuestsInComplete.length === 0 &&
                 DailyQuestsComplete.length === 0 ? '' :
-                <div className="justify-around ">
+                <div className="justify-around">
                   <button className="complete-btn rounded p-2 font-bold m-2"
                     onClick={() => {
                       dispatch(completeDailies({ userId, type: "Quests", listId, complete: true }))

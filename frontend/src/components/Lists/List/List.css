@@ -12,6 +12,7 @@
   align-items: center;
   /* background-color: #d62e62; */
   /* background-color: rgba(0, 84, 153, 0.384); */
+  width: max-content;
 
   color: white;
 }
