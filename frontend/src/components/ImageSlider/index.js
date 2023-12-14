@@ -38,10 +38,10 @@ const ImageSlider = ({ infoArr, imageIdx, setImageIdx }) => {
                 })}
 
             </div>
-            <button className="img-slider-btn" style={{ left: 0 }} onClick={showNextImage}>
+            <button className="img-slider-btn" style={{ left: 0 }} onClick={showPreviousImage}>
                 <ArrowBigLeft />
             </button>
-            <button className="img-slider-btn" style={{ right: 0 }} onClick={showPreviousImage}>
+            <button className="img-slider-btn" style={{ right: 0 }} onClick={showNextImage}>
                 <ArrowBigRight />
             </button>
 
