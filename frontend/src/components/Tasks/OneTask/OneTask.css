@@ -35,4 +35,14 @@
   display: flex;
   color: black;
   align-items: center;
+  justify-content: space-between;
+}
+.check-task-container {
+  display: flex;
+  color: black;
+  align-items: center;
+}
+
+.iconCursor{
+  cursor: pointer;
 }
