@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   host: "hogerchris@gmail.com",
   port: 465,
   secure: true,
-  auth:{
+  auth: {
     user: "hogerchris@gmail.com",
     pass: "REPLACE-WITH-YOUR-GENERATED-PASSWORD",
   }
@@ -54,15 +54,17 @@ router.post(
 );
 
 // Forgot Password
-router.post('',
+router.post('/fp',
   asyncHandler(async (req, res) => {
     const { email } = req.body;
+    console.log(email, "<<<<<<<<<<<<<<<<<<<<<<<<< EMAIL")
     const user = await User.findOne({
       where: { email: email }
     })
     if (user) {
       // we go ahead and send an email for their password
-
+      console.log(user, '<<<<<<<<<<<<< this is the user we found')
+      return res.status(200).json({ message: 'Mission Complete' })
     } else {
       return res.status(400).json({ message: 'The email you provided does not match any emails in our database. Please provide another email' })
     }
