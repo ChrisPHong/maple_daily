@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 const config = require('../../config/index');
 
 const emailSender = config.emailSender;
-const email = emailSender.email;
+const emailHost = emailSender.email;
 const emailPW = emailSender.password
 
 
@@ -43,10 +43,33 @@ const validateEmail = [check('email')
 const transporter = nodemailer.createTransport({
   service: "gmail.com",
   auth: {
-    user: email,
+    user: emailHost,
     pass: emailPW,
   }
 })
+const emailSubject = 'Reset Your Password for DailyMapler'
+const emailText = `Here's a link to reset your password!`
+
+const sendEmail = async (to, subject, text) => {
+  console.log(to, "to <<<<<<<<<<<<<")
+  console.log(subject, "subject >>>>>>>>>>>>")
+  console.log(text, "text <<<<<<<<<<<")
+  try {
+    const mailOptions = {
+      from: emailHost,
+      to,
+      subject,
+      text
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ', info.response);
+    return info;
+  } catch (error) {
+    console.error('Error sending email: ', error);
+    return error;
+  }
+};
 
 // Sign up
 router.post(
@@ -65,7 +88,7 @@ router.post(
 );
 
 // Forgot Password
-router.post('/fp', validateEmail,
+router.post('/fp',
   asyncHandler(async (req, res) => {
     const { email } = req.body;
 
@@ -74,6 +97,8 @@ router.post('/fp', validateEmail,
     })
     if (user) {
       // Send the email here
+      const testing = await sendEmail(email, emailSubject, emailText);
+      console.log(testing, "<<<<<<<<<<<<< what is going on >>>>>>>>>>>>")
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
     } else {
       return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
