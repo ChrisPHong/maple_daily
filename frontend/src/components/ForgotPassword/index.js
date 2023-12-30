@@ -4,6 +4,7 @@ import { csrfFetch } from '../../store/csrf';
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [reveal, setReveal] = useState(false);
+    const [message, setMessage] = useState(false);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -18,10 +19,11 @@ const ForgotPassword = () => {
 
             const response = await res.json()
             console.log(response, "<<<<<<<<<<< data")
+            setMessage(response.message)
             setReveal(true);
         } else {
             const response = await res.json()
-            console.error('Network error', response)
+            setMessage(response.message)
             console.log(response, "<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         }
 
@@ -40,7 +42,7 @@ const ForgotPassword = () => {
                 </div>
                 {reveal ?
                     <div>
-                        A link was set to your email to change your password
+                        {message}
                     </div>
                     : ''}
                 <input placeholder="Email" className="border-black border rounded p-1 mb-2 font-sans" onChange={(e) => {

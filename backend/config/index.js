@@ -11,4 +11,8 @@ module.exports = {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
+  emailSender: {
+    email: process.env.DM_EMAIL,
+    password: process.env.DM_PASSWORD,
+  }
 };

@@ -2,21 +2,19 @@ const express = require("express");
 const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const nodemailer = require("nodemailer");
+const config = require('../../config/index');
+
+const emailSender = config.emailSender;
+const email = emailSender.email;
+const emailPW = emailSender.password
+
 
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
 
 const router = express.Router();
-const transporter = nodemailer.createTransport({
-  host: "hogerchris@gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "hogerchris@gmail.com",
-    pass: "REPLACE-WITH-YOUR-GENERATED-PASSWORD",
-  }
-})
+
 const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
@@ -37,6 +35,19 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
+const validateEmail = [check('email')
+  .exists({ checkFalsy: true })
+  .isEmail()
+  .withMessage('Please provide a valid email.')]
+
+const transporter = nodemailer.createTransport({
+  service: "gmail.com",
+  auth: {
+    user: email,
+    pass: emailPW,
+  }
+})
+
 // Sign up
 router.post(
   '',
@@ -54,19 +65,18 @@ router.post(
 );
 
 // Forgot Password
-router.post('/fp',
+router.post('/fp', validateEmail,
   asyncHandler(async (req, res) => {
     const { email } = req.body;
-    console.log(email, "<<<<<<<<<<<<<<<<<<<<<<<<< EMAIL")
+
     const user = await User.findOne({
       where: { email: email }
     })
     if (user) {
-      // we go ahead and send an email for their password
-      console.log(user, '<<<<<<<<<<<<< this is the user we found')
-      return res.status(200).json({ message: 'Mission Complete' })
+      // Send the email here
+      return res.status(200).json({ message: 'A link was sent to your email to change your password' })
     } else {
-      return res.status(400).json({ message: 'The email you provided does not match any emails in our database. Please provide another email' })
+      return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
     }
 
   }))
