@@ -3,6 +3,8 @@ const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const nodemailer = require("nodemailer");
 const config = require('../../config/index');
+const bcrypt = require("bcryptjs");
+
 
 const emailSender = config.emailSender;
 const emailHost = emailSender.email;
@@ -48,7 +50,7 @@ const transporter = nodemailer.createTransport({
   }
 })
 const emailSubject = 'Reset Your Password for DailyMapler'
-const emailText = `Here's a link to reset your password!`
+const emailText = `Here's a link to reset your password! http://localhost:3000/resetpassword`
 
 const sendEmail = async (to, subject, text) => {
   console.log(to, "to <<<<<<<<<<<<<")
@@ -73,7 +75,7 @@ const sendEmail = async (to, subject, text) => {
 
 // Sign up
 router.post(
-  '',
+  '', validateEmail,
   validateSignup,
   asyncHandler(async (req, res) => {
     const { email, password, username } = req.body;
@@ -100,6 +102,26 @@ router.post('/fp',
       const testing = await sendEmail(email, emailSubject, emailText);
       console.log(testing, "<<<<<<<<<<<<< what is going on >>>>>>>>>>>>")
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
+    } else {
+      return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
+    }
+
+  }))
+
+// Forgot Password
+router.post('/resetPassword',
+  asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({
+      where: { email: email }
+    })
+    if (user) {
+
+      const hashedPassword = bcrypt.hashSync(password);
+      user.hashedPassword = hashedPassword;
+      await user.save();
+      return res.status(200).json({ message: 'Your Password has been updated' })
     } else {
       return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
     }

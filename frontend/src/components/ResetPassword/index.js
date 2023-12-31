@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
 import { csrfFetch } from '../../store/csrf';
+import { useHistory } from 'react-router-dom';
 
-const ForgotPassword = () => {
+
+
+const ResetPassword = () => {
+    const history = useHistory();
+
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [reveal, setReveal] = useState(false);
     const [message, setMessage] = useState(false);
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+
+    }, [])
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const res = await csrfFetch(`/api/users/fp/`, {
+        if (password !== confirmPassword) return;
+
+        const res = await csrfFetch(`/api/users/resetPassword/`, {
             method: "POST",
             header: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email })
+            body: JSON.stringify({ email: email, password: password })
         })
 
         if (res.ok) {
@@ -19,19 +33,22 @@ const ForgotPassword = () => {
             const response = await res.json()
             setMessage(response.message)
             setReveal(true);
+
         } else {
             const response = await res.json()
             setMessage(response.message)
-        }
-        return;
-    }
 
+        }
+
+        return;
+
+    }
     return (
         <div className="flex flex-col items-center justify-center">
             <form className="flex flex-col items-center justify-center my-40 border-black border rounded p-1 font-sans max-w-fit">
-                <h3 className="text-l font-bold mb-2">Forgot Password</h3>
+                <h3 className="text-l font-bold mb-2">Change Password</h3>
                 <div className="p-2 text-red-400 max-w-md ">
-                    Please enter your email address and we will send you an email about how to reset your password.
+                    Reset Your Password
                 </div>
                 {reveal ?
                     <div>
@@ -43,11 +60,19 @@ const ForgotPassword = () => {
 
                     setEmail(e.target.value)
                 }}></input>
+                <input placeholder="Password" className="border-black border rounded p-1 mb-2 font-sans" onChange={(e) => {
+                    e.preventDefault();
+
+                    setPassword(e.target.value)
+                }}></input>
+                <input placeholder="Confirmed Password" className="border-black border rounded p-1 mb-2 font-sans" onChange={(e) => {
+                    e.preventDefault();
+
+                    setConfirmPassword(e.target.value)
+                }}></input>
                 <button
                     className="submit-btn"
-                    // disabled={email === '' ? true : false}
                     onClick={(e) => {
-
                         onSubmit(e);
                     }
                     }>Reset Password</button>
@@ -57,4 +82,5 @@ const ForgotPassword = () => {
     )
 }
 
-export default ForgotPassword;
+
+export default ResetPassword;

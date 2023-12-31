@@ -19,6 +19,8 @@ import SplashPage from "./components/SplashPage";
 import Loading from "./components/Loading";
 import About from "./components/About";
 import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from "./components/ResetPassword";
+
 import "./index.css";
 
 function App() {
@@ -91,6 +93,9 @@ function App() {
           </Route>
           <Route exact path='/fp'>
             <ForgotPassword />
+          </Route>
+          <Route exact path='/resetpassword'>
+            <ResetPassword />
           </Route>
         </Switch>
       </div>
