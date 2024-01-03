@@ -66,7 +66,6 @@ const sendEmail = async (to, subject, text) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent: ', info.response);
     return info;
   } catch (error) {
     console.error('Error sending email: ', error);
@@ -97,9 +96,8 @@ router.post('/fp',
     const emailSubject = 'Reset Your Password for DailyMapler'
     const token = jwt.sign(payload, secretKey, { expiresIn: emailExpires })
 
-    console.log(token, "<<<<<<<<<<<<<< This is my token! ")
 
-    const emailText = `Here's a link to reset your password! http://localhost:3000/resetpassword/${token}`
+    const emailText = `Please reset your password within the next 5 minutes. Here's a link to reset your password! http://localhost:3000/resetpassword/${token}`
     const user = await User.findOne({
       where: { email: email }
     })
@@ -108,6 +106,7 @@ router.post('/fp',
       const testing = await sendEmail(email, emailSubject, emailText);
       // you need to send a Token and a expiration token here
       user.resetPasswordToken = token;
+      // testing how long it would take
       user.resetPasswordTokenExpires = new Date(Date.now() + (1 * 60 * 5000))
       await user.save();
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
@@ -131,20 +130,21 @@ router.post('/resetPassword/:token',
         resetPasswordTokenExpires: { [Op.gt]: new Date() }
       }
     })
-    console.log(user, "<<<<<<<<<<<<<<< This is the user!");
+
     if (user) {
 
       const hashedPassword = bcrypt.hashSync(password);
       user.hashedPassword = hashedPassword;
-      // Clear the user's token and the expiration date so that it is null
       user.resetPasswordToken = null;
       user.resetPasswordTokenExpires = null;
+
       await user.save();
+
       return res.status(200).json({ message: 'Your Password has been updated' });
     } else {
-      return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
+      return res.status(400).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
     }
 
-  }))
+  }));
 
 module.exports = router;

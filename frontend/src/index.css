@@ -117,3 +117,7 @@ video {
   border-top: none;
   border-radius: 0 0 5px 5px;
 }
+
+.dark-mode {
+  background: #181a1b;
+}

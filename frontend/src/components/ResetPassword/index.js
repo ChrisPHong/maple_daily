@@ -15,8 +15,6 @@ const ResetPassword = () => {
     const [errors, setErrors] = useState([]);
     const { token } = useParams();
 
-    console.log(token, "<<<<<<<<<<< What is token???")
-
     useEffect(() => {
         const error = [];
         if (password !== confirmPassword) error.push('Passwords do not match');
