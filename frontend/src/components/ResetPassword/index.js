@@ -11,7 +11,7 @@ const ResetPassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [reveal, setReveal] = useState(false);
-    const [message, setMessage] = useState(false);
+    const [message, setMessage] = useState('');
     const [errors, setErrors] = useState([]);
     const { token } = useParams();
 
@@ -31,20 +31,25 @@ const ResetPassword = () => {
             return;
         };
 
-        const res = await csrfFetch(`/api/users/resetPassword/${token}`, {
-            method: "POST",
-            header: { "Content-Type": "application/json" },
-            body: JSON.stringify({  password: password })
-        })
+        try {
 
-        if (res.ok) {
-            const response = await res.json()
-            setMessage(response.message)
-            // history.push('/login')
+            const res = await csrfFetch(`/api/users/resetPassword/${token}`, {
+                method: "POST",
+                header: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: password })
+            })
 
-        } else {
+
             const response = await res.json()
+            setReveal(true);
             setMessage(response.message)
+
+            await history.push('/login')
+        } catch (e) {
+            const response = await e.json()
+
+            setReveal(true);
+            setMessage(response.message);
 
         }
 
@@ -58,7 +63,9 @@ const ResetPassword = () => {
                 <div className="p-2 text-red-400 max-w-md ">
                     Change Password
                 </div>
-
+                {reveal ? <div>
+                    {message}
+                </div> : ''}
                 <input
                     placeholder="Password"
                     type='password'

@@ -104,12 +104,13 @@ router.post('/fp',
     if (user) {
       // Send the email here
       const testing = await sendEmail(email, emailSubject, emailText);
-      // you need to send a Token and a expiration token here
       user.resetPasswordToken = token;
-      // testing how long it would take
       user.resetPasswordTokenExpires = new Date(Date.now() + (1 * 60 * 5000))
+
       await user.save();
+
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
+
     } else {
       return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
     }
@@ -121,8 +122,6 @@ router.post('/resetPassword/:token',
   asyncHandler(async (req, res) => {
     const { password } = req.body;
     const { token } = req.params;
-
-    // make sure to test out the token and the expiration date, you will use the token as a key to get access to the user's account instead of their email.
 
     const user = await User.findOne({
       where: {
@@ -140,9 +139,9 @@ router.post('/resetPassword/:token',
 
       await user.save();
 
-      return res.status(200).json({ message: 'Your Password has been updated' });
+       return res.status(200).json({ message: 'Your Password has been updated' });
     } else {
-      return res.status(400).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
+      return res.status(400).json({ message: 'You have run out of time. Please request a link to reset your password' })
     }
 
   }));
