@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { csrfFetch } from '../../store/csrf';
 import { useHistory } from 'react-router-dom';
+import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 
 
@@ -13,14 +14,25 @@ const ResetPassword = () => {
     const [reveal, setReveal] = useState(false);
     const [message, setMessage] = useState(false);
     const [errors, setErrors] = useState([]);
+    const { token } = useParams();
+
+    console.log(token, "<<<<<<<<<<< What is token???")
 
     useEffect(() => {
+        const error = [];
+        if (password !== confirmPassword) error.push('Passwords do not match');
 
-    }, [])
+        setErrors(errors);
+    }, [password, confirmPassword]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) return;
+
+        if (password !== confirmPassword) {
+            setErrors('Passwords Do Not Match');
+            setReveal(true);
+            return;
+        };
 
         const res = await csrfFetch(`/api/users/resetPassword/`, {
             method: "POST",
@@ -32,7 +44,7 @@ const ResetPassword = () => {
 
             const response = await res.json()
             setMessage(response.message)
-            setReveal(true);
+            history.push('/login')
 
         } else {
             const response = await res.json()
@@ -48,28 +60,32 @@ const ResetPassword = () => {
             <form className="flex flex-col items-center justify-center my-40 border-black border rounded p-1 font-sans max-w-fit">
                 <h3 className="text-l font-bold mb-2">Change Password</h3>
                 <div className="p-2 text-red-400 max-w-md ">
-                    Reset Your Password
+                    Change Password
                 </div>
-                {reveal ?
-                    <div>
-                        {message}
-                    </div>
-                    : ''}
-                <input placeholder="Email" className="border-black border rounded p-1 mb-2 font-sans" onChange={(e) => {
-                    e.preventDefault();
 
-                    setEmail(e.target.value)
-                }}></input>
-                <input placeholder="Password" className="border-black border rounded p-1 mb-2 font-sans" onChange={(e) => {
-                    e.preventDefault();
-
-                    setPassword(e.target.value)
-                }}></input>
-                <input placeholder="Confirmed Password" className="border-black border rounded p-1 mb-2 font-sans" onChange={(e) => {
-                    e.preventDefault();
-
-                    setConfirmPassword(e.target.value)
-                }}></input>
+                <input
+                    placeholder="Email"
+                    className="border-black border rounded p-1 mb-2 font-sans"
+                    onChange={(e) => {
+                        e.preventDefault();
+                        setEmail(e.target.value)
+                    }}></input>
+                <input
+                    placeholder="Password"
+                    type='password'
+                    className="border-black border rounded p-1 mb-2 font-sans"
+                    onChange={(e) => {
+                        e.preventDefault();
+                        setPassword(e.target.value)
+                    }}></input>
+                <input
+                    placeholder="Confirmed Password"
+                    type='password'
+                    className="border-black border rounded p-1 mb-2 font-sans"
+                    onChange={(e) => {
+                        e.preventDefault();
+                        setConfirmPassword(e.target.value)
+                    }}></input>
                 <button
                     className="submit-btn"
                     onClick={(e) => {
@@ -78,7 +94,7 @@ const ResetPassword = () => {
                     }>Reset Password</button>
             </form>
 
-        </div>
+        </div >
     )
 }
 

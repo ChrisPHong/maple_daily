@@ -94,7 +94,7 @@ function App() {
           <Route exact path='/fp'>
             <ForgotPassword />
           </Route>
-          <Route exact path='/resetpassword'>
+          <Route exact path='/resetpassword/:token'>
             <ResetPassword />
           </Route>
         </Switch>

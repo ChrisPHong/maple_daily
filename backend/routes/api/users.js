@@ -82,7 +82,6 @@ router.post(
     const user = await User.signup({ email, username, password });
 
     await setTokenCookie(res, user);
-
     return res.json({
       user,
     });
@@ -100,7 +99,7 @@ router.post('/fp',
     if (user) {
       // Send the email here
       const testing = await sendEmail(email, emailSubject, emailText);
-      console.log(testing, "<<<<<<<<<<<<< what is going on >>>>>>>>>>>>")
+      // you need to send a Token and a expiration token here
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
     } else {
       return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
@@ -112,6 +111,7 @@ router.post('/fp',
 router.post('/resetPassword',
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
+    // make sure to test out the token and the expiration date, you will use the token as a key to get access to the user's account instead of their email.
 
     const user = await User.findOne({
       where: { email: email }
@@ -120,8 +120,9 @@ router.post('/resetPassword',
 
       const hashedPassword = bcrypt.hashSync(password);
       user.hashedPassword = hashedPassword;
+      // Clear the user's token and the expiration date so that it is null
       await user.save();
-      return res.status(200).json({ message: 'Your Password has been updated' })
+      return res.status(200).json({ message: 'Your Password has been updated' });
     } else {
       return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
     }
