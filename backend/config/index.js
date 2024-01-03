@@ -14,5 +14,7 @@ module.exports = {
   emailSender: {
     email: process.env.DM_EMAIL,
     password: process.env.DM_PASSWORD,
+    secretKey: process.env.USER_SECRET,
+    emailExpires: process.env.USER_SECRET_EXPIRES,
   }
 };

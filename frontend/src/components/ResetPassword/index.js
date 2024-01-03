@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 const ResetPassword = () => {
     const history = useHistory();
 
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [reveal, setReveal] = useState(false);
@@ -34,17 +33,16 @@ const ResetPassword = () => {
             return;
         };
 
-        const res = await csrfFetch(`/api/users/resetPassword/`, {
+        const res = await csrfFetch(`/api/users/resetPassword/${token}`, {
             method: "POST",
             header: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email, password: password })
+            body: JSON.stringify({  password: password })
         })
 
         if (res.ok) {
-
             const response = await res.json()
             setMessage(response.message)
-            history.push('/login')
+            // history.push('/login')
 
         } else {
             const response = await res.json()
@@ -63,13 +61,6 @@ const ResetPassword = () => {
                     Change Password
                 </div>
 
-                <input
-                    placeholder="Email"
-                    className="border-black border rounded p-1 mb-2 font-sans"
-                    onChange={(e) => {
-                        e.preventDefault();
-                        setEmail(e.target.value)
-                    }}></input>
                 <input
                     placeholder="Password"
                     type='password'

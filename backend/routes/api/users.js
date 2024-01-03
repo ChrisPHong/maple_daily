@@ -4,16 +4,21 @@ const asyncHandler = require("express-async-handler");
 const nodemailer = require("nodemailer");
 const config = require('../../config/index');
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { Op } = require('sequelize');
 
 
 const emailSender = config.emailSender;
 const emailHost = emailSender.email;
 const emailPW = emailSender.password
+const secretKey = emailSender.secretKey
+const emailExpires = emailSender.emailExpires
 
 
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
+
 
 const router = express.Router();
 
@@ -49,13 +54,9 @@ const transporter = nodemailer.createTransport({
     pass: emailPW,
   }
 })
-const emailSubject = 'Reset Your Password for DailyMapler'
-const emailText = `Here's a link to reset your password! http://localhost:3000/resetpassword`
 
 const sendEmail = async (to, subject, text) => {
-  console.log(to, "to <<<<<<<<<<<<<")
-  console.log(subject, "subject >>>>>>>>>>>>")
-  console.log(text, "text <<<<<<<<<<<")
+
   try {
     const mailOptions = {
       from: emailHost,
@@ -92,7 +93,13 @@ router.post(
 router.post('/fp',
   asyncHandler(async (req, res) => {
     const { email } = req.body;
+    const payload = { email }
+    const emailSubject = 'Reset Your Password for DailyMapler'
+    const token = jwt.sign(payload, secretKey, { expiresIn: emailExpires })
 
+    console.log(token, "<<<<<<<<<<<<<< This is my token! ")
+
+    const emailText = `Here's a link to reset your password! http://localhost:3000/resetpassword/${token}`
     const user = await User.findOne({
       where: { email: email }
     })
@@ -100,6 +107,9 @@ router.post('/fp',
       // Send the email here
       const testing = await sendEmail(email, emailSubject, emailText);
       // you need to send a Token and a expiration token here
+      user.resetPasswordToken = token;
+      user.resetPasswordTokenExpires = new Date(Date.now() + (1 * 60 * 5000))
+      await user.save();
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
     } else {
       return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
@@ -108,19 +118,27 @@ router.post('/fp',
   }))
 
 // Forgot Password
-router.post('/resetPassword',
+router.post('/resetPassword/:token',
   asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const { token } = req.params;
+
     // make sure to test out the token and the expiration date, you will use the token as a key to get access to the user's account instead of their email.
 
     const user = await User.findOne({
-      where: { email: email }
+      where: {
+        resetPasswordToken: token,
+        resetPasswordTokenExpires: { [Op.gt]: new Date() }
+      }
     })
+    console.log(user, "<<<<<<<<<<<<<<< This is the user!");
     if (user) {
 
       const hashedPassword = bcrypt.hashSync(password);
       user.hashedPassword = hashedPassword;
       // Clear the user's token and the expiration date so that it is null
+      user.resetPasswordToken = null;
+      user.resetPasswordTokenExpires = null;
       await user.save();
       return res.status(200).json({ message: 'Your Password has been updated' });
     } else {
