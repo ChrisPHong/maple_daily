@@ -112,7 +112,7 @@ router.post('/fp',
       return res.status(200).json({ message: 'A link was sent to your email to change your password' })
 
     } else {
-      return res.status(200).json({ message: 'The email you provided does not match any emails in our database. Please provide a valid email' })
+      return res.status(200).json({ message: 'The email you provided is not a valid email. Provide a valid email' })
     }
 
   }))
@@ -139,7 +139,7 @@ router.post('/resetPassword/:token',
 
       await user.save();
 
-       return res.status(200).json({ message: 'Your Password has been updated' });
+      return res.status(200).json({ message: 'Your Password has been updated' });
     } else {
       return res.status(400).json({ message: 'You have run out of time. Please request a link to reset your password' })
     }

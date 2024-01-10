@@ -30,8 +30,8 @@ const ForgotPassword = () => {
         <div className="flex flex-col items-center justify-center">
             <form className="flex flex-col items-center justify-center my-40 border-black border rounded p-1 font-sans max-w-fit">
                 <h3 className="text-l font-bold mb-2">Forgot Password</h3>
-                <div className="p-2 text-red-400">
-                    We will send you an email about how to reset your password.
+                <div className="p-2 text-red-400 font-bold">
+                    Write the email associated with your account
                 </div>
                 {reveal ?
                     <div>
