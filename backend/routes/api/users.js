@@ -55,14 +55,14 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, html) => {
 
   try {
     const mailOptions = {
       from: emailHost,
       to,
       subject,
-      text
+      html
     };
 
     const info = await transporter.sendMail(mailOptions);
@@ -97,7 +97,7 @@ router.post('/fp',
     const token = jwt.sign(payload, secretKey, { expiresIn: emailExpires })
 
 
-    const emailText = `Please reset your password within the next 5 minutes. Here's a link to reset your password! http://localhost:3000/resetpassword/${token}`
+    const emailText = `<p>Please reset your password within the next 5 minutes with the link provided!<br><a href="https://dailymapler-1c6fd9064213.herokuapp.com/resetpassword/${token}">Reset Password</a></p>`
     const user = await User.findOne({
       where: { email: email }
     })
