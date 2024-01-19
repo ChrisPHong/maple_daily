@@ -93,6 +93,8 @@ const sortingTasks = (list) => {
     return updatedList;
   }
 };
+['Reboot Kronos', 'Reboot Hyperion', 'Reboot Solis', 'Aurora', 'Bera', 'Elysium', 'Luna', 'Scania']
+
 
 // Get a list
 router.get(
@@ -106,28 +108,6 @@ router.get(
       order: sequelize.col("orderBy"),
     });
 
-    // try {
-    //   const test = await List.findAll({
-    //     where: { userId: userId },
-
-    //     include: [
-    //       {
-    //         model: Task,
-    //         attributes: [
-    //           "completed",
-    //           [
-    //             sequelize.literal('(SELECT COUNT(*) FROM "TASKS"."listId" = "List"."id" AND "Tasks"."completed" = true)')
-    //           ],
-    //         ],
-    //       },
-    //     ],
-
-    //     order: sequelize.col("orderBy"),
-    //   });
-    //   console.log(test, "<<<<<<<<<<<< test");
-    // } catch (err) {
-    //   console.log(err, "<<<<<<<<<<<<<<<<<<< err");
-    // }
 
     return res.json(lists);
   })
@@ -194,41 +174,6 @@ router.post(
     } = req.body;
 
     let list;
-
-    // Checks to make sure that only one list exists for each character
-    // const foundOne = await List.findOne({
-    //   where: {
-    //     userId,
-    //     character,
-    //   },
-    // });
-
-    // if (foundOne) {
-    //   return res.status(400).json({
-    //     message:
-    //       "This character already exists in your lists. Please choose a different character",
-    //   });
-    // }
-
-    // try {
-    //   // Wrap the axios request in a Promise and await it
-    //   const axiosResponse = await new Promise((resolve, reject) => {
-    //     axios
-    //       .get(`https://api.maplestory.gg/v2/public/character/gms/${character}`)
-    //       .then((response) => {
-    //         resolve(response);
-    //       })
-    //       .catch((error) => {
-    //         reject(error);
-    //         return error;
-    //       });
-    //   });
-
-    // Handle the axios response
-    // apiContent = axiosResponse.data.CharacterData.CharacterImageURL;
-    // characterClass = axiosResponse.data.CharacterData.Class;
-    // server = axiosResponse.data.CharacterData.Server;
-    // level = axiosResponse.data.CharacterData.Level;
 
     // Create the list
     list = await List.create({
@@ -357,11 +302,13 @@ router.put(
       apiContent = axiosResponse.data.CharacterData.CharacterImageURL;
       characterClass = axiosResponse.data.CharacterData.Class;
       level = axiosResponse.data.CharacterData.Level;
+      server = axiosResponse.data.CharacterData.Server;
 
       // Update the list Information
       oldList.apiContent = apiContent;
       oldList.characterClass = characterClass;
       oldList.level = level;
+      oldList.server = server;
       await oldList.save();
 
       const updatedList = sortingTasks(oldList);
@@ -376,17 +323,6 @@ router.put(
   })
 );
 
-/*
-- any task that does not contain a listId is a new task that must be created
-- if it does contain a listId then we must query for the same task in the database based on the task's id
-  - if the database queried task's objective matches the sent in data's objective, then we do not do anything
-  - if they don't match, we must update the database task with the new input and save it
-  - we will create two loops,
-    - first loop on the incoming payload will create the new tasks that do not have a listId
-    - second loop, on the database tasks, if is not present within the payload, then we must delete that task
-      - maybe, during the first loop, we can create a set with the task id's and check to see if the task id is present, if it is not, then we delete that task from the database
-
-*/
 router.put(
   "/:listId/edit",
   requireAuth,

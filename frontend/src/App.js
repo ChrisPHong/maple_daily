@@ -20,6 +20,8 @@ import Loading from "./components/Loading";
 import About from "./components/About";
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from "./components/ResetPassword";
+import ClassList from './components/ClassList'
+import ClassListForm from './components/ClassList/ClassListForm';
 
 import "./index.css";
 
@@ -65,10 +67,14 @@ function App() {
             {show ? (
               Loading
             ) : (
-              <div className="single-list-Div mt-5">
-                <UsersLists />
-                <List setShow={setShow} />
-              </div>
+              <>
+                <div className="single-list-Div mt-5">
+                  <UsersLists />
+                  <List setShow={setShow} />
+
+                </div>
+                <ClassList />
+              </>
             )}
           </Route>
           <Route exact path="/About">
