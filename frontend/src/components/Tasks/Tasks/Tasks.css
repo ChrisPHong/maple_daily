@@ -180,6 +180,11 @@ button {
   height: 250px;
 }
 
+.servertab {
+  /* max-width: 150px; */
+  width: 200px;
+}
+
 .No-tasks-div {
   display: flex;
   justify-content: center;

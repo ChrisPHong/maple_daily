@@ -1,0 +1,46 @@
+.gridOf3 {
+  display: grid;
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  grid-template-rows: repeat(2, 5fr);
+  padding-bottom: 20px;
+}
+
+.serverContent {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.serverContent h2 {
+  padding: 0px 0 5px 0px;
+  margin: 0px;
+}
+
+.classTabs {
+  flex-grow: 1;
+  border-radius: 0px 0px 5px 5px;
+  color: black;
+  padding: 2px;
+}
+
+.serveractive-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 2px);
+  height: 5px;
+}
+
+.active-contentServer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  height: 250px;
+  overflow-y: scroll;
+}

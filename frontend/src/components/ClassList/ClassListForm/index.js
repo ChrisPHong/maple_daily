@@ -22,7 +22,7 @@ const ClassListForm = () => {
         <form className="flex flex-col items-center rounded border border-black">
             <div className="flex flex-col items-start p-4">
                 Want to see which classes you're missing? Choose the server you're playing in!
-                <select
+                {/* <select
                     value={selected}
                     onChange={handleOnChange}
                     className="p-2 border border-black rounded m-2 text-red-700"
@@ -35,9 +35,9 @@ const ClassListForm = () => {
                     <option value='Elysium'>Elysium</option>
                     <option value='Luna'>Luna</option>
                     <option value='Scania'>Scania</option>
-                </select>
+                </select> */}
             </div>
-            <button className="submit-btn" onClick={() => { onSubmit() }}>Submit</button>
+            {/* <button className="submit-btn" onClick={() => { onSubmit() }}>Submit</button> */}
         </form>
     )
 }

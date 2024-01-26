@@ -5,7 +5,8 @@ const asyncHandler = require("express-async-handler");
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 
-const { List, User, Task } = require("../../db/models");
+
+const { List, User, Task, sequelize } = require("../../db/models");
 const axios = require("axios");
 
 const router = express.Router();
@@ -67,48 +68,63 @@ const classNames = [
 ]
 
 
-const serverFilterFunction = (userId, lists, server) => {
-    const set = new Set(classNames)
+const serverCharacterList = (lists, server) => {
+    const availableClasses = new Set(classNames)
     const createdClasses = new Set();
 
     for (let i = 0; i < lists.length; i++) {
         let character = lists[i];
-        if (set.has(character.characterClass) && server === character.server) {
-            set.remove(character.characterClass);
-            createdClasses.add(character.characterClass);
+
+        if (availableClasses.has(character.dataValues.characterClass)) {
+            availableClasses.delete(character.dataValues.characterClass);
+            createdClasses.add(character.dataValues);
+        } else {
+            createdClasses.add(character.dataValues);
         }
     }
-    return { server: [set, createdClasses] };
 
+    return { available: Array.from(availableClasses), created: Array.from(createdClasses) };
 }
+
 router.get(
     "/:userId",
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.userId);
+        // const userId = req.body.userId
+
         const lists = await List.findAll({
             where: { userId: userId },
             order: sequelize.col("server"),
         });
 
-        const serversList = [];
+        const serversList = {
+            'Reboot Kronos': [],
+            'Reboot Hyperion': [],
+            'Reboot Solis': [],
+            Aurora: [],
+            Bera: [],
+            Elysium: [],
+            Luna: [],
+            Scania: []
+        };
 
-        console.log(lists, "<<<<<<<<<<<<<<<<<< lists")
+        const Reboot_Kronos = lists.filter(obj => obj.dataValues.server === 'Reboot Kronos')
+        const Reboot_Hyperion = lists.filter(obj => obj.dataValues.server === 'Reboot Hyperion')
+        const Reboot_Solis = lists.filter(obj => obj.dataValues.server === 'Reboot Solis')
+        const Aurora = lists.filter(obj => obj.dataValues.server === 'Aurora')
+        const Bera = lists.filter(obj => obj.dataValues.server === 'Bera')
+        const Elysium = lists.filter(obj => obj.dataValues.server === 'Elysium')
+        const Luna = lists.filter(obj => obj.dataValues.server === 'Luna')
+        const Scania = lists.filter(obj => obj.dataValues.server === 'Scania')
 
-        const Reboot_Kronos = lists.filter( obj => obj.server === 'Reboot Kronos')
-        const Reboot_Hyperion = lists.filter( obj => obj.server === 'Reboot Hyperion')
-        const Reboot_Solis = lists.filter( obj => obj.server === 'Reboot Solis')
-        const Aurora = lists.filter( obj => obj.server === 'Aurora')
-        const Bera = lists.filter( obj => obj.server === 'Bera')
-        const Elysium = lists.filter( obj => obj.server === 'Elysium')
-        const Luna = lists.filter( obj => obj.server === 'Luna')
-        const Scania = lists.filter( obj => obj.server === 'Scania')
-        
-        for (let i = 0; i < serverNames.length; i++) {
-            let server = serverNames[i];
-            serversList.push(serverFilterFunction(userId, lists, server));
-        }
-
-        console.log(serversList, '<<<<<<<<<<<<<<<<<<<<<<<<<<<< SERVERS LISTS')
+        serversList['Reboot Kronos'] = serverCharacterList(Reboot_Kronos, 'Reboot Kronos');
+        serversList['Reboot Hyperion'] = serverCharacterList(Reboot_Hyperion, 'Reboot Hyperion')
+        serversList['Reboot Solis'] = serverCharacterList(Reboot_Solis, 'Reboot Solis')
+        serversList['Aurora'] = serverCharacterList(Aurora, 'Aurora')
+        serversList['Bera'] = serverCharacterList(Bera, 'Bera')
+        serversList['Elysium'] = serverCharacterList(Elysium, 'Elysium')
+        serversList['Luna'] = serverCharacterList(Luna, 'Luna')
+        serversList['Scania'] = serverCharacterList(Scania, 'Scania')
 
         return res.json(serversList);
     })

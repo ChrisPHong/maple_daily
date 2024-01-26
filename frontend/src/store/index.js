@@ -5,6 +5,7 @@ import listReducer from "./list.js";
 import taskReducer from "./task.js";
 import bossReducer from "./boss";
 import newsReducer from "./news";
+import serversReducer from "./server.js";
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   taskReducer,
   bossReducer,
   newsReducer,
+  serversReducer,
 });
 
 let enhancer;
